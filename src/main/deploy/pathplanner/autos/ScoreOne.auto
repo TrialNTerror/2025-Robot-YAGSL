@@ -9,6 +9,24 @@
           "data": {
             "pathName": "1stScore"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1stCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2ndScore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2ndCoral"
+          }
         }
       ]
     }
