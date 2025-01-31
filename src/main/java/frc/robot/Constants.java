@@ -52,5 +52,9 @@ public final class Constants
   public static class HandConstants
   {
     public static final int handMotor1CanID = 12;
+    public static final int handMotor2CanID = 13;
+
+    public static final double intakeOnSpeed = 0.25;
+    public static final double intakeSpinSpeed = 0.5;
   }
 }

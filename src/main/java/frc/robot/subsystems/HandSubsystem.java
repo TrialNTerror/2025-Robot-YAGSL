@@ -30,20 +30,26 @@ public class HandSubsystem extends SubsystemBase {
     // m_*NAME* is the name the variable is set as
     private SparkMax m_handMotor1;
     private SparkMax m_handMotor2; 
-    private SparkClosedLoopController m_pidController;
+    private SparkClosedLoopController m_pid1Controller;
     private AbsoluteEncoder m_encoder;
     private SparkMaxConfig motor1Config;
+    private SparkMaxConfig motor2Config;
 
 public HandSubsystem() {
     
+        //MOTOR 1 SETUP
     m_handMotor1 = new SparkMax(HandConstants.handMotor1CanID, MotorType.kBrushless); 
     // Assigns motor 1 the CAN id (located in constants) and the motor type
     motor1Config = new SparkMaxConfig();
     // Assigns motor1Config the ability to hold motor 1 properties
-    m_pidController = m_handMotor1.getClosedLoopController();
+    m_pid1Controller = m_handMotor1.getClosedLoopController();
     // Assigns m_pidcontroller with information from the hand motor's closed loop controller (closed loop meaning position information is returned to us)
     m_encoder = m_handMotor1.getAbsoluteEncoder();
     // Assigns m_encoder with information from the hand motor's absolute encoder
+
+        //MOTOR 2 SETUP
+    m_handMotor2 = new SparkMax(HandConstants.handMotor2CanID, MotorType.kBrushless); 
+    motor2Config = new SparkMaxConfig();
 
 
     // configuration for motor 1
@@ -58,7 +64,7 @@ public HandSubsystem() {
     motor1Config.closedLoop             //sets information for the controller
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .pid
-        (
+        (                   //fact check these
             1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
             0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
             0.0     //    //Slows down the robot before it overshoots the target point
@@ -69,6 +75,22 @@ public HandSubsystem() {
     m_handMotor1.configure(motor1Config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     //connects the hand motor to the configured properties 
 
+        //COMMANDS
 
+    }
+
+    public Command intakeOn()   //run motor at a constant speed
+    {
+        return this.run(() -> {
+            m_handMotor1.set(HandConstants.intakeOnSpeed);
+            m_handMotor2.set(HandConstants.intakeOnSpeed);
+        });
+    }
+
+    public Command intakeSpinOut()
+    {
+        return this.runOnce(() -> {
+            m_pid1Controller.setReference(HandConstants.intakeSpinSpeed, SparkMax.ControlType.kVelocity);
+        });
     }
 }
