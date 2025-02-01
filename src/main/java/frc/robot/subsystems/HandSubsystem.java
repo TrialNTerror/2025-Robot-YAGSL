@@ -64,11 +64,12 @@ public HandSubsystem() {
     motor1Config.closedLoop             //sets information for the controller
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .pid
-        (                   //fact check these
+        (                  
             1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
             0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
             0.0     //    //Slows down the robot before it overshoots the target point
-        );
+        )
+        .outputRange(0, 1);
 
 
 

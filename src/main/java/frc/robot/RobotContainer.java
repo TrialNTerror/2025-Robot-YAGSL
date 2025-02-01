@@ -42,9 +42,8 @@ public class RobotContainer
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
 
+  //set up auto chooser                                                                              
   private final SendableChooser<Command> autoChooser;
-
-  
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.

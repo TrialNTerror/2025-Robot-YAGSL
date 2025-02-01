@@ -57,4 +57,14 @@ public final class Constants
     public static final double intakeOnSpeed = 0.25;
     public static final double intakeSpinSpeed = 0.5;
   }
+
+  public static class ElevatorConstants
+  {
+    public static final int elevatorMotor1CanID = 14;
+    public static final int elevatorMotor2CanID = 15;
+    public static final int shoulderMotorCanID = 16;
+
+    public static final double minOutputElevator = 0.0;
+    public static final double maxOutputElevator = 1.0;
+  }
 }
