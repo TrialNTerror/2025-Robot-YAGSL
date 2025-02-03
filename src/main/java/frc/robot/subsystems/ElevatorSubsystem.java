@@ -2,8 +2,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.EncoderConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -31,65 +34,73 @@ public class ElevatorSubsystem extends SubsystemBase {
     private SparkMax elevatorMotor1;
     private SparkClosedLoopController pidController1;
     private AbsoluteEncoder elevEncoder1;
-    private SparkMaxConfig elevMotor1Config;
+    private SparkBaseConfig leadMotorConfig;    //should be similar to max config but allows setting leading motors.
 
     private SparkMax elevatorMotor2;
     private SparkClosedLoopController pidController2;
     private AbsoluteEncoder elevEncoder2;
-    private SparkMaxConfig elevMotor2Config;
-
-    private SparkMax ShoulderMotor3;
-    private SparkClosedLoopController pidController3;
-    private AbsoluteEncoder shouEncoder3;
-    private SparkMaxConfig shouMotor3Config;
+    private SparkBaseConfig secondMotorConfig;
 
 public ElevatorSubsystem() {
     
         //ELEVATOR MOTOR 1 ASSIGNING
-    elevatorMotor1 = new SparkMax(ElevatorConstants.elevatorMotor1CanID, MotorType.kBrushless);
-    // Assigns motor 1 the CAN id (located in constants) and the motor type
-    elevMotor1Config = new SparkMaxConfig();
-    // Assigns motor1Config the ability to hold motor 1 properties
-    pidController1 = elevatorMotor1.getClosedLoopController();
-    // Assigns m_pidcontroller with information from the hand motor's closed loop controller (closed loop meaning position information is returned to us)
-    elevEncoder1 = elevatorMotor1.getAbsoluteEncoder();
-    // Assigns m_encoder with information from the hand motor's absolute encoder
+    elevatorMotor1 = new SparkMax(ElevatorConstants.elevatorMotor1CanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
+    pidController1 = elevatorMotor1.getClosedLoopController();                                     // Assigns m_pidcontroller with information from the hand motor's closed loop controller (closed loop meaning position information is returned to us)
+    elevEncoder1 = elevatorMotor1.getAbsoluteEncoder();                                            // Assigns m_encoder with information from the hand motor's absolute encoder
 
         //ELEVATOR MOTOR 2 ASSIGNING
     elevatorMotor2 = new SparkMax(ElevatorConstants.elevatorMotor1CanID, MotorType.kBrushless);
-    elevMotor2Config = new SparkMaxConfig();
     pidController2 = elevatorMotor2.getClosedLoopController();
     elevEncoder2 = elevatorMotor2.getAbsoluteEncoder();
 
-        //SHOULDER MOTOR ASSIGNING
-    elevatorMotor2 = new SparkMax(ElevatorConstants.elevatorMotor1CanID, MotorType.kBrushless);
-    elevMotor2Config = new SparkMaxConfig();
-    pidController2 = elevatorMotor2.getClosedLoopController();
-    elevEncoder2 = elevatorMotor2.getAbsoluteEncoder();
+
 
                    //ELEVATOR MOTOR 1 CONFIGUATION
            //*******************************************//
 
-    // configuration for motor 1
-    elevMotor1Config                        //sets information for the overall motor
-    .inverted(true)
-    .idleMode(IdleMode.kBrake);
+        leadMotorConfig =
+        new SparkMaxConfig()            //sets information for the overall motor
+            .inverted(false)
+            .idleMode(IdleMode.kBrake)
+            .apply(
+                new ClosedLoopConfig()  //sets information for the controller
+                .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                .outputRange(ElevatorConstants.minOutputElevator, ElevatorConstants.maxOutputElevator)
+                .pid
+                (                  
+                    1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
+                    0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
+                    0.0     //    //Slows down the robot before it overshoots the target point
+                )
+            );
 
-    elevMotor1Config.closedLoop             //sets information for the controller
-    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-    .outputRange(ElevatorConstants.minOutputElevator, ElevatorConstants.maxOutputElevator)
-    .pid
-    (                  
-        1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-        0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-        0.0     //    //Slows down the robot before it overshoots the target point
-    );
 
-    elevatorMotor1.configure(elevMotor1Config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    elevatorMotor1.configure(leadMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);  //sets the configuration to the motor
+
+
 
                    //ELEVATOR MOTOR 2 CONFIGUATION
            //*******************************************//
 
+           secondMotorConfig =
+           new SparkMaxConfig()            //sets information for the overall motor
+               .inverted(false)
+               .idleMode(IdleMode.kBrake)
+               .follow(ElevatorConstants.elevatorMotor1CanID)
+               .apply(
+                   new ClosedLoopConfig()  //sets information for the controller
+                   .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                   .outputRange(ElevatorConstants.minOutputElevator, ElevatorConstants.maxOutputElevator)
+                   .pid
+                   (                  
+                       1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
+                       0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
+                       0.0     //    //Slows down the robot before it overshoots the target point
+                   )
+               );
+
+
+    elevatorMotor2.configure(secondMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     }
 
