@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import static edu.wpi.first.units.Units.MetersPerSecond;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.sim.SparkMaxSim;
@@ -11,7 +13,9 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -19,7 +23,10 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.ElevatorFeedforward;
+import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import frc.robot.Constants.ElevatorConstants;
+
 
 public class ElevatorSubsystem extends SubsystemBase {
     /** Creates a new ExampleSubsystem. */
@@ -43,6 +50,15 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 public ElevatorSubsystem() {
     
+    ElevatorFeedforward feedforward = 
+        new ElevatorFeedforward
+        (
+            0,
+            0,
+            0,
+            0
+        );
+
         //ELEVATOR MOTOR 1 ASSIGNING
     elevatorMotor1 = new SparkMax(ElevatorConstants.elevatorMotor1CanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
     pidController1 = elevatorMotor1.getClosedLoopController();                                     // Assigns m_pidcontroller with information from the hand motor's closed loop controller (closed loop meaning position information is returned to us)
@@ -102,6 +118,19 @@ public ElevatorSubsystem() {
 
     elevatorMotor2.configure(secondMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
+    }
+
+    private void reachPos(double goal)
+    {
+        pidController1.setReference((goal),
+                                    ControlType.kMAXMotionPositionControl,
+                                    ClosedLoopSlot.kSlot0
+                                    feedforward.calculate(getVelocity().in(MetersPerSecond)));
+    }
+
+    public void simulationPeriodic()
+    {
+    
     }
 
     //command for L4
