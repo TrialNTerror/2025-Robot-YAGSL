@@ -4,6 +4,7 @@ import static edu.wpi.first.units.Units.MetersPerSecond;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -40,12 +41,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     // light blue text shows the name the variable is set as
     private SparkMax elevatorMotor1;
     private SparkClosedLoopController pidController1;
-    private AbsoluteEncoder elevEncoder1;
+    private RelativeEncoder elevEncoder1;
     private SparkBaseConfig leadMotorConfig;    //should be similar to max config but allows setting leading motors.
 
     private SparkMax elevatorMotor2;
     private SparkClosedLoopController pidController2;
-    private AbsoluteEncoder elevEncoder2;
+    private RelativeEncoder elevEncoder2;
     private SparkBaseConfig secondMotorConfig;
 
 public ElevatorSubsystem() {
@@ -62,12 +63,12 @@ public ElevatorSubsystem() {
         //ELEVATOR MOTOR 1 ASSIGNING
     elevatorMotor1 = new SparkMax(ElevatorConstants.elevatorMotor1CanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
     pidController1 = elevatorMotor1.getClosedLoopController();                                     // Assigns m_pidcontroller with information from the hand motor's closed loop controller (closed loop meaning position information is returned to us)
-    elevEncoder1 = elevatorMotor1.getAbsoluteEncoder();                                            // Assigns m_encoder with information from the hand motor's absolute encoder
+    elevEncoder1 = elevatorMotor1.getEncoder();                                                    // Assigns m_encoder with information from the hand motor's absolute encoder
 
         //ELEVATOR MOTOR 2 ASSIGNING
     elevatorMotor2 = new SparkMax(ElevatorConstants.elevatorMotor1CanID, MotorType.kBrushless);
     pidController2 = elevatorMotor2.getClosedLoopController();
-    elevEncoder2 = elevatorMotor2.getAbsoluteEncoder();
+    elevEncoder2 = elevatorMotor2.getEncoder();
 
 
 
@@ -123,9 +124,7 @@ public ElevatorSubsystem() {
     private void reachPos(double goal)
     {
         pidController1.setReference((goal),
-                                    ControlType.kMAXMotionPositionControl,
-                                    ClosedLoopSlot.kSlot0
-                                    feedforward.calculate(getVelocity().in(MetersPerSecond)));
+                                    ControlType.kMAXMotionPositionControl);
     }
 
     public void simulationPeriodic()
@@ -136,36 +135,47 @@ public ElevatorSubsystem() {
     //command for L4
     public Command lv4Pos()
     {
-        return null;
+        return run(() -> reachPos(1.0));
     }
 
     //command for L3
     public Command lv3Pos()
     {
-        return null;
+        return run(() -> reachPos(0.75));
     }
 
     //command for L2
     public Command lv2Pos()
     {
-        return null;
+        return run(() -> reachPos(0.5));
     }
 
     //command fpr L1
     public Command lv1Pos()
     {
-        return null;
+        return run(() -> reachPos(0.25));
     }
 
     //ground position
     public Command groundPos()
     {
-        return null;
+        return run(() -> reachPos(0));
     }
 
     //Free move WITH LIMITS
-    public Command elevatorFreeMove()
+    public Command elevatorUp()
     {
-        return null;
+        return run(() -> {
+         elevatorMotor1.set(0.25);
+         elevatorMotor2.set(0.25); 
+          });
+    }
+
+    public Command elevatorDown()
+    {
+        return run(() -> {
+         elevatorMotor1.set(-0.25);
+         elevatorMotor2.set(-0.25); 
+          });
     }
 }
