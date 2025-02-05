@@ -141,9 +141,10 @@ public class RobotContainer
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
       driverXbox.button(1).onTrue(elevator.lv1Pos());
-      driverXbox.a().whileTrue(elevator.lv4Pos());
+      operatorXbox.a().whileTrue(elevator.lv3Pos());
+      
 
-
+/* 
     if (RobotBase.isSimulation())
     {
       drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
@@ -181,6 +182,7 @@ public class RobotContainer
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
     }
+      */
   }
 
   /**
