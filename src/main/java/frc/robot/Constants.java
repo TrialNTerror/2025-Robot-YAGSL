@@ -54,16 +54,41 @@ public final class Constants
     public static final int handMotor1CanID = 12;
     public static final int handMotor2CanID = 13;
 
-    public static final double intakeOnSpeed = 0.25;
-    public static final double intakeSpinSpeed = 0.5;
+    public static final double intakeSpeed = 0.25;
+
+    public static final double inverted = -1.0;
   }
 
   public static class ElevatorConstants
   {
-    public static final int elevatorMotor1CanID = 14;
-    public static final int elevatorMotor2CanID = 15;
+    public static final int elevatorLeadMotorCanID = 14;        //ADD MARKING ON MOTOR AS TO WHICH IS WHICH
+    public static final int elevatorFollowMotor2CanID = 15;
 
     public static final double minOutputElevator = 0.0;
     public static final double maxOutputElevator = 1.0;
+
+    public static final double level3Height = 0.75;
+    public static final double level2Height = 0.75;
+    public static final double level1Height = 0.75;
+    public static final double groundHeight = 0.75;
+    public static final double homePos = 0.1;
+
+    public static final boolean leadMotorInverted = false;
+    public static final boolean followMotorInverted = true;
+  }
+
+  public static class ArmConstants
+  {
+    public static final int armMotor1CanID = 16;
+    public static final int armMotor2CanID = 17;
+
+    public static final double minOutputArm = 0.0;
+    public static final double maxOutputArm = 1.0;
+
+    public static final double level3Angle = 0.75;
+    public static final double level2Angle = 0.75;
+    public static final double level1Angle = 0.75;
+    public static final double groundAngle = 0.75;
+    public static final double homePos = 0.1;
   }
 }

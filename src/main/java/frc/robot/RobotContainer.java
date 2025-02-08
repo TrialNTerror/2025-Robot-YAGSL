@@ -140,8 +140,8 @@ public class RobotContainer
 
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
-      driverXbox.button(1).onTrue(elevator.lv1Pos());
-      operatorXbox.a().whileTrue(elevator.lv3Pos());
+      driverXbox.button(1).onTrue(elevator.level1Height());
+      operatorXbox.a().whileTrue(elevator.level3Height());
       
 
 /* 
