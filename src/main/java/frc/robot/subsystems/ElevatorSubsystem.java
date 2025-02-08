@@ -101,6 +101,7 @@ public ElevatorSubsystem() {
                                     ControlType.kMAXMotionPositionControl);
     }
 
+
         //COMMANDS FOR ELEVATOR
 
     //command for L3
@@ -127,9 +128,9 @@ public ElevatorSubsystem() {
         return run(() -> reachHeight(ElevatorConstants.groundHeight));
     }
 
-    public Command homePos()
+    public Command homeHeight()
     {
-        return run(() -> reachHeight(ElevatorConstants.homePos));
+        return run(() -> reachHeight(ElevatorConstants.homeHeight));
     }
     
     public void simulationPeriodic()

@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.EncoderConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -27,22 +26,26 @@ public class ArmSubsystem extends SubsystemBase {
 	private RelativeEncoder armEncoder1;
 	private SparkBaseConfig armMotorConfig;    //should be similar to max config but allows setting leading motors.
 
+	private int currentNum;
+
 	public ArmSubsystem(){
+
+			currentNum = 1;
 
         	//ELEVATOR MOTOR 1 ASSIGNING
     		armMotor1 = new SparkMax(ArmConstants.armMotor1CanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
     		armEncoder1 = armMotor1.getEncoder();
+
 
 	                    //MOTOR 1 CONFIGUATION
            	//*******************************************//
 
         	armMotorConfig =
         	new SparkMaxConfig()            //sets information for the overall motor
-            		.inverted(false)
+            		.inverted(ArmConstants.motorInvert)
             		.idleMode(IdleMode.kBrake)
             		.apply(
                 		new ClosedLoopConfig()  //sets information for the controller
-                		.feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                 		.outputRange(ArmConstants.minOutputArm, ArmConstants.maxOutputArm)
                 		.pidf
                 		(
@@ -54,12 +57,99 @@ public class ArmSubsystem extends SubsystemBase {
                 		)
             		);
 
+
 		armMotor1.configure(armMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);  //sets the configuration to the motor
 	}
-	private void reachPos(double goal)
+
+		//method to reach a set point
+		private void reachAngle(double goal)
     	{
         	pidController1.setReference((goal),
                 	                    ControlType.kMAXMotionPositionControl);
+		}
+
+
+        //Switch between front and back scoring since we cant impliment vision yet
+		public Command backScore() 
+		{
+			return this.run(() -> {
+				currentNum = -1;
+			});
+		}
+	
+		public Command frontScore() 
+		{
+			return this.run(() -> {
+				currentNum = 1;
+			});
+		}
+
+
+	    //command for Level 3
+    	public Command level3Angle()
+    	{
+        	return run(() -> {
+
+				if (currentNum == 1)
+				{
+					reachAngle(ArmConstants.level3Angle);
+				} 
+				else
+				{
+					reachAngle(ArmConstants.level3BackAngle);
+				}
+
+			});
+    	}
+
+		
+		//command for Level 2
+		public Command level2Angle()
+		{
+			return run(() -> {
+
+				if (currentNum == 1)
+				{
+					reachAngle(ArmConstants.level2Angle);
+				} 
+				else
+				{
+					reachAngle(ArmConstants.level2BackAngle);
+				}
+				
+			});
+		}
+
+
+		//command for Level 1
+		public Command level1Angle()
+		{
+			return run(() -> {
+
+				if (currentNum == 1)
+				{
+					reachAngle(ArmConstants.level1Angle);
+				} 
+				else
+				{
+					reachAngle(ArmConstants.level1BackAngle);
+				}
+				
+			});
+		}
+
+
+		//ground position
+    	public Command groundAngle()
+    	{
+        	return run(() -> reachAngle(ArmConstants.groundAngle));
+    	}
+
+		//Home position
+		//ground position
+    	public Command homeAngle()
+    	{
+        	return run(() -> reachAngle(ArmConstants.homeAngle));
     	}
 
     	public void simulationPeriodic()
@@ -67,25 +157,7 @@ public class ArmSubsystem extends SubsystemBase {
     	
     	}
 
-	    //command for L4
-    	public Command lv4Pos()
-    	{
-        	return null;
-    	}
-
-	    //command for L3
-    	public Command lv3Pos()
-    	{
-        	return null;
-    	}
-
-	//ground position
-    	public Command groundPos()
-    	{
-        	return null;
-    	}
-
-	    //Free move WITH LIMITS
+	    //Free move WITH LIMITS (Probably wont use)
     	public Command armFreeMove()
     	{
         	return null;
