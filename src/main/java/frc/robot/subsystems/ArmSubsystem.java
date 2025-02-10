@@ -146,11 +146,16 @@ public class ArmSubsystem extends SubsystemBase {
     	}
 
 		//Home position
-		//ground position
     	public Command homeAngle()
     	{
         	return run(() -> reachAngle(ArmConstants.homeAngle));
     	}
+
+		//ground position
+		public Command processorAngle()
+		{
+			return run(() -> reachAngle(ArmConstants.processorAngle));
+		}
 
     	public void simulationPeriodic()
     	{

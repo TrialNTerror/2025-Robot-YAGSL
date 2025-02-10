@@ -72,6 +72,7 @@ public final class Constants
     public static final double level1Height = 0.75;
     public static final double groundHeight = 0.75;
     public static final double homeHeight = 0.1;
+    public static final double processorHeight = 0;
 
     public static final boolean leadMotorInverted = false;
     public static final boolean followMotorInverted = true;
@@ -96,6 +97,7 @@ public final class Constants
 
     public static final double groundAngle = 0.75;
     public static final double homeAngle = 0.1;
+    public static final double processorAngle = 0;
 
     public static final boolean motorInvert = false;
   }

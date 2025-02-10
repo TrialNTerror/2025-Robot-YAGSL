@@ -122,6 +122,12 @@ public ElevatorSubsystem() {
         return run(() -> reachHeight(ElevatorConstants.level1Height));
     }
 
+    //processor position
+    public Command processorHeight()
+    {
+        return run(() -> reachHeight(ElevatorConstants.processorHeight));
+    }
+
     //ground position
     public Command groundHeight()
     {

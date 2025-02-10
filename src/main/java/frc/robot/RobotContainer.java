@@ -148,13 +148,14 @@ public class RobotContainer
     Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngleKeyboard);
 
-      //Main drive command      
+        
+      //Main drive command - driver
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
-      //switch between front and back scoring
+      //switch between front and back scoring - operator
       operatorXbox.start().onTrue(arm.frontScore());
 
-      operatorXbox.y().onTrue(arm.backScore());
+      operatorXbox.button(7).onTrue(arm.backScore());
 
 
       //Coral Intake - operator
@@ -179,6 +180,12 @@ public class RobotContainer
           ParallelCommandGroup groundPosition = 
             new ParallelCommandGroup(elevator.groundHeight(), arm.groundAngle());
       operatorXbox.x().onTrue(groundPosition);
+            
+      //processor position command  - operator
+         ParallelCommandGroup processorPosition = 
+            new ParallelCommandGroup(elevator.processorHeight(), arm.processorAngle());
+      operatorXbox.y().onTrue(processorPosition);
+
 
       //Level 1 position command - operator
           ParallelCommandGroup level1Position = 
