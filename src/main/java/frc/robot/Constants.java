@@ -49,23 +49,20 @@ public final class Constants
     public static final double TURN_CONSTANT    = 6;
   }
 
-  public static class HandConstants
-  {
-    public static final int handMotor1CanID = 12;
-    public static final int handMotor2CanID = 13;
-
-    public static final double intakeSpeed = 0.25;
-
-    public static final double inverted = -1.0;
-  }
-
   public static class ElevatorConstants
   {
-    public static final int elevatorLeadMotorCanID = 14;        //ADD MARKING ON MOTOR AS TO WHICH IS WHICH
-    public static final int elevatorFollowMotor2CanID = 15;
+    public static final int elevatorLeadMotorCanID = 15;        //ADD MARKING ON MOTOR AS TO WHICH IS WHICH
+    public static final int elevatorFollowMotor2CanID = 16;
 
     public static final double minOutputElevator = 0.0;
     public static final double maxOutputElevator = 1.0;
+
+    public static final double kElevatorGearing = 0.0;
+    public static final double kCarriageMass = 0.0;
+    public static final double kElevatorDrumRadius = 0.0;
+    public static final double kMinElevatorHeight = 0.0;
+    public static final double kMaxElevatorHeight = 0.0;
+    public static final double kStartingHeightSim = 0.0;
 
     public static final double level3Height = 0.75;
     public static final double level2Height = 0.75;
@@ -80,8 +77,8 @@ public final class Constants
 
   public static class ArmConstants
   {
-    public static final int armMotor1CanID = 16;
-    public static final int armMotor2CanID = 17;
+    public static final int armMotor1CanID = 17;
+    public static final int armMotor2CanID = 18;
 
     public static final double minOutputArm = 0.0;
     public static final double maxOutputArm = 1.0;
@@ -101,4 +98,16 @@ public final class Constants
 
     public static final boolean motorInvert = false;
   }
+
+  public static class HandConstants
+  {
+    public static final int handMotor1CanID = 12;
+    public static final int handMotor2CanID = 13;
+    public static final int handMotor3CanID = 14;
+
+    public static final double intakeSpeed = 0.25;
+
+    public static final boolean invertAllMotors = true;    //All motors should be set to inverted but if this is incorrect change this.
+  }
+
 }

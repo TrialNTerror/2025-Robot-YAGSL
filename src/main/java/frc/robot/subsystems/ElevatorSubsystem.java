@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import static edu.wpi.first.units.Units.Meters;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig;
@@ -12,6 +14,8 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,6 +41,23 @@ public class ElevatorSubsystem extends SubsystemBase {
     private RelativeEncoder elevEncoder2;
     private SparkBaseConfig followMotorConfig;
 
+    private final DCMotor elevatorGearbox = DCMotor.getNeoVortex(2);
+
+    private final ElevatorSim m_elevatorSim =
+    new ElevatorSim(
+        elevatorGearbox,
+        ElevatorConstants.kElevatorGearing,
+        ElevatorConstants.kCarriageMass,
+        ElevatorConstants.kElevatorDrumRadius,
+        ElevatorConstants.kMinElevatorHeight,
+        ElevatorConstants.kMaxElevatorHeight,
+        true,
+        ElevatorConstants.kStartingHeightSim,
+        0.01,
+        0.0
+        );
+
+
 public ElevatorSubsystem() {
 
         //ELEVATOR MOTOR 1 ASSIGNING
@@ -61,8 +82,8 @@ public ElevatorSubsystem() {
                 .outputRange(ElevatorConstants.minOutputElevator, ElevatorConstants.maxOutputElevator)
                 .pidf
                 (                  
-                    1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                    0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
+                    1.0,     //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
+                    0.0,     //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
                     0.0,     //    //Slows down the robot before it overshoots the target point
                     0.1
                 )
@@ -137,6 +158,16 @@ public ElevatorSubsystem() {
     public Command homeHeight()
     {
         return run(() -> reachHeight(ElevatorConstants.homeHeight));
+    }
+
+    public Command lockElevator()
+    {
+        return null;
+    }
+
+    public Command unlockElevator()
+    {
+        return null;
     }
     
     public void simulationPeriodic()
