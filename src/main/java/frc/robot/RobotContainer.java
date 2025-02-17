@@ -25,9 +25,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.HandSubsystem;
-import frc.robot.subsystems.ArmSubsystem;
+//import frc.robot.subsystems.ElevatorSubsystem;
+//import frc.robot.subsystems.HandSubsystem;
+//import frc.robot.subsystems.ArmSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
@@ -51,9 +51,9 @@ public class RobotContainer
                                                                                 "swerve/neo"));
 
 
-  private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
-  private final HandSubsystem hand = new HandSubsystem();
-  private final ArmSubsystem arm = new ArmSubsystem();
+  //private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
+  //private final HandSubsystem hand = new HandSubsystem();
+  //private final ArmSubsystem arm = new ArmSubsystem();
 
   //set up auto chooser                                                                              
   private final SendableChooser<Command> autoChooser;
@@ -152,6 +152,7 @@ public class RobotContainer
       //Main drive command - driver
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
+      /* 
       //switch between front and back scoring - operator
       operatorXbox.start().onTrue(arm.frontScore());
 
@@ -201,6 +202,7 @@ public class RobotContainer
           ParallelCommandGroup level3Position = 
             new ParallelCommandGroup(elevator.level3Height(), arm.level3Angle());
       operatorXbox.povUp().onTrue(level3Position);
+      */
   }
 
   /**

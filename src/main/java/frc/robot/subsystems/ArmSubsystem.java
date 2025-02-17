@@ -1,3 +1,4 @@
+/* 
 package frc.robot.subsystems;
 
 import com.revrobotics.sim.SparkMaxSim;
@@ -38,7 +39,7 @@ public class ArmSubsystem extends SubsystemBase {
 
 
 	                    //MOTOR 1 CONFIGUATION
-           	//*******************************************//
+           	//*******************************************
 
         	armMotorConfig =
         	new SparkMaxConfig()            //sets information for the overall motor
@@ -168,3 +169,5 @@ public class ArmSubsystem extends SubsystemBase {
         	return null;
     	}
 }
+
+*/

@@ -1,3 +1,4 @@
+/* 
 package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Meters;
@@ -23,7 +24,7 @@ import frc.robot.Constants.ElevatorConstants;
 
 
 public class ElevatorSubsystem extends SubsystemBase {
-    /** Creates a new ExampleSubsystem. */
+    / Creates a new ExampleSubsystem. 
     //private static final MotorType kMotorType = MotorType.kBrushless;
     //private int flip = -1;
   
@@ -41,23 +42,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     private RelativeEncoder elevEncoder2;
     private SparkBaseConfig followMotorConfig;
 
-    private final DCMotor elevatorGearbox = DCMotor.getNeoVortex(2);
-
-    private final ElevatorSim m_elevatorSim =
-    new ElevatorSim(
-        elevatorGearbox,
-        ElevatorConstants.kElevatorGearing,
-        ElevatorConstants.kCarriageMass,
-        ElevatorConstants.kElevatorDrumRadius,
-        ElevatorConstants.kMinElevatorHeight,
-        ElevatorConstants.kMaxElevatorHeight,
-        true,
-        ElevatorConstants.kStartingHeightSim,
-        0.01,
-        0.0
-        );
-
-
 public ElevatorSubsystem() {
 
         //ELEVATOR MOTOR 1 ASSIGNING
@@ -71,7 +55,7 @@ public ElevatorSubsystem() {
 
 
                    //ELEVATOR MOTOR 1 CONFIGUATION  (Leader)
-           //*******************************************//
+ 
 
         leadMotorConfig =
         new SparkMaxConfig()            //sets information for the overall motor
@@ -90,7 +74,7 @@ public ElevatorSubsystem() {
             );
 
                    //ELEVATOR MOTOR 2 CONFIGUATION  (follower)
-           //*******************************************//
+           //*******************************************
 
            followMotorConfig =
            new SparkMaxConfig()            //sets information for the overall motor
@@ -192,3 +176,4 @@ public ElevatorSubsystem() {
           });
     }
 }
+    */

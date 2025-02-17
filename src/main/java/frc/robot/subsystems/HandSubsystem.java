@@ -1,3 +1,4 @@
+/* 
 package frc.robot.subsystems;
 
 //setting up sparkmax imports 
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HandConstants;
 
 public class HandSubsystem extends SubsystemBase {
-    /** Creates a new ExampleSubsystem. */
+    /** Creates a new ExampleSubsystem. 
     //private static final MotorType kMotorType = MotorType.kBrushless;
     //private int flip = -1;
   
@@ -134,4 +135,6 @@ public HandSubsystem() {
             midMotor.set(HandConstants.intakeSpeed);
         });
     }
+
 }
+    */
