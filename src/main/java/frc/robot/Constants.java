@@ -66,9 +66,8 @@ public final class Constants
     public static final double minOutputElevator = 0.0;
     public static final double maxOutputElevator = 1.0;
   }
-<<<<<<< Updated upstream
-}
-=======
+//<<<<<<< Updated upstream
+//=======
 
   public static class ArmConstants
   {
@@ -107,4 +106,4 @@ public final class Constants
     
   }
 }
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
