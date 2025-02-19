@@ -1,4 +1,4 @@
-/* 
+ 
 package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Meters;
@@ -13,8 +13,10 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +26,7 @@ import frc.robot.Constants.ElevatorConstants;
 
 
 public class ElevatorSubsystem extends SubsystemBase {
-    / Creates a new ExampleSubsystem. 
+    // Creates a new ExampleSubsystem. 
     //private static final MotorType kMotorType = MotorType.kBrushless;
     //private int flip = -1;
   
@@ -33,14 +35,23 @@ public class ElevatorSubsystem extends SubsystemBase {
     // private states it can only be used in this file
     // "SparkMax" and "AbsoluteEncoder" are the variable types, similar to int and double
     // light blue text shows the name the variable is set as
+
+    //Leader Motor
     private SparkMax elevatorLeadMotor;
     private SparkClosedLoopController pidController1;
     private RelativeEncoder elevEncoder1;
     private SparkBaseConfig leadMotorConfig;    //should be similar to max config but allows setting leading motors.
 
+    //Follower Motor
     private SparkMax elevatorFollowMotor;
-    private RelativeEncoder elevEncoder2;
     private SparkBaseConfig followMotorConfig;
+
+    //Feedforward for elevator
+    ElevatorFeedforward feedforward = new ElevatorFeedforward(
+        ElevatorConstants.kStaticGain, 
+        ElevatorConstants.kGravity, 
+        ElevatorConstants.kVelocity, 
+        ElevatorConstants.kAccel);
 
 public ElevatorSubsystem() {
 
@@ -50,12 +61,9 @@ public ElevatorSubsystem() {
 
         //ELEVATOR MOTOR 2 ASSIGNING
     elevatorFollowMotor = new SparkMax(ElevatorConstants.elevatorLeadMotorCanID, MotorType.kBrushless);
-    elevEncoder2 = elevatorFollowMotor.getEncoder();
-
 
 
                    //ELEVATOR MOTOR 1 CONFIGUATION  (Leader)
- 
 
         leadMotorConfig =
         new SparkMaxConfig()            //sets information for the overall motor
@@ -64,17 +72,15 @@ public ElevatorSubsystem() {
             .apply(
                 new ClosedLoopConfig()  //sets information for the controller
                 .outputRange(ElevatorConstants.minOutputElevator, ElevatorConstants.maxOutputElevator)
-                .pidf
+                .pid
                 (                  
                     1.0,     //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
                     0.0,     //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                    0.0,     //    //Slows down the robot before it overshoots the target point
-                    0.1
+                    0.0      //    //Slows down the robot before it overshoots the target point
                 )
             );
 
                    //ELEVATOR MOTOR 2 CONFIGUATION  (follower)
-           //*******************************************
 
            followMotorConfig =
            new SparkMaxConfig()            //sets information for the overall motor
@@ -84,12 +90,11 @@ public ElevatorSubsystem() {
                .apply(
                    new ClosedLoopConfig()  //sets information for the controller
                    .outputRange(ElevatorConstants.minOutputElevator, ElevatorConstants.maxOutputElevator)
-                   .pidf
+                   .pid
                    (                  
                        1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
                        0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                       0.0,     //    //Slows down the robot before it overshoots the target point
-                       0.1
+                       0.0     //    //Slows down the robot before it overshoots the target point
                    )
                );
 
@@ -103,7 +108,9 @@ public ElevatorSubsystem() {
     private void reachHeight(double goal)
     {
         pidController1.setReference((goal),
-                                    ControlType.kMAXMotionPositionControl);
+                                    ControlType.kMAXMotionPositionControl,
+                                    ClosedLoopSlot.kSlot0, 
+                                    feedforward.calculate(elevEncoder1.getVelocity()));
     }
 
 
@@ -176,4 +183,4 @@ public ElevatorSubsystem() {
           });
     }
 }
-    */
+    

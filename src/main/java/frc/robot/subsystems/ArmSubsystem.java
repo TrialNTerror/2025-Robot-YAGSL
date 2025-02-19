@@ -1,4 +1,3 @@
-/* 
 package frc.robot.subsystems;
 
 import com.revrobotics.sim.SparkMaxSim;
@@ -16,6 +15,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,6 +28,12 @@ public class ArmSubsystem extends SubsystemBase {
 	private SparkBaseConfig armMotorConfig;    //should be similar to max config but allows setting leading motors.
 
 	private int currentNum;
+
+	private ArmFeedforward feedForward = new ArmFeedforward(
+		ArmConstants.kStaticGain, 
+		ArmConstants.kGravity,
+		ArmConstants.kVelocity, 
+		ArmConstants.kAccel);
 
 	public ArmSubsystem(){
 
@@ -66,7 +72,9 @@ public class ArmSubsystem extends SubsystemBase {
 		private void reachAngle(double goal)
     	{
         	pidController1.setReference((goal),
-                	                    ControlType.kMAXMotionPositionControl);
+                	                    ControlType.kMAXMotionPositionControl,
+										ClosedLoopSlot.kSlot0,
+										feedForward.calculate(armEncoder1.getPosition(), armEncoder1.getVelocity()));
 		}
 
 
@@ -170,4 +178,4 @@ public class ArmSubsystem extends SubsystemBase {
     	}
 }
 
-*/
+

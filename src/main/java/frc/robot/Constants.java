@@ -51,19 +51,21 @@ public final class Constants
 
   public static class ElevatorConstants
   {
+    //CAN IDs
     public static final int elevatorLeadMotorCanID = 15;        //ADD MARKING ON MOTOR AS TO WHICH IS WHICH
     public static final int elevatorFollowMotor2CanID = 16;
 
+    //Min/Max
     public static final double minOutputElevator = 0.0;
     public static final double maxOutputElevator = 1.0;
 
-    public static final double kElevatorGearing = 0.0;
-    public static final double kCarriageMass = 0.0;
-    public static final double kElevatorDrumRadius = 0.0;
-    public static final double kMinElevatorHeight = 0.0;
-    public static final double kMaxElevatorHeight = 0.0;
-    public static final double kStartingHeightSim = 0.0;
+    //Feedforward
+    public static final double kStaticGain = 0.0;
+    public static final double kGravity = 0.0;
+    public static final double kVelocity = 0.0;
+    public static final double kAccel = 0.0;
 
+    //Positions
     public static final double level3Height = 0.75;
     public static final double level2Height = 0.75;
     public static final double level1Height = 0.75;
@@ -71,18 +73,28 @@ public final class Constants
     public static final double homeHeight = 0.1;
     public static final double processorHeight = 0;
 
+    //Motor Inversion
     public static final boolean leadMotorInverted = false;
     public static final boolean followMotorInverted = true;
   }
 
   public static class ArmConstants
   {
+    //Constants for feedforward
+    public static final double kStaticGain = 0.0;
+    public static final double kGravity = 0.0;
+    public static final double kVelocity = 0.0;
+    public static final double kAccel = 0.0;
+
+    //CAN IDs
     public static final int armMotor1CanID = 17;
     public static final int armMotor2CanID = 18;
 
+    //Min/Max output
     public static final double minOutputArm = 0.0;
     public static final double maxOutputArm = 1.0;
 
+    //Positions
     public static final double level3Angle = 0.75;
     public static final double level3BackAngle = -0.75;
 
@@ -96,17 +108,21 @@ public final class Constants
     public static final double homeAngle = 0.1;
     public static final double processorAngle = 0;
 
+    //inverting
     public static final boolean motorInvert = false;
   }
 
   public static class HandConstants
   {
+    //CAN IDs
     public static final int handMotor1CanID = 12;
     public static final int handMotor2CanID = 13;
     public static final int handMotor3CanID = 14;
 
+    //Intake Speed
     public static final double intakeSpeed = 0.25;
 
+    //Motor inversion
     public static final boolean invertAllMotors = true;    //All motors should be set to inverted but if this is incorrect change this.
   }
 
