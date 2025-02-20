@@ -51,9 +51,8 @@ public final class Constants
 
   public static class ElevatorConstants
   {
-    //CAN IDs
-    public static final int elevatorLeadMotorCanID = 15;        //ADD MARKING ON MOTOR AS TO WHICH IS WHICH
-    public static final int elevatorFollowMotor2CanID = 16;
+    public static final int elevatorLeadMotorCanID = 14;        //ADD MARKING ON MOTOR AS TO WHICH IS WHICH
+    public static final int elevatorFollowMotor2CanID = 15;
 
     //Min/Max
     public static final double minOutputElevator = 0.0;
@@ -110,8 +109,11 @@ public final class Constants
 
     //inverting
     public static final boolean motorInvert = false;
+    
+    //relative min and max arm angles
+    public static final double maxAngle = 180;
+    public static final double minAngle = 0;
   }
-
   public static class HandConstants
   {
     //CAN IDs
@@ -127,3 +129,4 @@ public final class Constants
   }
 
 }
+

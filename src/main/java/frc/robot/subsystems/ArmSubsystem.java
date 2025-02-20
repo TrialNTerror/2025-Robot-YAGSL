@@ -1,24 +1,26 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.sim.SparkMaxSim;
-import com.revrobotics.spark.SparkMax;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.config.ClosedLoopConfig;
-import com.revrobotics.spark.config.EncoderConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ArmConstants;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -27,13 +29,15 @@ public class ArmSubsystem extends SubsystemBase {
 	private RelativeEncoder armEncoder1;
 	private SparkBaseConfig armMotorConfig;    //should be similar to max config but allows setting leading motors.
 
-	private int currentNum;
+	// Create a new ArmFeedforward with gains kS, kG, kV, and kA
 
 	private ArmFeedforward feedForward = new ArmFeedforward(
 		ArmConstants.kStaticGain, 
 		ArmConstants.kGravity,
 		ArmConstants.kVelocity, 
 		ArmConstants.kAccel);
+
+	private int currentNum;
 
 	public ArmSubsystem(){
 
@@ -45,7 +49,7 @@ public class ArmSubsystem extends SubsystemBase {
 
 
 	                    //MOTOR 1 CONFIGUATION
-           	//*******************************************
+           	//*******************************************//
 
         	armMotorConfig =
         	new SparkMaxConfig()            //sets information for the overall motor
@@ -177,5 +181,3 @@ public class ArmSubsystem extends SubsystemBase {
         	return null;
     	}
 }
-
-
