@@ -51,8 +51,11 @@ public final class Constants
 
   public static class ElevatorConstants
   {
+    //CAN IDs
     public static final int elevatorLeadMotorCanID = 14;        //ADD MARKING ON MOTOR AS TO WHICH IS WHICH
     public static final int elevatorFollowMotor2CanID = 15;
+    public static final int servoIDLeadSide = 0;
+    public static final int servoIDFollowSide = 1;
 
     //Min/Max
     public static final double minOutputElevator = 0.0;
@@ -71,6 +74,10 @@ public final class Constants
     public static final double groundHeight = 0.75;
     public static final double homeHeight = 0.1;
     public static final double processorHeight = 0;
+
+    //Lock/unlock Servo
+    public static final int servoLock = 100;
+    public static final int servoUnlock = 100;
 
     //Motor Inversion
     public static final boolean leadMotorInverted = false;
@@ -114,6 +121,7 @@ public final class Constants
     public static final double maxAngle = 180;
     public static final double minAngle = 0;
   }
+
   public static class HandConstants
   {
     //CAN IDs
@@ -127,6 +135,5 @@ public final class Constants
     //Motor inversion
     public static final boolean invertAllMotors = true;    //All motors should be set to inverted but if this is incorrect change this.
   }
-
 }
 

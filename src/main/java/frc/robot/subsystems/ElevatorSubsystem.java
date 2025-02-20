@@ -1,4 +1,3 @@
- 
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
@@ -19,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
+import edu.wpi.first.wpilibj.Servo;
 
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -49,6 +49,9 @@ public class ElevatorSubsystem extends SubsystemBase {
         ElevatorConstants.kVelocity, 
         ElevatorConstants.kAccel);
 
+    private Servo leaderServo;
+    private Servo followerServo;
+
 public ElevatorSubsystem() {
 
         //ELEVATOR MOTOR 1 ASSIGNING
@@ -58,6 +61,8 @@ public ElevatorSubsystem() {
         //ELEVATOR MOTOR 2 ASSIGNING
     elevatorFollowMotor = new SparkMax(ElevatorConstants.elevatorLeadMotorCanID, MotorType.kBrushless);
 
+    leaderServo = new Servo(ElevatorConstants.servoIDLeadSide);
+    followerServo = new Servo(ElevatorConstants.servoIDFollowSide);
 
                    //ELEVATOR MOTOR 1 CONFIGUATION  (Leader)
 
@@ -151,12 +156,18 @@ public ElevatorSubsystem() {
 
     public Command lockElevator()
     {
-        return null;
+        return run(() -> {
+        leaderServo.setAngle(ElevatorConstants.servoLock);
+        followerServo.setAngle(ElevatorConstants.servoLock);
+         });
     }
 
     public Command unlockElevator()
     {
-        return null;
+        return run(() -> {
+        leaderServo.setAngle(ElevatorConstants.servoUnlock);
+        followerServo.setAngle(ElevatorConstants.servoUnlock);
+         });
     }
     
     public void simulationPeriodic()
@@ -181,4 +192,3 @@ public ElevatorSubsystem() {
           });
     }
 }
-    
