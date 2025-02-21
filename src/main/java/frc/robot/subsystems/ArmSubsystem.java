@@ -1,3 +1,4 @@
+/* 
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
@@ -5,6 +6,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
@@ -15,6 +17,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,18 +29,14 @@ public class ArmSubsystem extends SubsystemBase {
 	private SparkClosedLoopController pidController1;
 	private RelativeEncoder armEncoder1;
 	private SparkBaseConfig armMotorConfig;    //should be similar to max config but allows setting leading motors.
-	private double kS = ArmConstants.feedkS;
-	private double kG = ArmConstants.feedkG;
-	private double kV = ArmConstants.feedkV;
-	private double kA = ArmConstants.feedkA;
-	private double minAngle = ArmConstants.minAngle;
-	private double maxAngle = ArmConstants.maxAngle; 
-	private double targetPoint;
-	private double targetPos;
-	private double feedForwardValue;
 
 	// Create a new ArmFeedforward with gains kS, kG, kV, and kA
-	ArmFeedforward feedforward = new ArmFeedforward(kS, kG, kV, kA);
+
+	private ArmFeedforward feedForward = new ArmFeedforward(
+		ArmConstants.kStaticGain, 
+		ArmConstants.kGravity,
+		ArmConstants.kVelocity, 
+		ArmConstants.kAccel);
 
 	private int currentNum;
 
@@ -51,7 +50,7 @@ public class ArmSubsystem extends SubsystemBase {
 
 
 	                    //MOTOR 1 CONFIGUATION
-           	//*******************************************//
+           	//*******************************************
 
         	armMotorConfig =
         	new SparkMaxConfig()            //sets information for the overall motor
@@ -78,12 +77,9 @@ public class ArmSubsystem extends SubsystemBase {
 		private void reachAngle(double goal)
     	{
         	pidController1.setReference((goal),
-                	                    ControlType.kMAXMotionPositionControl);
-										// Calculates the feedforward for a position of 1 units, a velocity of 2 units/second, and
-										// an acceleration of 3 units/second^2
-										// Units are determined by the units of the gains passed in at construction.
-										targetPoint = targetPos*maxAngle;
-										feedforward.calculate(/*goal*/0, 2, 3);
+                	                    ControlType.kMAXMotionPositionControl,
+										ClosedLoopSlot.kSlot0,
+										feedForward.calculate(armEncoder1.getPosition(), armEncoder1.getVelocity()));
 		}
 
 
@@ -186,3 +182,4 @@ public class ArmSubsystem extends SubsystemBase {
         	return null;
     	}
 }
+*/

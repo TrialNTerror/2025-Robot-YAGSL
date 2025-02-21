@@ -18,12 +18,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.HandSubsystem;
+//import frc.robot.subsystems.HandSubsystem;
+//import frc.robot.subsystems.ArmSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
@@ -41,15 +45,20 @@ public class RobotContainer
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
   final         CommandXboxController operatorXbox = new CommandXboxController(2);
+
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
 
+
   private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
-  private final HandSubsystem hand = new HandSubsystem();
+  //private final HandSubsystem hand = new HandSubsystem();
+  //private final ArmSubsystem arm = new ArmSubsystem();
 
   //set up auto chooser                                                                              
   private final SendableChooser<Command> autoChooser;
+
+  private int currentNum;
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -106,6 +115,7 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
@@ -124,6 +134,7 @@ public class RobotContainer
    */
   private void configureBindings()
   {
+    currentNum = 1;
 
     SmartDashboard.putData("ScoreOne", new PathPlannerAuto("ScoreOne"));
 
@@ -136,51 +147,71 @@ public class RobotContainer
     Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
     Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngleKeyboard);
-
-
+     
+      //Main drive command - driver
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
-      driverXbox.button(1).onTrue(elevator.lv1Pos());
-      driverXbox.a().whileTrue(elevator.lv4Pos());
+      driverXbox.rightTrigger().onTrue(elevator.lockElevator());
+
+      driverXbox.leftTrigger().onTrue(elevator.unlockElevator());
+
+      //Home position command - operator
+      driverXbox.a().onTrue(elevator.homeHeight());
+
+      //Ground position command - operator
+      driverXbox.x().onTrue(elevator.groundHeight());
+
+      /* 
+      //switch between front and back scoring - operator
+      operatorXbox.start().onTrue(arm.frontScore());
+
+      operatorXbox.button(7).onTrue(arm.backScore());
 
 
-    if (RobotBase.isSimulation())
-    {
-      drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
-    } else
-    {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    }
+      //Coral Intake - operator
+      operatorXbox.rightTrigger().whileTrue(hand.intakeCoral());
 
-    if (Robot.isSimulation())
-    {
-      driverXbox.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
-      driverXbox.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
+      //Coral Output - operator
+      operatorXbox.rightBumper().whileTrue(hand.OutputCoral());
 
-    }
-    if (DriverStation.isTest())
-    {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+      //Algae Intake - operator
+      operatorXbox.leftTrigger().whileTrue(hand.intakeAlgae());
 
-      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
-      driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.back().whileTrue(drivebase.centerModulesCommand());
-      driverXbox.leftBumper().onTrue(Commands.none());
-      driverXbox.rightBumper().onTrue(Commands.none());
-    } else
-    {
-      driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
-      driverXbox.b().whileTrue(
-          drivebase.driveToPose(
-              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-                              );
-      driverXbox.start().whileTrue(Commands.none());
-      driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.rightBumper().onTrue(Commands.none());
-    }
+      //Algae Output - operator
+      operatorXbox.leftBumper().whileTrue(hand.outputAlgae());
+
+
+      //Home position command - operator
+          ParallelCommandGroup homePosition = 
+            new ParallelCommandGroup(elevator.homeHeight(), arm.homeAngle());
+      operatorXbox.a().onTrue(homePosition);
+
+      //Ground position command - operator
+          ParallelCommandGroup groundPosition = 
+            new ParallelCommandGroup(elevator.groundHeight(), arm.groundAngle());
+      operatorXbox.x().onTrue(groundPosition);
+            
+      //processor position command  - operator
+         ParallelCommandGroup processorPosition = 
+            new ParallelCommandGroup(elevator.processorHeight(), arm.processorAngle());
+      operatorXbox.y().onTrue(processorPosition);
+
+
+      //Level 1 position command - operator
+          ParallelCommandGroup level1Position = 
+            new ParallelCommandGroup(elevator.level1Height(), arm.level1Angle());
+      operatorXbox.povDown().onTrue(level1Position);
+
+      //Level 2 position command  - operator
+          ParallelCommandGroup level2Position = 
+            new ParallelCommandGroup(elevator.level2Height(), arm.level2Angle());
+      operatorXbox.povLeft().onTrue(level2Position);
+
+      //level 3 position command  - operator
+          ParallelCommandGroup level3Position = 
+            new ParallelCommandGroup(elevator.level3Height(), arm.level3Angle());
+      operatorXbox.povUp().onTrue(level3Position);
+      */
   }
 
   /**
