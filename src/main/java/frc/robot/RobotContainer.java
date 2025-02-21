@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-//import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.subsystems.HandSubsystem;
 //import frc.robot.subsystems.ArmSubsystem;
 import java.io.File;
@@ -51,7 +51,7 @@ public class RobotContainer
                                                                                 "swerve/neo"));
 
 
-  //private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
+  private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
   //private final HandSubsystem hand = new HandSubsystem();
   //private final ArmSubsystem arm = new ArmSubsystem();
 
@@ -147,10 +147,19 @@ public class RobotContainer
     Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
     Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngleKeyboard);
-
-        
+     
       //Main drive command - driver
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+
+      driverXbox.rightTrigger().onTrue(elevator.lockElevator());
+
+      driverXbox.leftTrigger().onTrue(elevator.unlockElevator());
+
+      //Home position command - operator
+      driverXbox.a().onTrue(elevator.homeHeight());
+
+      //Ground position command - operator
+      driverXbox.x().onTrue(elevator.groundHeight());
 
       /* 
       //switch between front and back scoring - operator

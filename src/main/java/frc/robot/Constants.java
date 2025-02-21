@@ -52,8 +52,8 @@ public final class Constants
   public static class ElevatorConstants
   {
     //CAN IDs
-    public static final int elevatorLeadMotorCanID = 14;        //ADD MARKING ON MOTOR AS TO WHICH IS WHICH
-    public static final int elevatorFollowMotor2CanID = 15;
+    public static final int elevatorLeadMotorCanID = 11;        //ADD MARKING ON MOTOR AS TO WHICH IS WHICH
+    public static final int elevatorFollowMotor2CanID = 12;
     public static final int servoIDLeadSide = 0;
     public static final int servoIDFollowSide = 1;
 
@@ -76,8 +76,10 @@ public final class Constants
     public static final double processorHeight = 0;
 
     //Lock/unlock Servo
-    public static final int servoLock = 100;
-    public static final int servoUnlock = 100;
+    public static final int servoFollowLock = 55;
+    public static final int servoFollowUnlock = 70;
+    public static final int servoLeaderLock = 0;
+    public static final int servoLeaderUnlock = 25;
 
     //Motor Inversion
     public static final boolean leadMotorInverted = false;
@@ -93,8 +95,8 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //CAN IDs
-    public static final int armMotor1CanID = 17;
-    public static final int armMotor2CanID = 18;
+    public static final int armMotor1CanID = 13;
+    public static final int armMotor2CanID = 14;
 
     //Min/Max output
     public static final double minOutputArm = 0.0;
@@ -125,9 +127,9 @@ public final class Constants
   public static class HandConstants
   {
     //CAN IDs
-    public static final int handMotor1CanID = 12;
-    public static final int handMotor2CanID = 13;
-    public static final int handMotor3CanID = 14;
+    public static final int handMotor1CanID = 15;
+    public static final int handMotor2CanID = 16;
+    public static final int handMotor3CanID = 17;
 
     //Intake Speed
     public static final double intakeSpeed = 0.25;

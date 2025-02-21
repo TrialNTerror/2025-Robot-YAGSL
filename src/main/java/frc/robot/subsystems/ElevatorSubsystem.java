@@ -59,7 +59,7 @@ public ElevatorSubsystem() {
     elevEncoder1 = elevatorLeadMotor.getEncoder();                                                    // Assigns m_encoder with information from the hand motor's absolute encoder
 
         //ELEVATOR MOTOR 2 ASSIGNING
-    elevatorFollowMotor = new SparkMax(ElevatorConstants.elevatorLeadMotorCanID, MotorType.kBrushless);
+    elevatorFollowMotor = new SparkMax(ElevatorConstants.elevatorFollowMotor2CanID, MotorType.kBrushless);
 
     leaderServo = new Servo(ElevatorConstants.servoIDLeadSide);
     followerServo = new Servo(ElevatorConstants.servoIDFollowSide);
@@ -157,16 +157,16 @@ public ElevatorSubsystem() {
     public Command lockElevator()
     {
         return run(() -> {
-        leaderServo.setAngle(ElevatorConstants.servoLock);
-        followerServo.setAngle(ElevatorConstants.servoLock);
+        leaderServo.setAngle(ElevatorConstants.servoLeaderLock);
+        followerServo.setAngle(ElevatorConstants.servoFollowLock);
          });
     }
 
     public Command unlockElevator()
     {
         return run(() -> {
-        leaderServo.setAngle(ElevatorConstants.servoUnlock);
-        followerServo.setAngle(ElevatorConstants.servoUnlock);
+        leaderServo.setAngle(ElevatorConstants.servoLeaderUnlock);
+        followerServo.setAngle(ElevatorConstants.servoFollowUnlock);
          });
     }
     
