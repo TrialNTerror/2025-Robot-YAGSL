@@ -1,8 +1,10 @@
+
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -17,6 +19,7 @@ import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ElevatorConstants;
 import edu.wpi.first.wpilibj.Servo;
 
@@ -52,6 +55,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     private Servo leaderServo;
     private Servo followerServo;
 
+    private boolean locked;
+
 public ElevatorSubsystem() {
 
         //ELEVATOR MOTOR 1 ASSIGNING
@@ -65,10 +70,12 @@ public ElevatorSubsystem() {
     leaderServo = new Servo(ElevatorConstants.servoIDLeadSide);
     followerServo = new Servo(ElevatorConstants.servoIDFollowSide);
 
+    locked = false;
+
                    //ELEVATOR MOTOR 1 CONFIGUATION  (Leader)
 
-        leadMotorConfig =
-        new SparkMaxConfig()            //sets information for the overall motor
+        leadMotorConfig = new SparkMaxConfig();          //sets information for the overall motor
+        /*
             .inverted(ElevatorConstants.leadMotorInverted)
             .idleMode(IdleMode.kBrake)
             .apply(
@@ -82,6 +89,29 @@ public ElevatorSubsystem() {
                     0.0
                 )
             );
+        */
+        leadMotorConfig
+            .inverted(ElevatorConstants.leadMotorInverted)
+            .idleMode(IdleMode.kBrake)
+            .smartCurrentLimit(ElevatorConstants.stallLimit);
+            ;
+        
+        leadMotorConfig
+            .closedLoop
+            //.outputRange(ElevatorConstants.minOutputArm, ElevatorConstants.maxOutputArm)
+            .pid(ElevatorConstants.P, ElevatorConstants.I, ElevatorConstants.D)
+            .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+            .maxMotion
+            .maxAcceleration(ElevatorConstants.maxAcceleration)
+            .maxVelocity(ElevatorConstants.maxVelocity)
+            .allowedClosedLoopError(ElevatorConstants.allowedErr);
+
+        /*
+         leadeMotor.encoder
+				.inverted(ElevatorConstants.inverted)
+				.positionConversionFactor(ElevatorConstants.positionConversionFactor)
+				.velocityConversionFactor(ElevatorConstants.velocityConversionFactor);
+         */
 
                    //ELEVATOR MOTOR 2 CONFIGUATION  (follower)
 
@@ -149,6 +179,7 @@ public ElevatorSubsystem() {
         return run(() -> {
         leaderServo.setAngle(ElevatorConstants.servoLeaderLock);
         followerServo.setAngle(ElevatorConstants.servoFollowLock);
+        locked = true;
          });
     }
 
@@ -157,6 +188,7 @@ public ElevatorSubsystem() {
         return run(() -> {
         leaderServo.setAngle(ElevatorConstants.servoLeaderUnlock);
         followerServo.setAngle(ElevatorConstants.servoFollowUnlock);
+        locked = false;
          });
     }
     

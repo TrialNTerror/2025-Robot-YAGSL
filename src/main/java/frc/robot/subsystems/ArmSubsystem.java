@@ -1,33 +1,31 @@
-/* 
-package frc.robot.subsystems;
+ package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.EncoderConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ArmConstants;
 
 public class ArmSubsystem extends SubsystemBase {
-	private SparkMax armMotor1;
+	private SparkFlex armMotor1;
 	private SparkClosedLoopController pidController1;
-	private RelativeEncoder armEncoder1;
+	private AbsoluteEncoder armEncoder1;
 	private SparkBaseConfig armMotorConfig;    //should be similar to max config but allows setting leading motors.
 
 	// Create a new ArmFeedforward with gains kS, kG, kV, and kA
@@ -45,29 +43,34 @@ public class ArmSubsystem extends SubsystemBase {
 			currentNum = 1;
 
         	//ELEVATOR MOTOR 1 ASSIGNING
-    		armMotor1 = new SparkMax(ArmConstants.armMotor1CanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
-    		armEncoder1 = armMotor1.getEncoder();
+    		armMotor1 = new SparkFlex(ArmConstants.armMotor1CanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
+    		armEncoder1 = armMotor1.getAbsoluteEncoder();
+			pidController1 = armMotor1.getClosedLoopController();
 
 
 	                    //MOTOR 1 CONFIGUATION
            	//*******************************************
 
-        	armMotorConfig =
-        	new SparkMaxConfig()            //sets information for the overall motor
-            		.inverted(ArmConstants.motorInvert)
-            		.idleMode(IdleMode.kBrake)
-            		.apply(
-                		new ClosedLoopConfig()  //sets information for the controller
-                		.outputRange(ArmConstants.minOutputArm, ArmConstants.maxOutputArm)
-                		.pidf
-                		(
-                    			1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                    			0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                    			0.0,     //    //Slows down the robot before it overshoots the target point
-                                0.0
+        	armMotorConfig = new SparkFlexConfig();
 
-                		)
-            		);
+			armMotorConfig
+				.inverted(ArmConstants.inverted)
+				.idleMode(IdleMode.kBrake)
+				.smartCurrentLimit(ArmConstants.stallLimit);
+
+        	armMotorConfig.closedLoop
+				.outputRange(ArmConstants.minOutputArm, ArmConstants.maxOutputArm)
+				.pid(ArmConstants.P, ArmConstants.I, ArmConstants.D)
+				.feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+				.maxMotion
+				.maxAcceleration(ArmConstants.maxAcceleration)
+				.maxVelocity(ArmConstants.maxVelocity)
+				.allowedClosedLoopError(ArmConstants.allowedErr);
+
+			armMotorConfig.encoder
+				.inverted(ArmConstants.inverted)
+				.positionConversionFactor(ArmConstants.positionConversionFactor)
+				.velocityConversionFactor(ArmConstants.velocityConversionFactor);
 
 
 		armMotor1.configure(armMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);  //sets the configuration to the motor
@@ -77,9 +80,9 @@ public class ArmSubsystem extends SubsystemBase {
 		private void reachAngle(double goal)
     	{
         	pidController1.setReference((goal),
-                	                    ControlType.kMAXMotionPositionControl,
-										ClosedLoopSlot.kSlot0,
-										feedForward.calculate(armEncoder1.getPosition(), armEncoder1.getVelocity()));
+                	                    ControlType.kPosition,
+										ClosedLoopSlot.kSlot0);
+										//feedForward.calculate(armEncoder1.getPosition(), armEncoder1.getVelocity()));
 		}
 
 
@@ -156,13 +159,13 @@ public class ArmSubsystem extends SubsystemBase {
 		//ground position
     	public Command groundAngle()
     	{
-        	return run(() -> reachAngle(ArmConstants.groundAngle));
+        	return runOnce(() -> reachAngle(ArmConstants.groundAngle));
     	}
 
 		//Home position
     	public Command homeAngle()
     	{
-        	return run(() -> reachAngle(ArmConstants.homeAngle));
+        	return runOnce(() -> reachAngle(ArmConstants.homeAngle));
     	}
 
 		//ground position
@@ -171,15 +174,24 @@ public class ArmSubsystem extends SubsystemBase {
 			return run(() -> reachAngle(ArmConstants.processorAngle));
 		}
 
-    	public void simulationPeriodic()
+    	public void periodic()
     	{
-    	
+			SmartDashboard.putNumber("Encoder Pos", armEncoder1.getPosition());
     	}
 
 	    //Free move WITH LIMITS (Probably wont use)
-    	public Command armFreeMove()
+    	public Command armUp()
     	{
-        	return null;
+        	return runOnce(() -> armMotor1.set(1));
+    	}
+
+		public Command armDown()
+    	{
+        	return runOnce(() -> armMotor1.set(-1));
+    	}
+
+		public Command armStop()
+    	{
+        	return runOnce(() -> armMotor1.set(0));
     	}
 }
-*/

@@ -25,9 +25,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
+//import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.subsystems.HandSubsystem;
-//import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
@@ -51,9 +51,9 @@ public class RobotContainer
                                                                                 "swerve/neo"));
 
 
-  private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
+  //private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
   //private final HandSubsystem hand = new HandSubsystem();
-  //private final ArmSubsystem arm = new ArmSubsystem();
+  private final ArmSubsystem arm = new ArmSubsystem();
 
   //set up auto chooser                                                                              
   private final SendableChooser<Command> autoChooser;
@@ -151,21 +151,25 @@ public class RobotContainer
       //Main drive command - driver
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
-      driverXbox.rightTrigger().onTrue(elevator.lockElevator());
+     // driverXbox.rightTrigger().onTrue(elevator.lockElevator());
 
-      driverXbox.leftTrigger().onTrue(elevator.unlockElevator());
+     // driverXbox.leftTrigger().onTrue(elevator.unlockElevator());
 
       //Home position command - operator
-      driverXbox.a().onTrue(elevator.homeHeight());
+      //driverXbox.a().whileTrue(arm.armDown());
 
       //Ground position command - operator
-      driverXbox.x().onTrue(elevator.groundHeight());
+      //driverXbox.y().whileTrue(arm.armUp());
 
 
-      driverXbox.povUp().whileTrue(elevator.elevatorUp());
+      driverXbox.x().onTrue(arm.homeAngle());
+
+      driverXbox.b().onTrue(arm.groundAngle());
+
+     // driverXbox.povUp().whileTrue(elevator.elevatorUp());
 
       //Ground position command - operator
-      driverXbox.povDown().whileTrue(elevator.elevatorDown());
+     // driverXbox.povDown().whileTrue(elevator.elevatorDown());
 
       /* 
       //switch between front and back scoring - operator
