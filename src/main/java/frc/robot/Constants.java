@@ -83,7 +83,7 @@ public final class Constants
 
     //Motor Inversion
     public static final boolean leadMotorInverted = false;
-    public static final boolean followMotorInverted = true;
+    public static final boolean followMotorInverted = false;
   }
 
   public static class ArmConstants

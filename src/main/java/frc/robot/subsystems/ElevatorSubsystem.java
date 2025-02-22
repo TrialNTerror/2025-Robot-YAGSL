@@ -56,7 +56,8 @@ public ElevatorSubsystem() {
 
         //ELEVATOR MOTOR 1 ASSIGNING
     elevatorLeadMotor = new SparkMax(ElevatorConstants.elevatorLeadMotorCanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
-    elevEncoder1 = elevatorLeadMotor.getEncoder();                                                    // Assigns m_encoder with information from the hand motor's absolute encoder
+    elevEncoder1 = elevatorLeadMotor.getEncoder();   
+    pidController1 = elevatorLeadMotor.getClosedLoopController();                                                 // Assigns m_encoder with information from the hand motor's absolute encoder
 
         //ELEVATOR MOTOR 2 ASSIGNING
     elevatorFollowMotor = new SparkMax(ElevatorConstants.elevatorFollowMotor2CanID, MotorType.kBrushless);
@@ -88,18 +89,7 @@ public ElevatorSubsystem() {
            new SparkMaxConfig()            //sets information for the overall motor
                .inverted(ElevatorConstants.followMotorInverted)
                .idleMode(IdleMode.kBrake)
-               .follow(ElevatorConstants.elevatorLeadMotorCanID)
-               .apply(
-                   new ClosedLoopConfig()  //sets information for the controller
-                   .outputRange(ElevatorConstants.minOutputElevator, ElevatorConstants.maxOutputElevator)
-                   .pidf
-                   (                  
-                       1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                       0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                       0.0,     //    //Slows down the robot before it overshoots the target point
-                       0.0
-                   )
-               );
+               .follow(ElevatorConstants.elevatorLeadMotorCanID);
 
 
     elevatorLeadMotor.configure(leadMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);  //sets the configuration to the motor
@@ -180,7 +170,6 @@ public ElevatorSubsystem() {
     {
         return run(() -> {
          elevatorLeadMotor.set(0.25);
-         elevatorFollowMotor.set(0.25); 
           });
     }
 
@@ -188,7 +177,6 @@ public ElevatorSubsystem() {
     {
         return run(() -> {
          elevatorLeadMotor.set(-0.25);
-         elevatorFollowMotor.set(-0.25); 
           });
     }
 }

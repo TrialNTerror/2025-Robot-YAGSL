@@ -2,7 +2,7 @@
   "$schema": "https://broncbotz3481.github.io/YAGSL-Example/schemas/swervedrive_schema.json",
   "imu": {
     "type": "canandgyro",
-    "id": 36,
+    "id": 2,
     "canbus": null
   },
   "invertedIMU": false,

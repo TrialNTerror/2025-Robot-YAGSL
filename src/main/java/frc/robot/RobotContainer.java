@@ -161,6 +161,12 @@ public class RobotContainer
       //Ground position command - operator
       driverXbox.x().onTrue(elevator.groundHeight());
 
+
+      driverXbox.povUp().whileTrue(elevator.elevatorUp());
+
+      //Ground position command - operator
+      driverXbox.povDown().whileTrue(elevator.elevatorDown());
+
       /* 
       //switch between front and back scoring - operator
       operatorXbox.start().onTrue(arm.frontScore());
