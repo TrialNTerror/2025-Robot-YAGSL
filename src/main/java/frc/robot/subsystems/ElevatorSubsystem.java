@@ -59,14 +59,15 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 public ElevatorSubsystem() {
 
-        //ELEVATOR MOTOR 1 ASSIGNING
+        //Leader Motor Assigning
     elevatorLeadMotor = new SparkMax(ElevatorConstants.elevatorLeadMotorCanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
     elevEncoder1 = elevatorLeadMotor.getEncoder();   
     pidController1 = elevatorLeadMotor.getClosedLoopController();                                                 // Assigns m_encoder with information from the hand motor's absolute encoder
 
-        //ELEVATOR MOTOR 2 ASSIGNING
+        //Follower Motor Assigning
     elevatorFollowMotor = new SparkMax(ElevatorConstants.elevatorFollowMotor2CanID, MotorType.kBrushless);
 
+        //Servo Motor Assigning
     leaderServo = new Servo(ElevatorConstants.servoIDLeadSide);
     followerServo = new Servo(ElevatorConstants.servoIDFollowSide);
 
@@ -75,50 +76,34 @@ public ElevatorSubsystem() {
                    //ELEVATOR MOTOR 1 CONFIGUATION  (Leader)
 
         leadMotorConfig = new SparkMaxConfig();          //sets information for the overall motor
-        /*
-            .inverted(ElevatorConstants.leadMotorInverted)
-            .idleMode(IdleMode.kBrake)
-            .apply(
-                new ClosedLoopConfig()  //sets information for the controller
-                .outputRange(ElevatorConstants.minOutputElevator, ElevatorConstants.maxOutputElevator)
-                .pidf
-                (                  
-                    1.0,     //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                    0.0,     //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                    0.0,      //    //Slows down the robot before it overshoots the target point
-                    0.0
-                )
-            );
-        */
+
         leadMotorConfig
             .inverted(ElevatorConstants.leadMotorInverted)
             .idleMode(IdleMode.kBrake)
-            .smartCurrentLimit(ElevatorConstants.stallLimit);
-            ;
+            .smartCurrentLimit(ElevatorConstants.currentLimit);
         
         leadMotorConfig
             .closedLoop
             //.outputRange(ElevatorConstants.minOutputArm, ElevatorConstants.maxOutputArm)
             .pid(ElevatorConstants.P, ElevatorConstants.I, ElevatorConstants.D)
+            //.pidf(ElevatorConstants.P, ElevatorConstants.I, ElevatorConstants.D, ElevatorConstants.F)
             .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
             .maxMotion
             .maxAcceleration(ElevatorConstants.maxAcceleration)
             .maxVelocity(ElevatorConstants.maxVelocity)
             .allowedClosedLoopError(ElevatorConstants.allowedErr);
 
-        /*
+         /* 
          leadeMotor.encoder
 				.inverted(ElevatorConstants.inverted)
 				.positionConversionFactor(ElevatorConstants.positionConversionFactor)
 				.velocityConversionFactor(ElevatorConstants.velocityConversionFactor);
          */
 
-                   //ELEVATOR MOTOR 2 CONFIGUATION  (follower)
 
+                   //ELEVATOR MOTOR 2 CONFIGUATION  (follower)
            followMotorConfig =
-           new SparkMaxConfig()            //sets information for the overall motor
-               .inverted(ElevatorConstants.followMotorInverted)
-               .idleMode(IdleMode.kBrake)
+           new SparkMaxConfig()         
                .follow(ElevatorConstants.elevatorLeadMotorCanID);
 
 
@@ -157,6 +142,8 @@ public ElevatorSubsystem() {
         return run(() -> reachHeight(ElevatorConstants.level1Height));
     }
 
+
+
     //processor position
     public Command processorHeight()
     {
@@ -173,6 +160,8 @@ public ElevatorSubsystem() {
     {
         return run(() -> reachHeight(ElevatorConstants.homeHeight));
     }
+
+
 
     public Command lockElevator()
     {
@@ -192,12 +181,14 @@ public ElevatorSubsystem() {
          });
     }
     
+
+    
     public void simulationPeriodic()
     {
     
     }
 
-    //Free move WITH LIMITS (Probably won't be used for competition)
+    //Free move WITH LIMITS (WILL NOT BE USED IN COMPETITION, ONLY FOR TESTING)
     public Command elevatorUp()
     {
         return run(() -> {

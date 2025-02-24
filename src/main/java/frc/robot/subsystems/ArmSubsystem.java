@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.EncoderConfig;
+import com.revrobotics.spark.config.AbsoluteEncoderConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -54,9 +55,9 @@ public class ArmSubsystem extends SubsystemBase {
         	armMotorConfig = new SparkFlexConfig();
 
 			armMotorConfig
-				.inverted(ArmConstants.inverted)
+				.inverted(ArmConstants.motorInvert)
 				.idleMode(IdleMode.kBrake)
-				.smartCurrentLimit(ArmConstants.stallLimit);
+				.smartCurrentLimit(ArmConstants.currentLimit);
 
         	armMotorConfig.closedLoop
 				.outputRange(ArmConstants.minOutputArm, ArmConstants.maxOutputArm)
@@ -65,12 +66,13 @@ public class ArmSubsystem extends SubsystemBase {
 				.maxMotion
 				.maxAcceleration(ArmConstants.maxAcceleration)
 				.maxVelocity(ArmConstants.maxVelocity)
-				.allowedClosedLoopError(ArmConstants.allowedErr);
+				.allowedClosedLoopError(ArmConstants.allowedError);
 
-			armMotorConfig.encoder
+			armMotorConfig.absoluteEncoder
 				.inverted(ArmConstants.inverted)
 				.positionConversionFactor(ArmConstants.positionConversionFactor)
 				.velocityConversionFactor(ArmConstants.velocityConversionFactor);
+
 
 
 		armMotor1.configure(armMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);  //sets the configuration to the motor

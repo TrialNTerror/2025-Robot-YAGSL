@@ -161,23 +161,33 @@ public class RobotContainer
       //Ground position command - operator
       //driverXbox.y().whileTrue(arm.armUp());
 
+      //Letter commands
+        //Home angle
+      driverXbox.b().onTrue(arm.homeAngle());
 
-      driverXbox.x().onTrue(arm.homeAngle());
+        //ground angle
+      driverXbox.x().onTrue(arm.groundAngle());
 
-      driverXbox.b().onTrue(arm.groundAngle());
+        //Home angle
+      driverXbox.y().onTrue(arm.processorAngle());
 
-     // driverXbox.povUp().whileTrue(elevator.elevatorUp());
+      //DPad commands
+        //Level 1 position command 
+      driverXbox.povDown().onTrue(arm.level1Angle());
 
-      //Ground position command - operator
-     // driverXbox.povDown().whileTrue(elevator.elevatorDown());
+        //Level 2 position command
+      driverXbox.povRight().onTrue(arm.level2Angle());
+      driverXbox.povLeft().onTrue(arm.level2Angle());
 
-      /* 
-      //switch between front and back scoring - operator
+        //Level 3 position command
+      driverXbox.povUp().onTrue(arm.level3Angle());
+
+      //switch between front and back scoring 
       operatorXbox.start().onTrue(arm.frontScore());
 
       operatorXbox.button(7).onTrue(arm.backScore());
 
-
+     /* 
       //Coral Intake - operator
       operatorXbox.rightTrigger().whileTrue(hand.intakeCoral());
 
