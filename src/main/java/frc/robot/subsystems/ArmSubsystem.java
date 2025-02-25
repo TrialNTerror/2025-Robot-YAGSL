@@ -1,5 +1,7 @@
  package frc.robot.subsystems;
 
+import java.util.Currency;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -10,8 +12,6 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.ClosedLoopConfig;
-import com.revrobotics.spark.config.EncoderConfig;
-import com.revrobotics.spark.config.AbsoluteEncoderConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -70,6 +70,7 @@ public class ArmSubsystem extends SubsystemBase {
 
 			armMotorConfig.absoluteEncoder
 				.inverted(ArmConstants.inverted)
+				.zeroOffset(45)
 				.positionConversionFactor(ArmConstants.positionConversionFactor)
 				.velocityConversionFactor(ArmConstants.velocityConversionFactor);
 
@@ -89,33 +90,40 @@ public class ArmSubsystem extends SubsystemBase {
 
 
         //Switch between front and back scoring since we cant impliment vision yet
-		public Command backScore() 
+
+		public Command switchScore() 
 		{
-			return this.run(() -> {
-				currentNum = -1;
+			return this.runOnce(() -> {
+				
+				if(currentNum == 1)
+				{
+					currentNum = -1;
+					System.out.println("Back");
+				}
+				else
+				{
+					currentNum = 1;
+					System.out.println("Front");
+				}
+
 			});
-		}
-	
-		public Command frontScore() 
-		{
-			return this.run(() -> {
-				currentNum = 1;
-			});
-		}
+		}	
 
 
 	    //command for Level 3
     	public Command level3Angle()
     	{
-        	return run(() -> {
+        	return runOnce(() -> {
 
 				if (currentNum == 1)
 				{
 					reachAngle(ArmConstants.level3Angle);
+					System.out.println("L3 Front");
 				} 
 				else
 				{
 					reachAngle(ArmConstants.level3BackAngle);
+					System.out.println("L3 Back");
 				}
 
 			});
@@ -125,15 +133,17 @@ public class ArmSubsystem extends SubsystemBase {
 		//command for Level 2
 		public Command level2Angle()
 		{
-			return run(() -> {
+			return runOnce(() -> {
 
 				if (currentNum == 1)
 				{
 					reachAngle(ArmConstants.level2Angle);
+					System.out.println("L2 Front");
 				} 
 				else
 				{
 					reachAngle(ArmConstants.level2BackAngle);
+					System.out.println("L2 Back");
 				}
 				
 			});
@@ -143,15 +153,17 @@ public class ArmSubsystem extends SubsystemBase {
 		//command for Level 1
 		public Command level1Angle()
 		{
-			return run(() -> {
+			return runOnce(() -> {
 
 				if (currentNum == 1)
 				{
 					reachAngle(ArmConstants.level1Angle);
+					System.out.println("L1 Front");
 				} 
 				else
 				{
 					reachAngle(ArmConstants.level1BackAngle);
+					System.out.println("L1 Back");
 				}
 				
 			});
@@ -161,19 +173,32 @@ public class ArmSubsystem extends SubsystemBase {
 		//ground position
     	public Command groundAngle()
     	{
-        	return runOnce(() -> reachAngle(ArmConstants.groundAngle));
+        	return runOnce(() -> 
+			{
+				reachAngle(ArmConstants.groundAngle);
+				System.out.println("Ground");
+			});
+			
     	}
 
 		//Home position
     	public Command homeAngle()
     	{
-        	return runOnce(() -> reachAngle(ArmConstants.homeAngle));
+        	return runOnce(() -> 
+			{
+				reachAngle(ArmConstants.homeAngle);
+				System.out.println("Home");
+			});
     	}
 
 		//ground position
 		public Command processorAngle()
 		{
-			return run(() -> reachAngle(ArmConstants.processorAngle));
+			return runOnce(() -> 
+			{
+				reachAngle(ArmConstants.processorAngle);
+				System.out.println("Processor");
+			});
 		}
 
     	public void periodic()
@@ -196,4 +221,20 @@ public class ArmSubsystem extends SubsystemBase {
     	{
         	return runOnce(() -> armMotor1.set(0));
     	}
+
+		public Command backScore() 
+		{
+			return this.runOnce(() -> {
+				currentNum = -1;
+				System.out.println("Back");
+			});
+		}
+
+		public Command frontScore() 
+		{
+			return this.runOnce(() -> {
+				currentNum = 1;
+				System.out.println("Front");
+			});
+		}
 }

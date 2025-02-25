@@ -183,10 +183,9 @@ public class RobotContainer
       driverXbox.povUp().onTrue(arm.level3Angle());
 
       //switch between front and back scoring 
-      operatorXbox.start().onTrue(arm.frontScore());
+      driverXbox.start().onTrue(arm.switchScore());
 
-      operatorXbox.button(7).onTrue(arm.backScore());
-
+      
      /* 
       //Coral Intake - operator
       operatorXbox.rightTrigger().whileTrue(hand.intakeCoral());

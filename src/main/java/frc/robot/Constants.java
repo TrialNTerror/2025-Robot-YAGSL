@@ -127,17 +127,17 @@ public final class Constants
 
     //Positions
     public static final double level3Angle = 210;
-    public static final double level3BackAngle = 30;
+    public static final double level3BackAngle = 80;
 
-    public static final double level2Angle = 350;
-    public static final double level2BackAngle = 20;
+    public static final double level2Angle = 330;
+    public static final double level2BackAngle = 70;
 
     public static final double level1Angle = 200;
     public static final double level1BackAngle = 60;
 
     public static final double groundAngle = 100;
     public static final double homeAngle = 50;
-    public static final double processorAngle = 10;
+    public static final double processorAngle = 150;
 
     //Inverting Motor
     public static final boolean motorInvert = false;
@@ -146,8 +146,8 @@ public final class Constants
     public static final boolean inverted = true;
     
     // Min and Max Arm Angles
-    public static final double maxAngle = 360;
-    public static final double minAngle = 0;
+    public static final double maxAngle = 340;
+    public static final double minAngle = 20;
 
     //Motor Limits
     public static final int currentLimit = 40;
