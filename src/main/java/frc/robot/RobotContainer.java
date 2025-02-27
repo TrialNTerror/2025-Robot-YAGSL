@@ -161,6 +161,7 @@ public class RobotContainer
       //Ground position command - operator
       //driverXbox.y().whileTrue(arm.armUp());
 
+
       //Letter commands
         //Home angle
       driverXbox.b().onTrue(arm.homeAngle());
@@ -171,19 +172,20 @@ public class RobotContainer
         //Home angle
       driverXbox.y().onTrue(arm.processorAngle());
 
+
       //DPad commands
         //Level 1 position command 
-      driverXbox.povDown().onTrue(arm.level1Angle());
+     // driverXbox.povDown().onTrue(arm.level1Angle());
 
         //Level 2 position command
-      driverXbox.povRight().onTrue(arm.level2Angle());
-      driverXbox.povLeft().onTrue(arm.level2Angle());
+    //  driverXbox.povRight().onTrue(arm.level2Angle());
+    //  driverXbox.povLeft().onTrue(arm.level2Angle());
 
         //Level 3 position command
-      driverXbox.povUp().onTrue(arm.level3Angle());
+    //  driverXbox.povUp().onTrue(arm.level3Angle());
 
       //switch between front and back scoring 
-      driverXbox.start().onTrue(arm.switchScore());
+    //  driverXbox.start().onTrue(arm.switchScore());
 
       
      /* 

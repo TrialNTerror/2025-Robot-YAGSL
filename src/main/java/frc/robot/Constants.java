@@ -135,8 +135,8 @@ public final class Constants
     public static final double level1Angle = 200;
     public static final double level1BackAngle = 60;
 
-    public static final double groundAngle = 100;
-    public static final double homeAngle = 50;
+    public static final double groundAngle = 230;
+    public static final double homeAngle = 190;
     public static final double processorAngle = 150;
 
     //Inverting Motor
@@ -156,14 +156,18 @@ public final class Constants
     public static final double allowedError = 20;
 
     //Motor Config
-    public static final double P = 0.1;
+    public static final double P = 0.012;
     public static final double I = 0;
-    public static final double D = 0.0;
+    public static final double D = 0.1;
     public static final double F = 0;
 
     //Motor Conversion
     public static final double positionConversionFactor = 360;
     public static final double velocityConversionFactor = 360;
+
+    //LIMITS
+    public static final double forwardLimit = 295;
+    public static final double reverseLimit = 135;
   }
 
 

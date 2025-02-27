@@ -1,7 +1,5 @@
  package frc.robot.subsystems;
 
-import java.util.Currency;
-
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -11,7 +9,6 @@ import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -70,9 +67,12 @@ public class ArmSubsystem extends SubsystemBase {
 
 			armMotorConfig.absoluteEncoder
 				.inverted(ArmConstants.inverted)
-				.zeroOffset(45)
 				.positionConversionFactor(ArmConstants.positionConversionFactor)
 				.velocityConversionFactor(ArmConstants.velocityConversionFactor);
+
+			armMotorConfig.softLimit
+				.forwardSoftLimit(ArmConstants.forwardLimit)
+				.reverseSoftLimit(ArmConstants.reverseLimit);
 
 
 
@@ -209,12 +209,12 @@ public class ArmSubsystem extends SubsystemBase {
 	    //Free move WITH LIMITS (Probably wont use)
     	public Command armUp()
     	{
-        	return runOnce(() -> armMotor1.set(1));
+        	return runOnce(() -> armMotor1.set(0.1));
     	}
 
 		public Command armDown()
     	{
-        	return runOnce(() -> armMotor1.set(-1));
+        	return runOnce(() -> armMotor1.set(-0.1));
     	}
 
 		public Command armStop()
