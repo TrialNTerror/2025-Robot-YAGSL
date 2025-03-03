@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 //import frc.robot.subsystems.ElevatorSubsystem;
-//import frc.robot.subsystems.HandSubsystem;
+import frc.robot.subsystems.HandSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -52,7 +52,7 @@ public class RobotContainer
 
 
   //private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
-  //private final HandSubsystem hand = new HandSubsystem();
+  private final HandSubsystem hand = new HandSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
 
   //set up auto chooser                                                                              
@@ -164,13 +164,13 @@ public class RobotContainer
 
       //Letter commands
         //Home angle
-      driverXbox.b().onTrue(arm.homeAngle());
+   //   driverXbox.b().onTrue(arm.homeAngle());
 
         //ground angle
-      driverXbox.x().onTrue(arm.groundAngle());
+   //   driverXbox.x().onTrue(arm.groundAngle());
 
         //Home angle
-      driverXbox.y().onTrue(arm.processorAngle());
+   //   driverXbox.y().onTrue(arm.processorAngle());
 
 
       //DPad commands
@@ -188,20 +188,20 @@ public class RobotContainer
     //  driverXbox.start().onTrue(arm.switchScore());
 
       
-     /* 
+     
       //Coral Intake - operator
-      operatorXbox.rightTrigger().whileTrue(hand.intakeCoral());
+      driverXbox.rightTrigger().whileTrue(hand.intakeCoral()).whileFalse(hand.motorsOff());
 
       //Coral Output - operator
-      operatorXbox.rightBumper().whileTrue(hand.OutputCoral());
+      driverXbox.rightBumper().whileTrue(hand.OutputCoral()).whileFalse(hand.motorsOff());
 
       //Algae Intake - operator
-      operatorXbox.leftTrigger().whileTrue(hand.intakeAlgae());
+      driverXbox.leftTrigger().whileTrue(hand.intakeAlgae()).whileFalse(hand.motorsOff());
 
       //Algae Output - operator
-      operatorXbox.leftBumper().whileTrue(hand.outputAlgae());
+      driverXbox.leftBumper().whileTrue(hand.outputAlgae()).whileFalse(hand.motorsOff());
 
-
+      /* 
       //Home position command - operator
           ParallelCommandGroup homePosition = 
             new ParallelCommandGroup(elevator.homeHeight(), arm.homeAngle());

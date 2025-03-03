@@ -1,5 +1,4 @@
-/* 
-package frc.robot.subsystems;
+ package frc.robot.subsystems;
 
 //setting up sparkmax imports 
 import com.revrobotics.spark.SparkMax;
@@ -18,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HandConstants;
 
 public class HandSubsystem extends SubsystemBase {
-    /** Creates a new ExampleSubsystem. 
+    // Creates a new ExampleSubsystem. 
     //private static final MotorType kMotorType = MotorType.kBrushless;
     //private int flip = -1;
   
@@ -29,22 +28,22 @@ public class HandSubsystem extends SubsystemBase {
     // m_*NAME* is the name the variable is set as
 
     private SparkMax topMotor;
-    private SparkMax midMotor; 
-    private SparkMax lowMotor; 
+    private SparkMax bottomMotor; 
+    private SparkMax holdMotor; 
 
     private SparkBaseConfig topMotorConfig;
-    private SparkBaseConfig midMotorConfig;
-    private SparkBaseConfig lowMotorConfig;
+    private SparkBaseConfig bottomMotorConfig;
+    private SparkBaseConfig holdMotorConfig;
 
 
 public HandSubsystem() {
     
         //MOTOR SETUP
-    topMotor = new SparkMax(HandConstants.handMotor1CanID, MotorType.kBrushless);
+    topMotor = new SparkMax(HandConstants.topHandCanID, MotorType.kBrushless);
 
-    midMotor = new SparkMax(HandConstants.handMotor2CanID, MotorType.kBrushless); 
+    bottomMotor = new SparkMax(HandConstants.bottomHandCanID, MotorType.kBrushless); 
 
-    lowMotor = new SparkMax(HandConstants.handMotor3CanID, MotorType.kBrushless); 
+    holdMotor = new SparkMax(HandConstants.holdHandCanID, MotorType.kBrushless); 
 
 
 
@@ -65,7 +64,7 @@ public HandSubsystem() {
 
 
         // configuration for motor 2
-    midMotorConfig =
+    bottomMotorConfig =
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
@@ -81,7 +80,7 @@ public HandSubsystem() {
 
 
         // configuration for motor 3
-    lowMotorConfig =
+    holdMotorConfig =
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
@@ -98,43 +97,53 @@ public HandSubsystem() {
 
     //set information for each motor
     topMotor.configure(topMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    midMotor.configure(midMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    lowMotor.configure(lowMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    bottomMotor.configure(bottomMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    holdMotor.configure(holdMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
         //COMMANDS
 
     public Command intakeCoral()   //run motor at a constant speed
     {
-        return this.run(() -> {
-            midMotor.set(HandConstants.intakeSpeed);
-            lowMotor.set(-HandConstants.intakeSpeed);
+        return this.runOnce(() -> {
+            bottomMotor.set(-HandConstants.intakeSpeed);
+            holdMotor.set(HandConstants.intakeSpeed);
         });
     }
 
     public Command OutputCoral()
     {
         return this.runOnce(() -> {
-            midMotor.set(-HandConstants.intakeSpeed);
-            lowMotor.set(HandConstants.intakeSpeed);
+            bottomMotor.set(HandConstants.intakeSpeed);
+            holdMotor.set(-HandConstants.intakeSpeed);
         });
     }
 
     public Command intakeAlgae()
     {
-        return this.run(() -> {
+        return this.runOnce(() -> {
             topMotor.set(HandConstants.intakeSpeed);
-            midMotor.set(-HandConstants.intakeSpeed);
+            bottomMotor.set(HandConstants.intakeSpeed);
         });
     }
 
     public Command outputAlgae()
     {
-        return this.run(() -> {
+        return this.runOnce(() -> {
             topMotor.set(-HandConstants.intakeSpeed);
-            midMotor.set(HandConstants.intakeSpeed);
+            bottomMotor.set(-HandConstants.intakeSpeed);
         });
     }
 
+    public Command motorsOff()
+    {
+        return this.runOnce(() -> {
+            topMotor.set(0);
+            bottomMotor.set(0);
+            holdMotor.set(0);
+        });
+    }
+
+
 }
-    */
+    

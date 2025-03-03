@@ -59,11 +59,11 @@ public class ArmSubsystem extends SubsystemBase {
         	armMotorConfig.closedLoop
 				.outputRange(ArmConstants.minOutputArm, ArmConstants.maxOutputArm)
 				.pid(ArmConstants.P, ArmConstants.I, ArmConstants.D)
-				.feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-				.maxMotion
-				.maxAcceleration(ArmConstants.maxAcceleration)
-				.maxVelocity(ArmConstants.maxVelocity)
-				.allowedClosedLoopError(ArmConstants.allowedError);
+				.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
+				//.maxMotion
+				//.maxAcceleration(ArmConstants.maxAcceleration)
+				//.maxVelocity(ArmConstants.maxVelocity)
+				//.allowedClosedLoopError(ArmConstants.allowedError);
 
 			armMotorConfig.absoluteEncoder
 				.inverted(ArmConstants.inverted)

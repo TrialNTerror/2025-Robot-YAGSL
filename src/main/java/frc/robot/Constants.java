@@ -156,9 +156,9 @@ public final class Constants
     public static final double allowedError = 20;
 
     //Motor Config
-    public static final double P = 0.012;
-    public static final double I = 0;
-    public static final double D = 0.1;
+    public static final double P = 0.02; //P .012
+    public static final double I = 0; // I 0
+    public static final double D = 0.0; // D 0.1
     public static final double F = 0;
 
     //Motor Conversion
@@ -166,7 +166,7 @@ public final class Constants
     public static final double velocityConversionFactor = 360;
 
     //LIMITS
-    public static final double forwardLimit = 295;
+    public static final double forwardLimit = 315;  //295
     public static final double reverseLimit = 135;
   }
 
@@ -175,12 +175,12 @@ public final class Constants
   public static class HandConstants
   {
     //CAN IDs
-    public static final int handMotor1CanID = 14;
-    public static final int handMotor2CanID = 15;
-    public static final int handMotor3CanID = 16;
+    public static final int topHandCanID = 14;
+    public static final int bottomHandCanID = 15;
+    public static final int holdHandCanID = 16;
 
     //Intake Speed
-    public static final double intakeSpeed = 0.25;
+    public static final double intakeSpeed = 0.1;
 
     //Motor inversion
     public static final boolean invertAllMotors = true;    //All motors should be set to inverted but if this is incorrect change this.
