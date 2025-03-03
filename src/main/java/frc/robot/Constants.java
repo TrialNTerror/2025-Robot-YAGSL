@@ -135,9 +135,9 @@ public final class Constants
     public static final double level1Angle = 200;
     public static final double level1BackAngle = 60;
 
-    public static final double groundAngle = 230;
+    public static final double groundAngle = 220;
     public static final double homeAngle = 190;
-    public static final double processorAngle = 150;
+    public static final double processorAngle = 160;
 
     //Inverting Motor
     public static final boolean motorInvert = false;
@@ -181,6 +181,9 @@ public final class Constants
 
     //Intake Speed
     public static final double intakeSpeed = 0.1;
+
+    //Smart Current Limit
+    public static final int currentLimit = 20;
 
     //Motor inversion
     public static final boolean invertAllMotors = true;    //All motors should be set to inverted but if this is incorrect change this.

@@ -14,6 +14,7 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.HandConstants;
 
 public class HandSubsystem extends SubsystemBase {
@@ -52,6 +53,7 @@ public HandSubsystem() {
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
+                .smartCurrentLimit(HandConstants.currentLimit)
                 .apply(
                     new ClosedLoopConfig()  //sets information for the controller
                     .pid
@@ -68,6 +70,7 @@ public HandSubsystem() {
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
+                .smartCurrentLimit(HandConstants.currentLimit)
                 .apply(
                     new ClosedLoopConfig()  //sets information for the controller
                     .pid
@@ -84,6 +87,7 @@ public HandSubsystem() {
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
+                .smartCurrentLimit(HandConstants.currentLimit)
                 .apply(
                     new ClosedLoopConfig()  //sets information for the controller
                     .pid

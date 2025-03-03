@@ -164,13 +164,13 @@ public class RobotContainer
 
       //Letter commands
         //Home angle
-   //   driverXbox.b().onTrue(arm.homeAngle());
+      driverXbox.b().onTrue(arm.homeAngle());
 
         //ground angle
-   //   driverXbox.x().onTrue(arm.groundAngle());
+      driverXbox.x().onTrue(arm.groundAngle());
 
         //Home angle
-   //   driverXbox.y().onTrue(arm.processorAngle());
+      driverXbox.y().onTrue(arm.processorAngle());
 
 
       //DPad commands
