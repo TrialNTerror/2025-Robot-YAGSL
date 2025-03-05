@@ -82,23 +82,22 @@ public ElevatorSubsystem() {
             .idleMode(IdleMode.kBrake)
             .smartCurrentLimit(ElevatorConstants.currentLimit);
         
-        leadMotorConfig
-            .closedLoop
+        leadMotorConfig.closedLoop
             //.outputRange(ElevatorConstants.minOutputArm, ElevatorConstants.maxOutputArm)
             .pid(ElevatorConstants.P, ElevatorConstants.I, ElevatorConstants.D)
             //.pidf(ElevatorConstants.P, ElevatorConstants.I, ElevatorConstants.D, ElevatorConstants.F)
-            .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-            .maxMotion
-            .maxAcceleration(ElevatorConstants.maxAcceleration)
-            .maxVelocity(ElevatorConstants.maxVelocity)
-            .allowedClosedLoopError(ElevatorConstants.allowedErr);
+            .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+            //.maxMotion
+            //.maxAcceleration(ElevatorConstants.maxAcceleration)
+            //.maxVelocity(ElevatorConstants.maxVelocity)
+            //.allowedClosedLoopError(ElevatorConstants.allowedErr);
 
-         /* 
-         leadeMotor.encoder
-				.inverted(ElevatorConstants.inverted)
-				.positionConversionFactor(ElevatorConstants.positionConversionFactor)
-				.velocityConversionFactor(ElevatorConstants.velocityConversionFactor);
-         */
+          
+         leadMotorConfig.encoder
+            .inverted(ElevatorConstants.inverted)
+            .positionConversionFactor(ElevatorConstants.positionConversionFactor)
+            .velocityConversionFactor(ElevatorConstants.velocityConversionFactor);
+         
 
 
                    //ELEVATOR MOTOR 2 CONFIGUATION  (follower)
@@ -116,9 +115,9 @@ public ElevatorSubsystem() {
     private void reachHeight(double goal)
     {
         pidController1.setReference((goal),
-                                    ControlType.kMAXMotionPositionControl,
-                                    ClosedLoopSlot.kSlot0, 
-                                    feedforward.calculate(elevEncoder1.getVelocity()));
+                                    ControlType.kPosition,
+                                    ClosedLoopSlot.kSlot0); 
+                                    //feedforward.calculate(elevEncoder1.getVelocity()));
     }
 
 
@@ -127,7 +126,10 @@ public ElevatorSubsystem() {
     //command for L3
     public Command level3Height()
     {
-        return run(() -> reachHeight(ElevatorConstants.level3Height));
+        return runOnce(() -> {
+             reachHeight(ElevatorConstants.level3Height);
+             System.out.println("elevator level 3");
+            });
     }
 
     //command for L2
@@ -139,7 +141,10 @@ public ElevatorSubsystem() {
     //command fpr L1
     public Command level1Height()
     {
-        return run(() -> reachHeight(ElevatorConstants.level1Height));
+        return runOnce(() -> {
+            reachHeight(ElevatorConstants.level1Height);
+            System.out.println("elevator level 1");
+           });
     }
 
 
@@ -159,6 +164,11 @@ public ElevatorSubsystem() {
     public Command homeHeight()
     {
         return run(() -> reachHeight(ElevatorConstants.homeHeight));
+    }
+
+    public void periodic()
+    {
+        SmartDashboard.putNumber("Encoder pos elevator ", elevEncoder1.getPosition());
     }
 
 

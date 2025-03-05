@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-//import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.HandSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import java.io.File;
@@ -51,7 +51,7 @@ public class RobotContainer
                                                                                 "swerve/neo"));
 
 
-  //private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
+ // private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
   private final HandSubsystem hand = new HandSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
 
@@ -155,14 +155,7 @@ public class RobotContainer
 
      // driverXbox.leftTrigger().onTrue(elevator.unlockElevator());
 
-      //Home position command - operator
-      //driverXbox.a().whileTrue(arm.armDown());
-
-      //Ground position command - operator
-      //driverXbox.y().whileTrue(arm.armUp());
-
-
-      //Letter commands
+      //Letter commands (TEST)
         //Home angle
       driverXbox.b().onTrue(arm.homeAngle());
 
@@ -173,20 +166,31 @@ public class RobotContainer
       driverXbox.y().onTrue(arm.processorAngle());
 
 
+      //elevator commands
+   //   driverXbox.povDown().onTrue(elevator.level1Height());
+
+   //   driverXbox.povUp().onTrue(elevator.level3Height());
+
+       //Level 2 position command  - operator
+    //     ParallelCommandGroup level2Position = 
+    //       new ParallelCommandGroup(elevator.level2Height(), arm.level2Angle());
+    //   driverXbox.povRight().onTrue(level2Position);
+
+/* 
       //DPad commands
         //Level 1 position command 
-     // driverXbox.povDown().onTrue(arm.level1Angle());
+      driverXbox.povDown().onTrue(arm.level1Angle());
 
         //Level 2 position command
-    //  driverXbox.povRight().onTrue(arm.level2Angle());
-    //  driverXbox.povLeft().onTrue(arm.level2Angle());
+      driverXbox.povRight().onTrue(arm.level2Angle());
+      driverXbox.povLeft().onTrue(arm.level2Angle());
 
         //Level 3 position command
-    //  driverXbox.povUp().onTrue(arm.level3Angle());
+      driverXbox.povUp().onTrue(arm.level3Angle());
 
       //switch between front and back scoring 
-    //  driverXbox.start().onTrue(arm.switchScore());
-
+      driverXbox.start().onTrue(arm.switchScore());
+*/
       
      
       //Coral Intake - operator

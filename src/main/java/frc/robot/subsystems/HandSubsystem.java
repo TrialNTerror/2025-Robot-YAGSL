@@ -36,6 +36,8 @@ public class HandSubsystem extends SubsystemBase {
     private SparkBaseConfig bottomMotorConfig;
     private SparkBaseConfig holdMotorConfig;
 
+    private boolean hold;
+
 
 public HandSubsystem() {
     
@@ -46,6 +48,7 @@ public HandSubsystem() {
 
     holdMotor = new SparkMax(HandConstants.holdHandCanID, MotorType.kBrushless); 
 
+    hold = false;
 
 
         // configuration for motor 1
@@ -53,33 +56,15 @@ public HandSubsystem() {
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
-                .smartCurrentLimit(HandConstants.currentLimit)
-                .apply(
-                    new ClosedLoopConfig()  //sets information for the controller
-                    .pid
-                    (                  
-                        1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                        0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                        0.0     //    //Slows down the robot before it overshoots the target point
-                    )
-                );
-
+                .smartCurrentLimit(HandConstants.currentLimit);
+                
 
         // configuration for motor 2
     bottomMotorConfig =
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
-                .smartCurrentLimit(HandConstants.currentLimit)
-                .apply(
-                    new ClosedLoopConfig()  //sets information for the controller
-                    .pid
-                    (                  
-                        1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                        0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                        0.0     //    //Slows down the robot before it overshoots the target point
-                    )
-                );
+                .smartCurrentLimit(HandConstants.currentLimit);
 
 
         // configuration for motor 3
@@ -87,17 +72,7 @@ public HandSubsystem() {
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
-                .smartCurrentLimit(HandConstants.currentLimit)
-                .apply(
-                    new ClosedLoopConfig()  //sets information for the controller
-                    .pid
-                    (                  
-                        1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                        0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                        0.0     //    //Slows down the robot before it overshoots the target point
-                    )
-                );
-
+                .smartCurrentLimit(HandConstants.currentLimit);
 
     //set information for each motor
     topMotor.configure(topMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -110,16 +85,16 @@ public HandSubsystem() {
     public Command intakeCoral()   //run motor at a constant speed
     {
         return this.runOnce(() -> {
-            bottomMotor.set(-HandConstants.intakeSpeed);
-            holdMotor.set(HandConstants.intakeSpeed);
+            bottomMotor.set(-0.75);
+            holdMotor.set(0.5);
         });
     }
 
     public Command OutputCoral()
     {
         return this.runOnce(() -> {
-            bottomMotor.set(HandConstants.intakeSpeed);
-            holdMotor.set(-HandConstants.intakeSpeed);
+            bottomMotor.set(0.5);
+            holdMotor.set(-0.5);
         });
     }
 
@@ -128,6 +103,9 @@ public HandSubsystem() {
         return this.runOnce(() -> {
             topMotor.set(HandConstants.intakeSpeed);
             bottomMotor.set(HandConstants.intakeSpeed);
+            holdMotor.set(0.1);
+            
+            hold = true;
         });
     }
 
@@ -136,15 +114,28 @@ public HandSubsystem() {
         return this.runOnce(() -> {
             topMotor.set(-HandConstants.intakeSpeed);
             bottomMotor.set(-HandConstants.intakeSpeed);
+            holdMotor.set(0.1);
+
+            hold = false;
         });
     }
 
     public Command motorsOff()
     {
         return this.runOnce(() -> {
-            topMotor.set(0);
-            bottomMotor.set(0);
-            holdMotor.set(0);
+            
+            if(hold == true)   //if we ever use ultrasonic sensor this can be used?
+            {
+                topMotor.set(HandConstants.intakeSpeed);
+                bottomMotor.set(HandConstants.intakeSpeed);
+                holdMotor.set(0);
+            } else
+            if(hold == false)
+            {
+                topMotor.set(0);
+                bottomMotor.set(0);
+                holdMotor.set(0);
+            }
         });
     }
 

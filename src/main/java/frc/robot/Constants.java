@@ -70,13 +70,13 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Height = 0.75;
-    public static final double level2Height = 0.75;
-    public static final double level1Height = 0.75;
+    public static final double level3Height = 120;   //currently testing
+    public static final double level2Height = 30;
+    public static final double level1Height = 60;   //currently testing
 
-    public static final double groundHeight = 0.75;
-    public static final double homeHeight = 0.1;
-    public static final double processorHeight = 0;
+    public static final double groundHeight = 200;
+    public static final double homeHeight = 170;
+    public static final double processorHeight = 80;
 
     // Lock / Unlock Servo
     public static final int servoFollowLock = 55;
@@ -95,12 +95,12 @@ public final class Constants
     public static final int currentLimit = 40;
     public static final double maxAcceleration = 36000;
     public static final double maxVelocity = 360;
-    public static final double allowedErr = 0.5;
+    public static final double allowedErr = 10;
     
     //Motor Config
-    public static final double P = 20;
+    public static final double P = 1;
     public static final double I = 0;
-    public static final double D = 0.1;
+    public static final double D = 0;
     public static final double F = 0;
 
     //Motor Conversion
@@ -129,8 +129,8 @@ public final class Constants
     public static final double level3Angle = 210;
     public static final double level3BackAngle = 80;
 
-    public static final double level2Angle = 330;
-    public static final double level2BackAngle = 70;
+    public static final double level2Angle = 180;
+    public static final double level2BackAngle = 180;
 
     public static final double level1Angle = 200;
     public static final double level1BackAngle = 60;
@@ -180,7 +180,7 @@ public final class Constants
     public static final int holdHandCanID = 16;
 
     //Intake Speed
-    public static final double intakeSpeed = 0.1;
+    public static final double intakeSpeed = 0.5;
 
     //Smart Current Limit
     public static final int currentLimit = 20;
