@@ -51,7 +51,7 @@ public class RobotContainer
                                                                                 "swerve/neo"));
 
 
- // private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
+  private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
   private final HandSubsystem hand = new HandSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
 
@@ -167,14 +167,14 @@ public class RobotContainer
 
 
       //elevator commands
-   //   driverXbox.povDown().onTrue(elevator.level1Height());
+      driverXbox.povDown().onTrue(elevator.level1Height());
 
-   //   driverXbox.povUp().onTrue(elevator.level3Height());
+      driverXbox.povUp().onTrue(elevator.level3Height());
 
        //Level 2 position command  - operator
-    //     ParallelCommandGroup level2Position = 
-    //       new ParallelCommandGroup(elevator.level2Height(), arm.level2Angle());
-    //   driverXbox.povRight().onTrue(level2Position);
+         ParallelCommandGroup level2Position = 
+           new ParallelCommandGroup(elevator.level2Height(), arm.level2Angle());
+       driverXbox.povRight().onTrue(level2Position);
 
 /* 
       //DPad commands

@@ -70,7 +70,7 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Height = 120;   //currently testing
+    public static final double level3Height = 9000;   //currently testing
     public static final double level2Height = 30;
     public static final double level1Height = 60;   //currently testing
 
@@ -86,13 +86,12 @@ public final class Constants
 
     //Motor Inversion
     public static final boolean leadMotorInverted = false;
-    public static final boolean followMotorInverted = false;
 
     //Encoder Inversion
-    public static final boolean inverted = true;
+    public static final boolean inverted = false;
 
     //Motor Limits
-    public static final int currentLimit = 40;
+    public static final int currentLimit = 20;
     public static final double maxAcceleration = 36000;
     public static final double maxVelocity = 360;
     public static final double allowedErr = 10;
