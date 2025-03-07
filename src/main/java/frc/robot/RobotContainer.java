@@ -7,6 +7,7 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -54,6 +55,8 @@ public class RobotContainer
   private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
   private final HandSubsystem hand = new HandSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
+
+  PathPlannerPath path = PathPlannerPath.fromPathFile("2ndScore");
 
   //set up auto chooser                                                                              
   private final SendableChooser<Command> autoChooser;
