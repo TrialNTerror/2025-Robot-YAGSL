@@ -88,6 +88,18 @@ public class ArmSubsystem extends SubsystemBase {
 										//feedForward.calculate(armEncoder1.getPosition(), armEncoder1.getVelocity()));
 		}
 
+		private boolean endWhenArm(double cmd)
+		{
+			if (((cmd + ArmConstants.encoderAllowError) > cmd) && ((cmd - ArmConstants.encoderAllowError) < cmd))
+			{
+				return true;
+			}
+		    else
+			{
+				return false;
+			}
+		}
+
 
         //Switch between front and back scoring since we cant impliment vision yet
 
@@ -105,7 +117,6 @@ public class ArmSubsystem extends SubsystemBase {
 					currentNum = 1;
 					System.out.println("Front");
 				}
-
 			});
 		}	
 
@@ -119,11 +130,13 @@ public class ArmSubsystem extends SubsystemBase {
 				{
 					reachAngle(ArmConstants.level3Angle);
 					System.out.println("L3 Front");
+					level3Angle().end(endWhenArm(ArmConstants.level3Angle));
 				} 
 				else
 				{
 					reachAngle(ArmConstants.level3BackAngle);
 					System.out.println("L3 Back");
+					level3Angle().end(endWhenArm(ArmConstants.level3BackAngle));
 				}
 
 			});
@@ -139,11 +152,13 @@ public class ArmSubsystem extends SubsystemBase {
 				{
 					reachAngle(ArmConstants.level2Angle);
 					System.out.println("L2 Front");
+					level2Angle().end(endWhenArm(ArmConstants.level2Angle));
 				} 
 				else
 				{
 					reachAngle(ArmConstants.level2BackAngle);
 					System.out.println("L2 Back");
+					level2Angle().end(endWhenArm(ArmConstants.level2BackAngle));
 				}
 				
 			});
@@ -159,11 +174,13 @@ public class ArmSubsystem extends SubsystemBase {
 				{
 					reachAngle(ArmConstants.level1Angle);
 					System.out.println("L1 Front");
+					level1Angle().end(endWhenArm(ArmConstants.level1Angle));
 				} 
 				else
 				{
 					reachAngle(ArmConstants.level1BackAngle);
 					System.out.println("L1 Back");
+					level1Angle().end(endWhenArm(ArmConstants.level1BackAngle));
 				}
 				
 			});
@@ -177,6 +194,7 @@ public class ArmSubsystem extends SubsystemBase {
 			{
 				reachAngle(ArmConstants.groundAngle);
 				System.out.println("Ground");
+				groundAngle().end(endWhenArm(ArmConstants.groundAngle));
 			});
 			
     	}
@@ -188,6 +206,7 @@ public class ArmSubsystem extends SubsystemBase {
 			{
 				reachAngle(ArmConstants.homeAngle);
 				System.out.println("Home");
+				homeAngle().end(endWhenArm(ArmConstants.homeAngle));
 			});
     	}
 
@@ -198,6 +217,7 @@ public class ArmSubsystem extends SubsystemBase {
 			{
 				reachAngle(ArmConstants.processorAngle);
 				System.out.println("Processor");
+				processorAngle().end(endWhenArm(ArmConstants.processorAngle));
 			});
 		}
 

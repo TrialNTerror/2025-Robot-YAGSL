@@ -117,6 +117,18 @@ public ElevatorSubsystem() {
                                     //feedforward.calculate(elevEncoder1.getVelocity()));
     }
 
+    private boolean endWhenElevator(double cmd)
+    {
+        if (((cmd + ElevatorConstants.encoderAllowError) > cmd) && ((cmd - ElevatorConstants.encoderAllowError) < cmd))
+        {
+            return true;
+        } 
+        else
+        {
+            return false;
+        }
+    }
+
 
         //COMMANDS FOR ELEVATOR
 
@@ -126,6 +138,7 @@ public ElevatorSubsystem() {
         return runOnce(() -> {
              reachHeight(ElevatorConstants.level3Height);
              System.out.println("elevator level 3");
+             level3Height().end(endWhenElevator(ElevatorConstants.level3Height));
             });
     }
 
@@ -135,6 +148,7 @@ public ElevatorSubsystem() {
         return runOnce(() -> {
             reachHeight(ElevatorConstants.level2Height);
             System.out.println("elevator level 2");
+            level2Height().end(endWhenElevator(ElevatorConstants.level2Height));
         });
     }
 
@@ -144,6 +158,7 @@ public ElevatorSubsystem() {
         return runOnce(() -> {
             reachHeight(ElevatorConstants.level1Height);
             System.out.println("elevator level 1");
+            level1Height().end(endWhenElevator(ElevatorConstants.level1Height));
            });
     }
 
@@ -155,6 +170,7 @@ public ElevatorSubsystem() {
         return runOnce(() -> {
             reachHeight(ElevatorConstants.processorHeight);
             System.out.println("Processor Height");
+            processorHeight().end(endWhenElevator(ElevatorConstants.processorHeight));
            });
     }
 
@@ -164,6 +180,7 @@ public ElevatorSubsystem() {
         return runOnce(() -> {
             reachHeight(ElevatorConstants.groundHeight);
             System.out.println("Ground Height");
+            groundHeight().end(endWhenElevator(ElevatorConstants.groundHeight));
            });
     }
 
@@ -172,6 +189,7 @@ public ElevatorSubsystem() {
         return runOnce(() -> {
             reachHeight(ElevatorConstants.homeHeight);
             System.out.println("Home Height");
+            homeHeight().end(endWhenElevator(ElevatorConstants.homeHeight));
            });
     }
 
@@ -209,21 +227,28 @@ public ElevatorSubsystem() {
 
     //Free move WITH LIMITS (WILL NOT BE USED IN COMPETITION, ONLY FOR TESTING)
    
-   /* 
+   
     public Command elevatorUp()
     {
         return run(() -> {
-         elevatorLeadMotor.set(0.25);
+         elevatorLeadMotor.set(-0.5);
           });
     }
 
     public Command elevatorDown()
     {
         return run(() -> {
-         elevatorLeadMotor.set(-0.25);
+         elevatorLeadMotor.set(0.5);
           });
     }
-          */
+
+    public Command elevatorStop()
+    {
+        return run(() -> {
+         elevatorLeadMotor.set(0);
+          });
+    }
+          
 }
 
 

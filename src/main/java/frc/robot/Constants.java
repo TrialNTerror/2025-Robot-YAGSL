@@ -91,7 +91,7 @@ public final class Constants
     public static final boolean inverted = false;
 
     //Motor Limits
-    public static final int currentLimit = 20;
+    public static final int currentLimit = 40;
     public static final double maxAcceleration = 36000;
     public static final double maxVelocity = 360;
     public static final double allowedErr = 10;
@@ -105,6 +105,8 @@ public final class Constants
     //Motor Conversion
     public static final double positionConversionFactor = 360;
     public static final double velocityConversionFactor = 360;
+
+    public static final double encoderAllowError = 1000;
   }
 
 
@@ -167,6 +169,8 @@ public final class Constants
     //LIMITS
     public static final double forwardLimit = 315;  //295
     public static final double reverseLimit = 135;
+
+    public static final double encoderAllowError = 3;
   }
 
 

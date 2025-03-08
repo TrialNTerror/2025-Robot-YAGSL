@@ -25,11 +25,13 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.HandSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.PathsSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -170,17 +172,13 @@ public class RobotContainer
       driverXbox.y().onTrue(arm.processorAngle());
 
 
-      //elevator commands
-      driverXbox.povDown().onTrue(elevator.level1Height());
+      //elevator command     TESTING
+   //   driverXbox.povDown().onTrue(elevator.level1Height());
 
-      driverXbox.povUp().onTrue(elevator.level3Height());
+   //   driverXbox.povUp().onTrue(elevator.level3Height());
+       
 
-       //Level 2 position command  - operator
-         SequentialCommandGroup level2Position = 
-           new SequentialCommandGroup(elevator.level2Height(), arm.level2Angle());
-       driverXbox.povRight().onTrue(level2Position);
-
-/* 
+/*       TESTING
       //DPad commands
         //Level 1 position command 
       driverXbox.povDown().onTrue(arm.level1Angle());
@@ -195,7 +193,11 @@ public class RobotContainer
       //switch between front and back scoring 
       driverXbox.start().onTrue(arm.switchScore());
 */
-      
+
+//Coral Output - operator
+driverXbox.povDown().whileTrue(elevator.elevatorDown()).whileFalse(elevator.elevatorStop());
+
+driverXbox.povUp().whileTrue(elevator.elevatorUp()).whileFalse(elevator.elevatorStop());
      
       //Coral Intake - operator
       driverXbox.rightTrigger().whileTrue(hand.intakeCoral()).whileFalse(hand.motorsOff());
@@ -209,37 +211,37 @@ public class RobotContainer
       //Algae Output - operator
       driverXbox.leftBumper().whileTrue(hand.outputAlgae()).whileFalse(hand.motorsOff());
 
-      /* 
+        /* 
       //Home position command - operator
-          ParallelCommandGroup homePosition = 
-            new ParallelCommandGroup(elevator.homeHeight(), arm.homeAngle());
-      operatorXbox.a().onTrue(homePosition);
+         SequentialCommandGroup homePosition = 
+           new SequentialCommandGroup(arm.homeAngle().andThen(elevator.homeHeight()));
+       operatorXbox.povRight().onTrue(homePosition);
 
       //Ground position command - operator
-          ParallelCommandGroup groundPosition = 
-            new ParallelCommandGroup(elevator.groundHeight(), arm.groundAngle());
-      operatorXbox.x().onTrue(groundPosition);
+        SequentialCommandGroup groundPosition = 
+          new SequentialCommandGroup(arm.groundAngle().andThen(elevator.groundHeight()));
+       operatorXbox.povRight().onTrue(groundPosition);
             
       //processor position command  - operator
-         ParallelCommandGroup processorPosition = 
-            new ParallelCommandGroup(elevator.processorHeight(), arm.processorAngle());
-      operatorXbox.y().onTrue(processorPosition);
+        SequentialCommandGroup processorPosition = 
+          new SequentialCommandGroup(arm.processorAngle().andThen(elevator.processorHeight()));
+       operatorXbox.povRight().onTrue(processorPosition);
 
 
       //Level 1 position command - operator
-          ParallelCommandGroup level1Position = 
-            new ParallelCommandGroup(elevator.level1Height(), arm.level1Angle());
-      operatorXbox.povDown().onTrue(level1Position);
+        SequentialCommandGroup level1Position = 
+          new SequentialCommandGroup(arm.level1Angle().andThen(elevator.level1Height()));
+       operatorXbox.povRight().onTrue(level1Position);
 
       //Level 2 position command  - operator
-          ParallelCommandGroup level2Position = 
-            new ParallelCommandGroup(elevator.level2Height(), arm.level2Angle());
-      operatorXbox.povLeft().onTrue(level2Position);
+         SequentialCommandGroup level2Position = 
+          new SequentialCommandGroup(arm.level2Angle().andThen(elevator.level2Height()));
+       operatorXbox.povRight().onTrue(level2Position);
 
       //level 3 position command  - operator
-          ParallelCommandGroup level3Position = 
-            new ParallelCommandGroup(elevator.level3Height(), arm.level3Angle());
-      operatorXbox.povUp().onTrue(level3Position);
+        SequentialCommandGroup level3Position = 
+          new SequentialCommandGroup(arm.level3Angle().andThen(elevator.level3Height()));
+       operatorXbox.povRight().onTrue(level3Position);
       */
   }
 
