@@ -85,7 +85,7 @@ public HandSubsystem() {
     public Command intakeCoral()   //run motor at a constant speed
     {
         return this.runOnce(() -> {
-            bottomMotor.set(-0.75);
+            bottomMotor.set(-0.8);
             holdMotor.set(0.5);
         });
     }

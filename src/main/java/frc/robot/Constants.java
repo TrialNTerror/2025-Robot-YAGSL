@@ -74,9 +74,9 @@ public final class Constants
     public static final double level2Height = 30;
     public static final double level1Height = 60;   //currently testing
 
-    public static final double groundHeight = 200;
-    public static final double homeHeight = 170;
-    public static final double processorHeight = 80;
+    public static final double groundHeight = 25000;
+    public static final double homeHeight = 6000;
+    public static final double feederHeight = 80;
 
     // Lock / Unlock Servo
     public static final int servoFollowLock = 55;
@@ -127,18 +127,23 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Angle = 210;
-    public static final double level3BackAngle = 80;
+    public static final double level3Angle = 98;
+    public static final double level3BackAngle = 279;
 
-    public static final double level2Angle = 180;
-    public static final double level2BackAngle = 180;
+    public static final double level2Angle = 86;
+    public static final double level2BackAngle = 287;
 
-    public static final double level1Angle = 200;
-    public static final double level1BackAngle = 60;
+    public static final double level1Angle = 291;
+    public static final double level1BackAngle = 291;
 
-    public static final double groundAngle = 220;
+    public static final double processorFront = 293;
+    public static final double processorBack = 115;
+
+    public static final double groundAngle = 260;
     public static final double homeAngle = 190;
-    public static final double processorAngle = 160;
+    public static final double feederAngle = 208;
+    //processor angle 293 for front
+    //processor angle 115 for back  (battery side)
 
     //Inverting Motor
     public static final boolean motorInvert = false;
@@ -157,7 +162,7 @@ public final class Constants
     public static final double allowedError = 20;
 
     //Motor Config
-    public static final double P = 0.02; //P .012
+    public static final double P = 0.012; //P .02
     public static final double I = 0; // I 0
     public static final double D = 0.0; // D 0.1
     public static final double F = 0;

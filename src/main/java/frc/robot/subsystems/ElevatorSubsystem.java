@@ -1,6 +1,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig;
@@ -138,7 +140,7 @@ public ElevatorSubsystem() {
         return runOnce(() -> {
              reachHeight(ElevatorConstants.level3Height);
              System.out.println("elevator level 3");
-             level3Height().end(endWhenElevator(ElevatorConstants.level3Height));
+        //     level3Height().end(endWhenElevator(ElevatorConstants.level3Height));
             });
     }
 
@@ -148,7 +150,7 @@ public ElevatorSubsystem() {
         return runOnce(() -> {
             reachHeight(ElevatorConstants.level2Height);
             System.out.println("elevator level 2");
-            level2Height().end(endWhenElevator(ElevatorConstants.level2Height));
+        //    level2Height().end(endWhenElevator(ElevatorConstants.level2Height));
         });
     }
 
@@ -158,40 +160,86 @@ public ElevatorSubsystem() {
         return runOnce(() -> {
             reachHeight(ElevatorConstants.level1Height);
             System.out.println("elevator level 1");
-            level1Height().end(endWhenElevator(ElevatorConstants.level1Height));
+        //    level1Height().end(endWhenElevator(ElevatorConstants.level1Height));
            });
     }
 
 
 
     //processor position
-    public Command processorHeight()
+    public Command feederHeight()
     {
         return runOnce(() -> {
-            reachHeight(ElevatorConstants.processorHeight);
+            reachHeight(ElevatorConstants.feederHeight);
             System.out.println("Processor Height");
-            processorHeight().end(endWhenElevator(ElevatorConstants.processorHeight));
+        //    feederHeight().end(endWhenElevator(ElevatorConstants.feederHeight));
            });
     }
 
     //ground position
-    public Command groundHeight()
+    public class groundHeight extends Command
     {
-        return runOnce(() -> {
+        public groundHeight() {
+        }
+
+        @Override
+        public void initialize(){}
+
+        @Override
+        public void execute() {
             reachHeight(ElevatorConstants.groundHeight);
             System.out.println("Ground Height");
-            groundHeight().end(endWhenElevator(ElevatorConstants.groundHeight));
-           });
+            //groundAngle().end(endWhenArm(ArmConstants.groundAngle));
+        }
+            
+        @Override
+        public void end(boolean interrupted){
+            endWhenElevator(ElevatorConstants.groundHeight);
+        }
+
+        @Override
+        public boolean isFinished() {
+            return true;
+        };
     }
 
-    public Command homeHeight()
+
+    //Home Height
+    public class homeHeight extends Command
     {
-        return runOnce(() -> {
+        public homeHeight() {
+        }
+
+        @Override
+        public void initialize(){
             reachHeight(ElevatorConstants.homeHeight);
             System.out.println("Home Height");
-            homeHeight().end(endWhenElevator(ElevatorConstants.homeHeight));
-           });
+        }
+
+        @Override
+        public void execute() {}
+            
+        @Override
+        public void end(boolean interrupted){
+            endWhenElevator(ElevatorConstants.homeHeight);
+        }
+
+        @Override
+        public boolean isFinished() {
+            if(endWhenElevator(ElevatorConstants.homeHeight) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        };
     }
+
+    //initializing is for one time use per schedule, best used for setpoints
+    //execute is for continuously running, best used for driving command
+    //
 
     public void periodic()
     {

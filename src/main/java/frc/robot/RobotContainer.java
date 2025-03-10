@@ -15,10 +15,12 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.LEDPattern.GradientType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -29,10 +31,14 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem.groundHeight;
+import frc.robot.subsystems.ElevatorSubsystem.homeHeight;
 import frc.robot.subsystems.HandSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.subsystems.ArmSubsystem.groundAngle;
+import frc.robot.subsystems.ArmSubsystem.homeAngle;
 import frc.robot.subsystems.PathsSubsystem;
+
 import java.io.File;
 import swervelib.SwerveInputStream;
 import swervelib.parser.SwerveParser;
@@ -55,11 +61,24 @@ public class RobotContainer
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
 
-
+  //Setup Subsystems
   private final ElevatorSubsystem elevator = new ElevatorSubsystem(); 
   private final HandSubsystem hand = new HandSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
   private final PathsSubsystem paths = new PathsSubsystem();
+
+
+
+     //Add commands
+  //Arm commands
+  groundAngle groundAngle = arm.new groundAngle();
+  homeAngle homeAngle = arm.new homeAngle();
+
+  //Elevator commands
+  groundHeight groundHeight = elevator.new groundHeight();
+  homeHeight homeHeight = elevator.new homeHeight();
+
+
 
   //set up auto chooser                                                                              
   private final SendableChooser<Command> autoChooser;
@@ -163,13 +182,16 @@ public class RobotContainer
 
       //Letter commands (TEST)
         //Home angle
-      driverXbox.b().onTrue(arm.homeAngle());
+
+        /* 
+      operatorXbox.b().onTrue(arm.homeAngle());
 
         //ground angle
-      driverXbox.x().onTrue(arm.groundAngle());
+      operatorXbox.x().onTrue(arm.groundAngle());
 
         //Home angle
-      driverXbox.y().onTrue(arm.processorAngle());
+      operatorXbox.y().onTrue(arm.feederAngle());
+      */
 
 
       //elevator command     TESTING
@@ -189,43 +211,49 @@ public class RobotContainer
 
         //Level 3 position command
       driverXbox.povUp().onTrue(arm.level3Angle());
-
-      //switch between front and back scoring 
-      driverXbox.start().onTrue(arm.switchScore());
 */
 
-//Coral Output - operator
-driverXbox.povDown().whileTrue(elevator.elevatorDown()).whileFalse(elevator.elevatorStop());
+      //switch between front and back scoring 
+      operatorXbox.start().onTrue(arm.switchScore());
 
-driverXbox.povUp().whileTrue(elevator.elevatorUp()).whileFalse(elevator.elevatorStop());
-     
-      //Coral Intake - operator
-      driverXbox.rightTrigger().whileTrue(hand.intakeCoral()).whileFalse(hand.motorsOff());
 
       //Coral Output - operator
-      driverXbox.rightBumper().whileTrue(hand.OutputCoral()).whileFalse(hand.motorsOff());
+      operatorXbox.povDown().whileTrue(elevator.elevatorDown()).whileFalse(elevator.elevatorStop());
+
+      operatorXbox.povUp().whileTrue(elevator.elevatorUp()).whileFalse(elevator.elevatorStop());
+     
+
+      //Coral Intake - operator
+      operatorXbox.rightTrigger().whileTrue(hand.intakeCoral()).whileFalse(hand.motorsOff());
+
+      //Coral Output - operator
+      operatorXbox.rightBumper().whileTrue(hand.OutputCoral()).whileFalse(hand.motorsOff());
 
       //Algae Intake - operator
-      driverXbox.leftTrigger().whileTrue(hand.intakeAlgae()).whileFalse(hand.motorsOff());
+      operatorXbox.leftTrigger().whileTrue(hand.intakeAlgae()).whileFalse(hand.motorsOff());
 
       //Algae Output - operator
-      driverXbox.leftBumper().whileTrue(hand.outputAlgae()).whileFalse(hand.motorsOff());
+      operatorXbox.leftBumper().whileTrue(hand.outputAlgae()).whileFalse(hand.motorsOff());
 
-        /* 
-      //Home position command - operator
+
+         
+      //Home position command - operator       TESTING INITIALIZING
          SequentialCommandGroup homePosition = 
-           new SequentialCommandGroup(arm.homeAngle().andThen(elevator.homeHeight()));
-       operatorXbox.povRight().onTrue(homePosition);
+           new SequentialCommandGroup(homeAngle.andThen(homeHeight));
+       operatorXbox.a().onTrue(homePosition);
 
-      //Ground position command - operator
+
+      //Ground position command - operator     TESTING EXECUTING
         SequentialCommandGroup groundPosition = 
-          new SequentialCommandGroup(arm.groundAngle().andThen(elevator.groundHeight()));
-       operatorXbox.povRight().onTrue(groundPosition);
-            
+          new SequentialCommandGroup(groundAngle.andThen(groundHeight));
+       operatorXbox.x().onTrue(groundPosition);            //if this works test having the entire group within the xbox to save space
+
+       /* 
+
       //processor position command  - operator
-        SequentialCommandGroup processorPosition = 
-          new SequentialCommandGroup(arm.processorAngle().andThen(elevator.processorHeight()));
-       operatorXbox.povRight().onTrue(processorPosition);
+        SequentialCommandGroup feederPosition = 
+          new SequentialCommandGroup(arm.feederAngle().andThen(elevator.feederHeight()));
+       operatorXbox.povRight().onTrue(feederPosition);
 
 
       //Level 1 position command - operator

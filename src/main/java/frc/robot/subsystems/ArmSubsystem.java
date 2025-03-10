@@ -1,5 +1,7 @@
  package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
@@ -17,7 +19,10 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import frc.robot.Constants.ArmConstants;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -90,7 +95,7 @@ public class ArmSubsystem extends SubsystemBase {
 
 		private boolean endWhenArm(double cmd)
 		{
-			if (((cmd + ArmConstants.encoderAllowError) > cmd) && ((cmd - ArmConstants.encoderAllowError) < cmd))
+			if (((armEncoder1.getPosition() + ArmConstants.encoderAllowError) > cmd) && ((armEncoder1.getPosition() - ArmConstants.encoderAllowError) < cmd))
 			{
 				return true;
 			}
@@ -130,13 +135,13 @@ public class ArmSubsystem extends SubsystemBase {
 				{
 					reachAngle(ArmConstants.level3Angle);
 					System.out.println("L3 Front");
-					level3Angle().end(endWhenArm(ArmConstants.level3Angle));
+					//level3Angle().end(endWhenArm(ArmConstants.level3Angle));
 				} 
 				else
 				{
 					reachAngle(ArmConstants.level3BackAngle);
 					System.out.println("L3 Back");
-					level3Angle().end(endWhenArm(ArmConstants.level3BackAngle));
+					//level3Angle().end(endWhenArm(ArmConstants.level3BackAngle));
 				}
 
 			});
@@ -152,13 +157,13 @@ public class ArmSubsystem extends SubsystemBase {
 				{
 					reachAngle(ArmConstants.level2Angle);
 					System.out.println("L2 Front");
-					level2Angle().end(endWhenArm(ArmConstants.level2Angle));
+					//level2Angle().end(endWhenArm(ArmConstants.level2Angle));
 				} 
 				else
 				{
 					reachAngle(ArmConstants.level2BackAngle);
 					System.out.println("L2 Back");
-					level2Angle().end(endWhenArm(ArmConstants.level2BackAngle));
+					//level2Angle().end(endWhenArm(ArmConstants.level2BackAngle));
 				}
 				
 			});
@@ -174,50 +179,107 @@ public class ArmSubsystem extends SubsystemBase {
 				{
 					reachAngle(ArmConstants.level1Angle);
 					System.out.println("L1 Front");
-					level1Angle().end(endWhenArm(ArmConstants.level1Angle));
+					//level1Angle().end(endWhenArm(ArmConstants.level1Angle));
 				} 
 				else
 				{
 					reachAngle(ArmConstants.level1BackAngle);
 					System.out.println("L1 Back");
-					level1Angle().end(endWhenArm(ArmConstants.level1BackAngle));
+					//level1Angle().end(endWhenArm(ArmConstants.level1BackAngle));
 				}
 				
 			});
 		}
 
 
-		//ground position
-    	public Command groundAngle()
-    	{
-        	return runOnce(() -> 
-			{
-				reachAngle(ArmConstants.groundAngle);
-				System.out.println("Ground");
-				groundAngle().end(endWhenArm(ArmConstants.groundAngle));
+		public Command processorAngle()
+		{
+			return runOnce(() -> {
+
+				if (currentNum == 1)
+				{
+					reachAngle(ArmConstants.processorFront);
+					System.out.println("Processor Front");
+					//processorAngle().end(endWhenArm(ArmConstants.processorFront));
+				} 
+				else
+				{
+					reachAngle(ArmConstants.processorBack);
+					System.out.println("Processor Back");
+					//processorAngle().end(endWhenArm(ArmConstants.processorBack));
+				}
+				
 			});
-			
+		}
+
+
+
+		//ground position
+    	public class groundAngle extends Command
+    	{
+			@Override
+			public void initialize(){}
+
+			@Override
+			public void execute() {
+				reachAngle(ArmConstants.groundAngle);
+				System.out.println("Ground Angle");
+			}
+				
+			@Override
+			public void end(boolean interrupted){
+				endWhenArm(ArmConstants.groundAngle);
+			}
+
+			@Override
+			public boolean isFinished() {
+				return true;
+			};
     	}
 
 		//Home position
-    	public Command homeAngle()
+    	public class homeAngle extends Command
     	{
-        	return runOnce(() -> 
-			{
+			//Executes once
+			@Override
+			public void initialize(){
 				reachAngle(ArmConstants.homeAngle);
-				System.out.println("Home");
-				homeAngle().end(endWhenArm(ArmConstants.homeAngle));
-			});
+				System.out.println("Home Angle");
+			}
+
+			//Executes repeatedly 
+			@Override
+			public void execute() {}
+			
+			//Executes after the isFinished == true
+			@Override
+			public void end(boolean interrupted){
+				endWhenArm(ArmConstants.homeAngle);
+			}
+
+			//Returns true when finished, runs repeatedly
+			@Override
+			public boolean isFinished() {
+				
+				if(endWhenArm(ArmConstants.homeAngle) == true)
+				{
+					return true;
+				}
+				else
+				{
+					return true;
+				}
+			};
     	}
 
 		//ground position
-		public Command processorAngle()
+		public Command feederAngle()
 		{
 			return runOnce(() -> 
 			{
-				reachAngle(ArmConstants.processorAngle);
+				reachAngle(ArmConstants.feederAngle);
 				System.out.println("Processor");
-				processorAngle().end(endWhenArm(ArmConstants.processorAngle));
+				//feederAngle().end(endWhenArm(ArmConstants.feederAngle));
 			});
 		}
 
