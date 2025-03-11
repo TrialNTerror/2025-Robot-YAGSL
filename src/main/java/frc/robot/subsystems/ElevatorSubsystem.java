@@ -121,7 +121,7 @@ public ElevatorSubsystem() {
 
     private boolean endWhenElevator(double cmd)
     {
-        if (((cmd + ElevatorConstants.encoderAllowError) > cmd) && ((cmd - ElevatorConstants.encoderAllowError) < cmd))
+        if (((elevEncoder1.getPosition() + ElevatorConstants.encoderAllowError) > cmd) && ((elevEncoder1.getPosition() - ElevatorConstants.encoderAllowError) < cmd))
         {
             return true;
         } 
@@ -179,16 +179,13 @@ public ElevatorSubsystem() {
     //ground position
     public class groundHeight extends Command
     {
-        public groundHeight() {
-        }
-
         @Override
         public void initialize(){}
 
         @Override
         public void execute() {
             reachHeight(ElevatorConstants.groundHeight);
-            System.out.println("Ground Height");
+            System.out.println("Ground Height (testing execute)");
             //groundAngle().end(endWhenArm(ArmConstants.groundAngle));
         }
             
@@ -207,13 +204,10 @@ public ElevatorSubsystem() {
     //Home Height
     public class homeHeight extends Command
     {
-        public homeHeight() {
-        }
-
         @Override
         public void initialize(){
             reachHeight(ElevatorConstants.homeHeight);
-            System.out.println("Home Height");
+            System.out.println("Home Height (testing initialize)");
         }
 
         @Override
@@ -239,7 +233,6 @@ public ElevatorSubsystem() {
 
     //initializing is for one time use per schedule, best used for setpoints
     //execute is for continuously running, best used for driving command
-    //
 
     public void periodic()
     {
