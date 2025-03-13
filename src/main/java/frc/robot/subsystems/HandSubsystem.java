@@ -1,24 +1,20 @@
-/* 
-package frc.robot.subsystems;
+ package frc.robot.subsystems;
 
 //setting up sparkmax imports 
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkClosedLoopController;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HandConstants;
 
 public class HandSubsystem extends SubsystemBase {
-    /** Creates a new ExampleSubsystem. 
+    // Creates a new ExampleSubsystem. 
     //private static final MotorType kMotorType = MotorType.kBrushless;
     //private int flip = -1;
   
@@ -29,23 +25,26 @@ public class HandSubsystem extends SubsystemBase {
     // m_*NAME* is the name the variable is set as
 
     private SparkMax topMotor;
-    private SparkMax midMotor; 
-    private SparkMax lowMotor; 
+    private SparkMax bottomMotor; 
+    private SparkMax holdMotor; 
 
     private SparkBaseConfig topMotorConfig;
-    private SparkBaseConfig midMotorConfig;
-    private SparkBaseConfig lowMotorConfig;
+    private SparkBaseConfig bottomMotorConfig;
+    private SparkBaseConfig holdMotorConfig;
+
+    private boolean hold;
 
 
 public HandSubsystem() {
     
         //MOTOR SETUP
-    topMotor = new SparkMax(HandConstants.handMotor1CanID, MotorType.kBrushless);
+    topMotor = new SparkMax(HandConstants.topHandCanID, MotorType.kBrushless);
 
-    midMotor = new SparkMax(HandConstants.handMotor2CanID, MotorType.kBrushless); 
+    bottomMotor = new SparkMax(HandConstants.bottomHandCanID, MotorType.kBrushless); 
 
-    lowMotor = new SparkMax(HandConstants.handMotor3CanID, MotorType.kBrushless); 
+    holdMotor = new SparkMax(HandConstants.holdHandCanID, MotorType.kBrushless); 
 
+    hold = false;
 
 
         // configuration for motor 1
@@ -53,88 +52,97 @@ public HandSubsystem() {
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
-                .apply(
-                    new ClosedLoopConfig()  //sets information for the controller
-                    .pid
-                    (                  
-                        1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                        0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                        0.0     //    //Slows down the robot before it overshoots the target point
-                    )
-                );
-
+                .smartCurrentLimit(HandConstants.currentLimit);
+                
 
         // configuration for motor 2
-    midMotorConfig =
+    bottomMotorConfig =
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
-                .apply(
-                    new ClosedLoopConfig()  //sets information for the controller
-                    .pid
-                    (                  
-                        1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                        0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                        0.0     //    //Slows down the robot before it overshoots the target point
-                    )
-                );
+                .smartCurrentLimit(HandConstants.currentLimit);
 
 
         // configuration for motor 3
-    lowMotorConfig =
+    holdMotorConfig =
             new SparkMaxConfig()            //sets information for the overall motor
                 .inverted(HandConstants.invertAllMotors)
                 .idleMode(IdleMode.kBrake)
-                .apply(
-                    new ClosedLoopConfig()  //sets information for the controller
-                    .pid
-                    (                  
-                        1.0,    //    //Gives the motor energy to drive to the set point (higher number -> higher speed)
-                        0.0,    //    //Takes the difference between the robot and set point and decides whether the robot speeds up or slows down
-                        0.0     //    //Slows down the robot before it overshoots the target point
-                    )
-                );
-
+                .smartCurrentLimit(HandConstants.currentLimit);
 
     //set information for each motor
     topMotor.configure(topMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    midMotor.configure(midMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    lowMotor.configure(lowMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    bottomMotor.configure(bottomMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    holdMotor.configure(holdMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
         //COMMANDS
 
     public Command intakeCoral()   //run motor at a constant speed
     {
-        return this.run(() -> {
-            midMotor.set(HandConstants.intakeSpeed);
-            lowMotor.set(-HandConstants.intakeSpeed);
+        return this.runOnce(() -> {
+            bottomMotor.set(-0.8);
+            holdMotor.set(0.5);
         });
     }
+
+
 
     public Command OutputCoral()
     {
         return this.runOnce(() -> {
-            midMotor.set(-HandConstants.intakeSpeed);
-            lowMotor.set(HandConstants.intakeSpeed);
+            bottomMotor.set(0.5);
+            holdMotor.set(-0.5);
         });
     }
+
+
 
     public Command intakeAlgae()
     {
-        return this.run(() -> {
+        return this.runOnce(() -> {
             topMotor.set(HandConstants.intakeSpeed);
-            midMotor.set(-HandConstants.intakeSpeed);
+            bottomMotor.set(HandConstants.intakeSpeed);
+            holdMotor.set(0.1);
+            
+            hold = true;
         });
     }
+
+
 
     public Command outputAlgae()
     {
-        return this.run(() -> {
+        return this.runOnce(() -> {
             topMotor.set(-HandConstants.intakeSpeed);
-            midMotor.set(HandConstants.intakeSpeed);
+            bottomMotor.set(-HandConstants.intakeSpeed);
+            holdMotor.set(0.1);
+
+            hold = false;
         });
     }
 
+    
+
+    public Command motorsOff()
+    {
+        return this.runOnce(() -> {
+            
+            if(hold == true)   //if we ever use ultrasonic sensor this can be used?
+            {
+                topMotor.set(HandConstants.intakeSpeed);
+                bottomMotor.set(HandConstants.intakeSpeed);
+                holdMotor.set(0);
+            } else
+            if(hold == false)
+            {
+                topMotor.set(0);
+                bottomMotor.set(0);
+                holdMotor.set(0);
+            }
+        });
+    }
+
+
 }
-    */
+    
