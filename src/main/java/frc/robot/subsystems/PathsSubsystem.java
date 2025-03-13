@@ -1,19 +1,28 @@
 package frc.robot.subsystems;
 
-import java.sql.Driver;
+import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.Waypoint;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.Vision;
+import edu.wpi.first.math.util.Units;
 
 public class PathsSubsystem extends SubsystemBase {
+
+	//private final Vision vision = new Vision(null, null);
+	//private final 
 
 		public Command testPos() 
 		{
@@ -28,6 +37,35 @@ public class PathsSubsystem extends SubsystemBase {
 					return Commands.none();
 				}
  	    }
+
+		public Command BlueReefApos(SwerveSubsystem drivebase)
+		{
+			// Add a button to SmartDashboard that will create and follow an on-the-fly path
+			// This example will simply move the robot 2m in the +X field direction
+			Commands.runOnce(() -> {
+			Pose2d currentPose = drivebase.getPose();
+			
+			// The rotation component in these poses represents the direction of travel
+			Pose2d startPos = new Pose2d(currentPose.getTranslation(), new Rotation2d());
+			Pose2d endPos = Constants.PoseConstants.BlueReefAPose;
+
+			List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(startPos, endPos);
+			PathPlannerPath path = new PathPlannerPath(
+				waypoints, 
+				new PathConstraints(
+				4.0, 4.0, 
+				Units.degreesToRadians(360), Units.degreesToRadians(540)
+				),
+				null, // Ideal starting state can be null for on-the-fly paths
+				new GoalEndState(0.0, currentPose.getRotation())
+			);
+
+			// Prevent this path from being flipped on the red alliance, since the given positions are already correct
+			path.preventFlipping = true;
+
+			AutoBuilder.followPath(path).schedule();
+			})
+		}
 
 		public Command GotoFeeder(Pose2d currentPose){
 			try{
@@ -63,4 +101,5 @@ public class PathsSubsystem extends SubsystemBase {
 				return Commands.none();
 			}
 		}
+
 }

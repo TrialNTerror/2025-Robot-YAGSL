@@ -4,45 +4,31 @@
 
 package frc.robot;
 
+import java.io.File;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.LEDPattern.GradientType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ArmSubsystem.groundAngle;
+import frc.robot.subsystems.ArmSubsystem.homeAngle;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem.groundHeight;
 import frc.robot.subsystems.ElevatorSubsystem.homeHeight;
 import frc.robot.subsystems.HandSubsystem;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ArmSubsystem.groundAngle;
-import frc.robot.subsystems.ArmSubsystem.homeAngle;
 import frc.robot.subsystems.PathsSubsystem;
-
-import java.io.File;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import swervelib.SwerveInputStream;
-import swervelib.parser.SwerveParser;
-import swervelib.telemetry.SwerveDriveTelemetry;
-import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -236,16 +222,15 @@ public class RobotContainer
 
 
          
-      //Home position command - operator       TESTING INITIALIZING
-         SequentialCommandGroup homePosition = 
-           new SequentialCommandGroup(homeAngle.andThen(homeHeight));
-       operatorXbox.a().onTrue(homePosition);
+      //Home position command - operator       (Home angle first then home height only if home angle is finished (hopefully))
+      operatorXbox.a().onTrue(homeAngle.andThen(homeHeight));
 
 
-      //Ground position command - operator     TESTING EXECUTING
-        SequentialCommandGroup groundPosition = 
-          new SequentialCommandGroup(groundAngle.andThen(groundHeight));
-       operatorXbox.x().onTrue(groundPosition);            //if this works test having the entire group within the xbox to save space
+      //Ground position command - operator    (continuing from the above command, height can angle can be switched )
+      operatorXbox.x().onTrue(groundAngle.andThen(groundHeight));         
+       
+      //making button to go to blueReefAPose
+      driverXbox.b().onTrue(paths.BlueReefApos(drivebase));
 
        /* 
 

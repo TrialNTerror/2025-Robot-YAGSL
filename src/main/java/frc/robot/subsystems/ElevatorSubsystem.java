@@ -131,7 +131,6 @@ public ElevatorSubsystem() {
         }
     }
 
-
         //COMMANDS FOR ELEVATOR
 
     //command for L3
@@ -180,23 +179,21 @@ public ElevatorSubsystem() {
     public class groundHeight extends Command
     {
         @Override
-        public void initialize(){}
-
-        @Override
-        public void execute() {
+        public void initialize(){
             reachHeight(ElevatorConstants.groundHeight);
             System.out.println("Ground Height (testing execute)");
-            //groundAngle().end(endWhenArm(ArmConstants.groundAngle));
-        }
-            
-        @Override
-        public void end(boolean interrupted){
-            endWhenElevator(ElevatorConstants.groundHeight);
         }
 
         @Override
         public boolean isFinished() {
-            return true;
+            if(endWhenElevator(ElevatorConstants.groundHeight) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         };
     }
 
@@ -208,14 +205,6 @@ public ElevatorSubsystem() {
         public void initialize(){
             reachHeight(ElevatorConstants.homeHeight);
             System.out.println("Home Height (testing initialize)");
-        }
-
-        @Override
-        public void execute() {}
-            
-        @Override
-        public void end(boolean interrupted){
-            endWhenElevator(ElevatorConstants.homeHeight);
         }
 
         @Override
@@ -259,12 +248,6 @@ public ElevatorSubsystem() {
          });
     }
     
-
-    
-    public void simulationPeriodic()
-    {
-    
-    }
 
     //Free move WITH LIMITS (WILL NOT BE USED IN COMPETITION, ONLY FOR TESTING)
    

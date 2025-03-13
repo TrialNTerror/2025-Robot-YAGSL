@@ -218,22 +218,23 @@ public class ArmSubsystem extends SubsystemBase {
     	public class groundAngle extends Command
     	{
 			@Override
-			public void initialize(){}
-
-			@Override
-			public void execute() {
-				reachAngle(ArmConstants.groundAngle);
+			public void initialize(){
+				reachAngle(ArmConstants.groundAngle);      //if fail, test in execute
 				System.out.println("Ground Angle");
-			}
-				
-			@Override
-			public void end(boolean interrupted){
-				endWhenArm(ArmConstants.groundAngle);
 			}
 
 			@Override
 			public boolean isFinished() {
-				return true;
+
+				if(endWhenArm(ArmConstants.groundAngle) == true)
+				{
+					return  true;
+				}
+				else
+				{
+					return  false;
+				}
+
 			};
     	}
 
@@ -247,27 +248,17 @@ public class ArmSubsystem extends SubsystemBase {
 				System.out.println("Home Angle");
 			}
 
-			//Executes repeatedly 
-			@Override
-			public void execute() {}
-			
-			//Executes after the isFinished == true
-			@Override
-			public void end(boolean interrupted){
-				endWhenArm(ArmConstants.homeAngle);
-			}
-
 			//Returns true when finished, runs repeatedly
 			@Override
 			public boolean isFinished() {
 				
 				if(endWhenArm(ArmConstants.homeAngle) == true)
 				{
-					return true;
+					return  true;
 				}
 				else
 				{
-					return true;
+					return  false;
 				}
 			};
     	}
