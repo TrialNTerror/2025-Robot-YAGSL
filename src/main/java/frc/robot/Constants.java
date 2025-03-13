@@ -80,6 +80,7 @@ public final class Constants
     public static final double groundHeight = 25000;
     public static final double homeHeight = 6000;
     public static final double feederHeight = 80;
+    public static final double processorHeight = 293;
 
     // Lock / Unlock Servo
     public static final int servoFollowLock = 55;

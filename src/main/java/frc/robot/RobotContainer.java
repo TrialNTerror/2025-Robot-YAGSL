@@ -72,6 +72,7 @@ public class RobotContainer
   //Arm commands
   groundAngle groundAngle = arm.new groundAngle();
   homeAngle homeAngle = arm.new homeAngle();
+  
 
   //Elevator commands
   groundHeight groundHeight = elevator.new groundHeight();
@@ -236,19 +237,15 @@ public class RobotContainer
 
 
          
-      //Home position command - operator       TESTING INITIALIZING
-         SequentialCommandGroup homePosition = 
-           new SequentialCommandGroup(homeAngle.andThen(homeHeight));
-       operatorXbox.a().onTrue(homePosition);
+      //Home position command - operator       
+       operatorXbox.a().onTrue(homeAngle.andThen(homeHeight));
 
 
-      //Ground position command - operator     TESTING EXECUTING
-        SequentialCommandGroup groundPosition = 
-          new SequentialCommandGroup(groundAngle.andThen(groundHeight));
-       operatorXbox.x().onTrue(groundPosition);            //if this works test having the entire group within the xbox to save space
+      //Ground position command - operator    
+       operatorXbox.x().onTrue(groundAngle.andThen(groundHeight));         
 
-       /* 
-
+       
+/* 
       //processor position command  - operator
         SequentialCommandGroup feederPosition = 
           new SequentialCommandGroup(arm.feederAngle().andThen(elevator.feederHeight()));
@@ -269,7 +266,7 @@ public class RobotContainer
         SequentialCommandGroup level3Position = 
           new SequentialCommandGroup(arm.level3Angle().andThen(elevator.level3Height()));
        operatorXbox.povRight().onTrue(level3Position);
-      */
+       */
   }
 
   /**
