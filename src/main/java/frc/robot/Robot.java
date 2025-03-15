@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import edu.wpi.first.util.datalog.BooleanLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -32,6 +34,10 @@ public class Robot extends TimedRobot
   public Robot()
   {
     instance = this;
+
+    DataLogManager.start();
+
+    DriverStation.startDataLog(DataLogManager.getLog());
   }
 
   public static Robot getInstance()

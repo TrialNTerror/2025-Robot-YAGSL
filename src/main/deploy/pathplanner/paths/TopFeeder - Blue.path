@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.03483606557377,
-        "y": 5.3496413934426235
+        "x": 1.7741803278688524,
+        "y": 6.668288934426228
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.7401639344262296,
-        "y": 5.949026639344262
+        "x": 1.6141327902594853,
+        "y": 6.860343056238749
       },
       "isLocked": false,
-      "linkedName": "AtScore1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.3066598360655735,
-        "y": 6.908043032786885
+        "x": 1.5823770491803275,
+        "y": 6.93201844262295
       },
       "prevControl": {
-        "x": 1.84610655737705,
-        "y": 6.704252049180327
+        "x": 1.7294186560032523,
+        "y": 6.7298334633021994
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "AtCoral1"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.2291083566573383,
-      "rotationDegrees": -117.54690743293565
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 128.3130906738177
+    "rotation": 126.00392735862793
   },
   "reversed": false,
-  "folder": "PATHS FOR AUTO",
+  "folder": "Blue Misc Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -119.74488129694225
+    "rotation": 125.18069936124212
   },
   "useDefaultConstraints": true
 }

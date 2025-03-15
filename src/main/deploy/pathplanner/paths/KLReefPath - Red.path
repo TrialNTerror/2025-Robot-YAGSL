@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.03483606557377,
-        "y": 5.3496413934426235
+        "x": 13.94170081967213,
+        "y": 2.4845799180327868
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.7401639344262296,
-        "y": 5.949026639344262
+        "x": 13.841496111167203,
+        "y": 2.7136192517583333
       },
       "isLocked": false,
-      "linkedName": "AtScore1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.3066598360655735,
-        "y": 6.908043032786885
+        "x": 13.821823770491804,
+        "y": 2.736321721311475
       },
       "prevControl": {
-        "x": 1.84610655737705,
-        "y": 6.704252049180327
+        "x": 13.933627169366794,
+        "y": 2.512714923561496
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "AtCoral1"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.2291083566573383,
-      "rotationDegrees": -117.54690743293565
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 128.3130906738177
+    "rotation": 121.19509758787555
   },
   "reversed": false,
-  "folder": "PATHS FOR AUTO",
+  "folder": "Red Reef Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -119.74488129694225
+    "rotation": 121.32869286780422
   },
   "useDefaultConstraints": true
 }
