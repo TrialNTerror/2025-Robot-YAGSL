@@ -73,13 +73,14 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Height = 9000;   
+    public static final double level3Height = 9000;   //currently testing
     public static final double level2Height = 30;
-    public static final double level1Height = 60;   
+    public static final double level1Height = 60;   //currently testing
 
-    public static final double groundHeight = 25000;    //currently testing
-    public static final double homeHeight = 6000;       //currently testing
+    public static final double groundHeight = 25000;
+    public static final double homeHeight = 6000;
     public static final double feederHeight = 80;
+    public static final double processorHeight = 293;
 
     // Lock / Unlock Servo
     public static final int servoFollowLock = 55;
@@ -130,7 +131,7 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Angle = 98;
+    public static final double level3Angle = 98;     
     public static final double level3BackAngle = 279;
 
     public static final double level2Angle = 86;
@@ -142,11 +143,9 @@ public final class Constants
     public static final double processorFront = 293;
     public static final double processorBack = 115;
 
-    public static final double groundAngle = 260;      
+    public static final double groundAngle = 300;  //should be at 309
     public static final double homeAngle = 190;
     public static final double feederAngle = 208;
-    //processor angle 293 for front
-    //processor angle 115 for back  (battery side)
 
     //Inverting Motor
     public static final boolean motorInvert = false;
@@ -159,7 +158,7 @@ public final class Constants
     public static final double minAngle = 20;
 
     //Motor Limits
-    public static final int currentLimit = 40;        
+    public static final int currentLimit = 40;
     public static final double maxAcceleration = 36000;
     public static final double maxVelocity = 360;
     public static final double allowedError = 20;
@@ -178,7 +177,7 @@ public final class Constants
     public static final double forwardLimit = 315;  //295
     public static final double reverseLimit = 135;
 
-    public static final double encoderAllowError = 5;
+    public static final double encoderAllowError = 3;
   }
 
 

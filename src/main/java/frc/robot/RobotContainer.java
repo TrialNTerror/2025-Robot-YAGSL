@@ -4,14 +4,18 @@
 
 package frc.robot;
 
-import java.io.File;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.LEDPattern.GradientType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,16 +23,33 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ArmSubsystem.groundAngle;
-import frc.robot.subsystems.ArmSubsystem.homeAngle;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem.feederHeight;
 import frc.robot.subsystems.ElevatorSubsystem.groundHeight;
 import frc.robot.subsystems.ElevatorSubsystem.homeHeight;
+import frc.robot.subsystems.ElevatorSubsystem.level1Height;
+import frc.robot.subsystems.ElevatorSubsystem.level2Height;
+import frc.robot.subsystems.ElevatorSubsystem.level3Height;
+import frc.robot.subsystems.ElevatorSubsystem.processorHeight;
 import frc.robot.subsystems.HandSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ArmSubsystem.feederAngle;
+import frc.robot.subsystems.ArmSubsystem.groundAngle;
+import frc.robot.subsystems.ArmSubsystem.homeAngle;
+import frc.robot.subsystems.ArmSubsystem.level1Angle;
+import frc.robot.subsystems.ArmSubsystem.level2Angle;
+import frc.robot.subsystems.ArmSubsystem.level3Angle;
+import frc.robot.subsystems.ArmSubsystem.processorAngle;
 import frc.robot.subsystems.PathsSubsystem;
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+
+import java.io.File;
+
+import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
+import swervelib.parser.SwerveParser;
+import swervelib.telemetry.SwerveDriveTelemetry;
+import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -58,10 +79,22 @@ public class RobotContainer
   //Arm commands
   groundAngle groundAngle = arm.new groundAngle();
   homeAngle homeAngle = arm.new homeAngle();
+  feederAngle feederAngle = arm.new feederAngle();
+  processorAngle processorAngle = arm.new processorAngle();
+
+  level3Angle level3Angle = arm.new level3Angle();
+  level2Angle level2Angle = arm.new level2Angle();
+  level1Angle level1Angle = arm.new level1Angle();
 
   //Elevator commands
   groundHeight groundHeight = elevator.new groundHeight();
   homeHeight homeHeight = elevator.new homeHeight();
+  feederHeight feederHeight = elevator.new feederHeight();
+  processorHeight processorHeight = elevator.new processorHeight();
+
+  level3Height level3Height = elevator.new level3Height();
+  level2Height level2Height = elevator.new level2Height();
+  level1Height level1Height = elevator.new level1Height();
 
 
 
@@ -146,7 +179,7 @@ public class RobotContainer
   {
     currentNum = 1;
 
-    SmartDashboard.putData("ScoreOne", new PathPlannerAuto("ScoreOne"));
+    SmartDashboard.putData("TEST AUTO", new PathPlannerAuto("TEST AUTO"));
 
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
@@ -158,103 +191,95 @@ public class RobotContainer
     Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngleKeyboard);
      
-      //Main drive command - driver
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-
-     // driverXbox.rightTrigger().onTrue(elevator.lockElevator());
-
-     // driverXbox.leftTrigger().onTrue(elevator.unlockElevator());
-
-      //Letter commands (TEST)
-        //Home angle
-
-        /* 
-      operatorXbox.b().onTrue(arm.homeAngle());
-
-        //ground angle
-      operatorXbox.x().onTrue(arm.groundAngle());
-
-        //Home angle
-      operatorXbox.y().onTrue(arm.feederAngle());
-      */
 
 
-      //elevator command     TESTING
-   //   driverXbox.povDown().onTrue(elevator.level1Height());
-
-   //   driverXbox.povUp().onTrue(elevator.level3Height());
-       
-
-/*       TESTING
-      //DPad commands
-        //Level 1 position command 
-      driverXbox.povDown().onTrue(arm.level1Angle());
-
-        //Level 2 position command
-      driverXbox.povRight().onTrue(arm.level2Angle());
-      driverXbox.povLeft().onTrue(arm.level2Angle());
-
-        //Level 3 position command
-      driverXbox.povUp().onTrue(arm.level3Angle());
-*/
-
-      //switch between front and back scoring 
-      operatorXbox.start().onTrue(arm.switchScore());
+         //          TESTING
 
 
-      //Coral Output - operator
-      operatorXbox.povDown().whileTrue(elevator.elevatorDown()).whileFalse(elevator.elevatorStop());
+         //Coral Output - operator - TESTING
+         operatorXbox.povDown().whileTrue(elevator.elevatorDown()).whileFalse(elevator.elevatorStop());
 
-      operatorXbox.povUp().whileTrue(elevator.elevatorUp()).whileFalse(elevator.elevatorStop());
+         operatorXbox.povUp().whileTrue(elevator.elevatorUp()).whileFalse(elevator.elevatorStop());
+
+
+         driverXbox.a().onTrue(paths.driveToTEST());
+
      
+   
+         //    ^^^   TESTING   ^^^
 
-      //Coral Intake - operator
-      operatorXbox.rightTrigger().whileTrue(hand.intakeCoral()).whileFalse(hand.motorsOff());
+        
 
-      //Coral Output - operator
-      operatorXbox.rightBumper().whileTrue(hand.OutputCoral()).whileFalse(hand.motorsOff());
+          //MAIN DRIVE COMMAND - DRIVER
 
-      //Algae Intake - operator
-      operatorXbox.leftTrigger().whileTrue(hand.intakeAlgae()).whileFalse(hand.motorsOff());
-
-      //Algae Output - operator
-      operatorXbox.leftBumper().whileTrue(hand.outputAlgae()).whileFalse(hand.motorsOff());
+       //sets driving mode - driver
+       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
 
+
+         //SWITCH SCORING SIDE - OPERATOR
+
+       //Switch from front to back scoring - operator
+       operatorXbox.start().onTrue(arm.switchScore());
+
+
+
+           //HAND COMMANDS - OPERATOR
+
+         //CORAL COMMANDS
+
+       //Coral Intake - operator
+       operatorXbox.leftTrigger().whileTrue(hand.intakeCoral()).whileFalse(hand.motorsOff());
+
+       //Coral Output - operator
+       operatorXbox.leftBumper().whileTrue(hand.OutputCoral()).whileFalse(hand.motorsOff());
+
+         //ALGAE COMMANDS
+
+       //Algae Intake - operator
+       operatorXbox.rightTrigger().whileTrue(hand.intakeAlgae()).whileFalse(hand.motorsOff());
+ 
+       //Algae Output - operator
+       operatorXbox.rightBumper().whileTrue(hand.outputAlgae()).whileFalse(hand.motorsOff());
+ 
+
+
+         //MISC POSITION COMMANDS
          
-      //Home position command - operator       (Home angle first then home height only if home angle is finished (hopefully))
-      operatorXbox.a().onTrue(homeAngle.andThen(homeHeight));
+       //Home position command - operator       
+       operatorXbox.a().onTrue(homeAngle.andThen(homeHeight));
+
+       //Ground position command - operator    
+ //      operatorXbox.b().onTrue(groundAngle.andThen(groundHeight));         
+
+       //processor position command - operator
+ //      operatorXbox.y().onTrue(processorAngle.andThen(processorHeight));
+
+       //Feeder porsition command - operator
+       operatorXbox.x().onTrue(feederAngle.andThen(feederHeight));
 
 
-      //Ground position command - operator    (continuing from the above command, height can angle can be switched )
-      operatorXbox.x().onTrue(groundAngle.andThen(groundHeight));         
-       
-      //making button to go to blueReefAPose
-      driverXbox.b().onTrue(paths.BlueReefApos(drivebase));
 
-       /* 
+         //LEVEL COMMANDS
 
-      //processor position command  - operator
-        SequentialCommandGroup feederPosition = 
-          new SequentialCommandGroup(arm.feederAngle().andThen(elevator.feederHeight()));
-       operatorXbox.povRight().onTrue(feederPosition);
+       //Level 3 position command - operator
+       operatorXbox.povUp().onTrue(level3Angle.andThen(level3Height));
+
+       //Level 2 position command - operator
+       operatorXbox.povLeft().onTrue(level2Angle.andThen(level2Height));
+
+       //level 1 position command - operator
+       operatorXbox.povDown().onTrue(level1Angle.andThen(level1Height));
 
 
-      //Level 1 position command - operator
-        SequentialCommandGroup level1Position = 
-          new SequentialCommandGroup(arm.level1Angle().andThen(elevator.level1Height()));
-       operatorXbox.povRight().onTrue(level1Position);
 
-      //Level 2 position command  - operator
-         SequentialCommandGroup level2Position = 
-          new SequentialCommandGroup(arm.level2Angle().andThen(elevator.level2Height()));
-       operatorXbox.povRight().onTrue(level2Position);
+         //CLIMB LOCK/UNLOCK COMMANDS - DRIVER
 
-      //level 3 position command  - operator
-        SequentialCommandGroup level3Position = 
-          new SequentialCommandGroup(arm.level3Angle().andThen(elevator.level3Height()));
-       operatorXbox.povRight().onTrue(level3Position);
-      */
+       //Lock elevator - driver
+//       driverXbox.rightTrigger().onTrue(elevator.lockElevator());
+
+       //Unlock elevator - driver
+//       driverXbox.leftTrigger().onTrue(elevator.unlockElevator());
   }
 
   /**
