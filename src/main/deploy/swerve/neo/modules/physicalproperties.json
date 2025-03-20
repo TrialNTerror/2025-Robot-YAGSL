@@ -6,7 +6,7 @@
     },
     "drive": {
       "gearRatio": 4.71,
-      "diameter": 2.7
+      "diameter": 2.8
     }
   },
   "currentLimit": {
@@ -17,6 +17,6 @@
     "drive": 0.25,
     "angle": 0.25
   },
-  "wheelGripCoefficientOfFriction": 1.19,
+  "wheelGripCoefficientOfFriction": 1,
   "optimalVoltage": 12
 }

@@ -107,8 +107,8 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * 1,
-                                                                () -> driverXbox.getLeftX() * -1)
+                                                                () -> driverXbox.getLeftY() * -1,
+                                                                () -> driverXbox.getLeftX() * 1)
                                                             .withControllerRotationAxis(driverXbox::getRightX)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -127,32 +127,6 @@ public class RobotContainer
   SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
                                                              .allianceRelativeControl(false);
 
-  SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                        () -> -driverXbox.getLeftY(),
-                                                                        () -> -driverXbox.getLeftX())
-                                                                    .withControllerRotationAxis(() -> driverXbox.getRawAxis(
-                                                                        2))
-                                                                    .deadband(OperatorConstants.DEADBAND)
-                                                                    .scaleTranslation(0.8)
-                                                                    .allianceRelativeControl(true);
-  // Derive the heading axis with math!
-  SwerveInputStream driveDirectAngleKeyboard     = driveAngularVelocityKeyboard.copy()
-                                                                               .withControllerHeadingAxis(() ->
-                                                                                                              Math.sin(
-                                                                                                                  driverXbox.getRawAxis(
-                                                                                                                      2) *
-                                                                                                                  Math.PI) *
-                                                                                                              (Math.PI *
-                                                                                                               2),
-                                                                                                          () ->
-                                                                                                              Math.cos(
-                                                                                                                  driverXbox.getRawAxis(
-                                                                                                                      2) *
-                                                                                                                  Math.PI) *
-                                                                                                              (Math.PI *
-                                                                                                               2))
-                                                                               .headingWhile(true);
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -162,10 +136,12 @@ public class RobotContainer
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
-    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    //NamedCommands.registerCommand("test", Commands.print("I EXIST"));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Mode", autoChooser);
+
+    NamedCommands.registerCommand("homeangle", arm.new homeAngle());
   }
 
   /**
@@ -179,17 +155,11 @@ public class RobotContainer
   {
     currentNum = 1;
 
-    SmartDashboard.putData("TEST AUTO", new PathPlannerAuto("TEST AUTO"));
-
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
     Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngle);
-    Command driveFieldOrientedDirectAngleKeyboard      = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
-    Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
-    Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngleKeyboard);
      
 
 

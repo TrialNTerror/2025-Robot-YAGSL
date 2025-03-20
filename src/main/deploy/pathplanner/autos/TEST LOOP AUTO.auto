@@ -5,9 +5,16 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "TEST LOOP PATH"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TEST LOOP PATH"
+                }
+              }
+            ]
           }
         }
       ]
