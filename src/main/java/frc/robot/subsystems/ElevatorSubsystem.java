@@ -132,166 +132,22 @@ public ElevatorSubsystem() {
     }
 
 
-        //COMMANDS FOR ELEVATOR
-
-    //Level 3 position
-    public class level3Height extends Command
+    //COMMANDS FOR ELEVATOR
+    //Move Elevator to Position
+    public Command levelHeight(double goalHeight)
     {
-        @Override
-        public void initialize(){
-            reachHeight(ElevatorConstants.level3Height);
-            System.out.println("elevator level 3");
-        }
-
-        @Override
-        public boolean isFinished() {
-            if(endWhenElevator(ElevatorConstants.level3Height) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        };
+        return run(() -> { 
+            reachHeight(goalHeight);
+            System.out.println("elevator level: "+String.valueOf(goalHeight));
+        });
     }
 
-    
-
-    //Level 2 position
-    public class level2Height extends Command
+    //Move Elevator to Position and End when reached
+    public Command goToHeight(double goalHeight)
     {
-        @Override
-        public void initialize(){
-            reachHeight(ElevatorConstants.level2Height);
-            System.out.println("elevator level 2");
-        }
-
-        @Override
-        public boolean isFinished() {
-            if(endWhenElevator(ElevatorConstants.level2Height) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        };
+        return levelHeight(goalHeight).until(() -> endWhenElevator(goalHeight));
     }
 
-    //Level 1 position
-    public class level1Height extends Command
-    {
-        @Override
-        public void initialize(){
-            reachHeight(ElevatorConstants.level1Height);
-            System.out.println("elevator level 1");
-        }
-
-        @Override
-        public boolean isFinished() {
-            if(endWhenElevator(ElevatorConstants.level1Height) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        };
-    }
-
-
-
-    //Feeder position
-    public class feederHeight extends Command
-    {
-        @Override
-        public void initialize(){
-            reachHeight(ElevatorConstants.feederHeight);
-            System.out.println("Feeder Height");
-        }
-
-        @Override
-        public boolean isFinished() {
-            if(endWhenElevator(ElevatorConstants.feederHeight) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        };
-    }
-
-    //ground position
-    public class groundHeight extends Command
-    {
-        @Override
-        public void initialize(){
-            reachHeight(ElevatorConstants.groundHeight);
-            System.out.println("Ground Height (testing execute)");
-        }
-
-        @Override
-        public boolean isFinished() {
-            if(endWhenElevator(ElevatorConstants.groundHeight) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        };
-    }
-
-
-    //Home Height
-    public class homeHeight extends Command
-    {
-        @Override
-        public void initialize(){
-            reachHeight(ElevatorConstants.homeHeight);
-            System.out.println("Home Height (testing initialize)");
-        }
-
-        @Override
-        public boolean isFinished() {
-            if(endWhenElevator(ElevatorConstants.homeHeight) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        };
-    }
-
-    //Processor Height
-    public class processorHeight extends Command
-    {
-        @Override
-        public void initialize(){
-            reachHeight(ElevatorConstants.processorHeight);
-            System.out.println("Processor Height");
-        }
-
-        @Override
-        public boolean isFinished() {
-            if(endWhenElevator(ElevatorConstants.processorHeight) == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        };
-    }
 
     //initializing is for one time use per schedule, best used for setpoints
     //execute is for continuously running, best used for driving command

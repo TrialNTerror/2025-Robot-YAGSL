@@ -22,25 +22,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem.feederHeight;
-import frc.robot.subsystems.ElevatorSubsystem.groundHeight;
-import frc.robot.subsystems.ElevatorSubsystem.homeHeight;
-import frc.robot.subsystems.ElevatorSubsystem.level1Height;
-import frc.robot.subsystems.ElevatorSubsystem.level2Height;
-import frc.robot.subsystems.ElevatorSubsystem.level3Height;
-import frc.robot.subsystems.ElevatorSubsystem.processorHeight;
 import frc.robot.subsystems.HandSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ArmSubsystem.feederAngle;
-import frc.robot.subsystems.ArmSubsystem.groundAngle;
-import frc.robot.subsystems.ArmSubsystem.homeAngle;
-import frc.robot.subsystems.ArmSubsystem.level1Angle;
-import frc.robot.subsystems.ArmSubsystem.level2Angle;
-import frc.robot.subsystems.ArmSubsystem.level3Angle;
-import frc.robot.subsystems.ArmSubsystem.processorAngle;
 import frc.robot.subsystems.PathsSubsystem;
 
 import java.io.File;
@@ -72,31 +60,6 @@ public class RobotContainer
   private final HandSubsystem hand = new HandSubsystem();
   private final ArmSubsystem arm = new ArmSubsystem();
   private final PathsSubsystem paths = new PathsSubsystem();
-
-
-
-     //Add commands
-  //Arm commands
-  groundAngle groundAngle = arm.new groundAngle();
-  homeAngle homeAngle = arm.new homeAngle();
-  feederAngle feederAngle = arm.new feederAngle();
-  processorAngle processorAngle = arm.new processorAngle();
-
-  level3Angle level3Angle = arm.new level3Angle();
-  level2Angle level2Angle = arm.new level2Angle();
-  level1Angle level1Angle = arm.new level1Angle();
-
-  //Elevator commands
-  groundHeight groundHeight = elevator.new groundHeight();
-  homeHeight homeHeight = elevator.new homeHeight();
-  feederHeight feederHeight = elevator.new feederHeight();
-  processorHeight processorHeight = elevator.new processorHeight();
-
-  level3Height level3Height = elevator.new level3Height();
-  level2Height level2Height = elevator.new level2Height();
-  level1Height level1Height = elevator.new level1Height();
-
-
 
   //set up auto chooser                                                                              
   private final SendableChooser<Command> autoChooser;
@@ -141,7 +104,7 @@ public class RobotContainer
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Mode", autoChooser);
 
-    NamedCommands.registerCommand("homeangle", arm.new homeAngle());
+    NamedCommands.registerCommand("HomeAngle", arm.gotoAngleSingle(ArmConstants.homeAngle));
   }
 
   /**
@@ -217,29 +180,29 @@ public class RobotContainer
          //MISC POSITION COMMANDS
          
        //Home position command - operator       
-       operatorXbox.a().onTrue(homeAngle.andThen(homeHeight));
+       operatorXbox.a().onTrue(arm.gotoAngleSingle(ArmConstants.homeAngle).andThen(elevator.goToHeight(ElevatorConstants.homeHeight)));
 
        //Ground position command - operator    
- //      operatorXbox.b().onTrue(groundAngle.andThen(groundHeight));         
+       operatorXbox.b().onTrue(arm.gotoAngleSingle(ArmConstants.groundAngle).andThen(elevator.goToHeight(ElevatorConstants.groundHeight)));         
 
        //processor position command - operator
- //      operatorXbox.y().onTrue(processorAngle.andThen(processorHeight));
+       operatorXbox.y().onTrue(arm.goToAngle(ArmConstants.processorFront, ArmConstants.processorBack).andThen(elevator.goToHeight(ElevatorConstants.processorHeight)));
 
-       //Feeder porsition command - operator
-       operatorXbox.x().onTrue(feederAngle.andThen(feederHeight));
+       //Feeder position command - operator
+       operatorXbox.x().onTrue(arm.gotoAngleSingle(ArmConstants.feederAngle).andThen(elevator.goToHeight(ElevatorConstants.feederHeight)));
 
 
 
-         //LEVEL COMMANDS
+       //LEVEL COMMANDS
 
        //Level 3 position command - operator
-       operatorXbox.povUp().onTrue(level3Angle.andThen(level3Height));
+       operatorXbox.povUp().onTrue(arm.goToAngle(ArmConstants.level3Angle, ArmConstants.level3BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level3Height)));
 
        //Level 2 position command - operator
-       operatorXbox.povLeft().onTrue(level2Angle.andThen(level2Height));
+       operatorXbox.povLeft().onTrue(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level2Height)));
 
        //level 1 position command - operator
-       operatorXbox.povDown().onTrue(level1Angle.andThen(level1Height));
+       operatorXbox.povDown().onTrue(arm.goToAngle(ArmConstants.level1Angle, ArmConstants.level1BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level1Height)));
 
 
 

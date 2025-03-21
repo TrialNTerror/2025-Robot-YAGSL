@@ -106,257 +106,57 @@ public class ArmSubsystem extends SubsystemBase {
 		}
 
 
-        //Switch between front and back scoring since we cant impliment vision yet
+	//Switch between front and back scoring since we cant impliment vision yet
 
-		public Command switchScore() 
-		{
-			return this.runOnce(() -> {
-				
-				if(currentNum == 1)
-				{
-					currentNum = -1;
-					System.out.println("Back");
-				}
-				else
-				{
-					currentNum = 1;
-					System.out.println("Front");
-				}
-			});
-		}	
-
-
-	
-	//Level 3 position
-	public class level3Angle extends Command
+	public Command switchScore() 
 	{
-		@Override
-		public void initialize(){
+		return this.runOnce(() -> {
+			
+			if(currentNum == 1)
+			{
+				currentNum = -1;
+				System.out.println("Back");
+			}
+			else
+			{
+				currentNum = 1;
+				System.out.println("Front");
+			}
+		});
+	}	
+
+	public Command levelAngle(double FowardAngle, double RearAngle){
+		return run(() -> {
 			if (currentNum == 1)
 			{
-				reachAngle(ArmConstants.level3BackAngle);    //should be front
-				System.out.println("L3 Front");
+				reachAngle(FowardAngle);    //should be front
+				System.out.println(String.valueOf(FowardAngle)+" Front");
 				//level3Angle().end(endWhenArm(ArmConstants.level3Angle));
 			} 
 			else
 			{
-				reachAngle(ArmConstants.level3BackAngle);
-				System.out.println("L3 Back");
+				reachAngle(RearAngle);
+				System.out.println(String.valueOf(RearAngle)+" Back");
 				//level3Angle().end(endWhenArm(ArmConstants.level3BackAngle));
 			}
-		}
-
-		@Override
-		public boolean isFinished() {
-							
-			if(
-				(endWhenArm(ArmConstants.level3BackAngle) == true  &&  currentNum == 1)   //should be front
-			 || 
-			    (endWhenArm(ArmConstants.level3BackAngle) == true  &&  currentNum == -1)
-			  )
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		};
+		});
 	}
 
-
-	//Level 2 position
-	public class level2Angle extends Command
-	{
-		@Override
-		public void initialize(){
-			if (currentNum == 1)
-			{
-				reachAngle(ArmConstants.level2BackAngle);   //should be front
-				System.out.println("L2 Front");
-				//level2Angle().end(endWhenArm(ArmConstants.level2Angle));
-			} 
-			else
-			{
-				reachAngle(ArmConstants.level2BackAngle);
-				System.out.println("L2 Back");
-				//level2Angle().end(endWhenArm(ArmConstants.level2BackAngle));
-			}
-		}
-
-		@Override
-		public boolean isFinished() {
-							
-			if(
-				 (endWhenArm(ArmConstants.level2BackAngle) == true  &&  currentNum == 1)   //shouls be front
-			     || 
-			     (endWhenArm(ArmConstants.level2BackAngle) == true  &&  currentNum == -1)
-			  )
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		};
+	public Command levelAngleSingle(double Angle){
+		return run(() -> {
+			reachAngle(Angle);
+			System.out.println(String.valueOf(Angle));
+		});
 	}
 
-
-	//Level 1 position
-	public class level1Angle extends Command
-	{
-		@Override
-		public void initialize(){
-			if (currentNum == 1)
-			{
-				reachAngle(ArmConstants.level1BackAngle);   //should be front
-				System.out.println("L1 Front");
-				//level1Angle().end(endWhenArm(ArmConstants.level1Angle));
-			} 
-			else
-			{
-				reachAngle(ArmConstants.level1BackAngle);
-				System.out.println("L1 Back");
-				//level1Angle().end(endWhenArm(ArmConstants.level1BackAngle));
-			}
-		}
-
-		@Override
-		public boolean isFinished() {
-							
-			if(
-			 	 (endWhenArm(ArmConstants.level1BackAngle) == true  &&  currentNum == 1)    //should be front
-				 || 
-				 (endWhenArm(ArmConstants.level1BackAngle) == true  &&  currentNum == -1)
-			  )
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		};
+	public Command goToAngle(double forwardAngle, double rearAngle){
+		return levelAngle(forwardAngle, rearAngle).until(() -> ((endWhenArm(forwardAngle) == true  &&  currentNum == 1)||(endWhenArm(rearAngle) == true  &&  currentNum == -1)));
 	}
 
-
-
-	//processor position
-	public class processorAngle extends Command
-	{
-		@Override
-		public void initialize(){
-			if (currentNum == 1)
-			{
-				reachAngle(ArmConstants.processorFront);
-				System.out.println("Processor Front");
-				//processorAngle().end(endWhenArm(ArmConstants.processorFront));
-			} 
-			else
-			{
-				reachAngle(ArmConstants.processorBack);
-				System.out.println("Processor Back");
-				//processorAngle().end(endWhenArm(ArmConstants.processorBack));
-			}
-		}
-
-		@Override
-		public boolean isFinished() {
-							
-			if(
-		    	 (endWhenArm(ArmConstants.processorFront) == true  &&  currentNum == 1)
-				 || 
-				 (endWhenArm(ArmConstants.processorBack) == true  &&  currentNum == -1)
-			  )
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		};
-	}
-		
-
-
-	//ground position
-	public class groundAngle extends Command
-	{
-		@Override
-		public void initialize(){
-			reachAngle(ArmConstants.groundAngle);
-			System.out.println("Ground Angle");
-		}
-
-		@Override
-		public boolean isFinished() {
-							
-			if(endWhenArm(ArmConstants.groundAngle) == true)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		};
+	public Command gotoAngleSingle(double Angle){
+		return levelAngleSingle(Angle).until(() -> endWhenArm(Angle));
 	}
 
-
-
-	//Home position
-	public class homeAngle extends Command
-	{
-		//Executes once
-		@Override
-		public void initialize(){
-			reachAngle(ArmConstants.homeAngle);
-			System.out.println("Home Angle");
-		}
-
-		//Returns true when finished, runs repeatedly
-		@Override
-		public boolean isFinished() {
-			
-			if(endWhenArm(ArmConstants.homeAngle) == true)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		};
-	}
-
-
-
-	//Feeder position
-	public class feederAngle extends Command
-	{
-		//Executes once
-		@Override
-		public void initialize(){
-			reachAngle(ArmConstants.feederAngle);
-			System.out.println("Processor");
-		}
-
-		//Returns true when finished, runs repeatedly
-		@Override
-		public boolean isFinished() {
-			
-			if(endWhenArm(ArmConstants.feederAngle) == true)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		};
-	}
 
     	public void periodic()
     	{
