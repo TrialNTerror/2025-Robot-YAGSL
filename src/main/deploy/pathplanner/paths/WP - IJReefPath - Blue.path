@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.406454918032787,
+        "y": 5.649334016393442
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.28504418523813,
+        "y": 5.430794697363057
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.25061475409836,
+        "y": 5.397592213114754
+      },
+      "prevControl": {
+        "x": 5.386427573637678,
+        "y": 5.607484752402792
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "IJReef - Blue"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -120.34324888423963
+  },
+  "reversed": false,
+  "folder": "Blue Algae Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -118.0401529779349
+  },
+  "useDefaultConstraints": true
+}

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.203483606557377,
-        "y": 2.4486168032786884
+        "x": 3.6082991803278692,
+        "y": 5.649334016393442
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.327518341146586,
-        "y": 2.6656775888098028
+        "x": 3.725271110432627,
+        "y": 5.428387037306676
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 12.34733606557377,
-        "y": 2.724334016393442
+        "x": 3.7401639344262296,
+        "y": 5.38560450819672
       },
       "prevControl": {
-        "x": 12.242571521208333,
-        "y": 2.497344170268329
+        "x": 3.6115399955693475,
+        "y": 5.599977739624856
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "KLReef - Blue"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.83238662042248
+    "rotation": -58.81502534126161
   },
   "reversed": false,
-  "folder": "Red Reef Paths",
+  "folder": "Blue Algae Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 59.796762245057316
+    "rotation": -61.927513064147035
   },
   "useDefaultConstraints": true
 }

@@ -95,6 +95,8 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+    NamedCommands.registerCommand("HomeAngle", arm.gotoAngleSingle(ArmConstants.homeAngle));
+    NamedCommands.registerCommand("FeederStationAngle", arm.gotoAngleSingle(ArmConstants.feederAngle));
 
     // Configure the trigger bindings
     configureBindings();
@@ -104,7 +106,7 @@ public class RobotContainer
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Mode", autoChooser);
 
-    NamedCommands.registerCommand("HomeAngle", arm.gotoAngleSingle(ArmConstants.homeAngle));
+    
   }
 
   /**

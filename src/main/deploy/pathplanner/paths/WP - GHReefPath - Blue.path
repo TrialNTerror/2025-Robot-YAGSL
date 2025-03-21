@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5723360655737704,
-        "y": 2.388678278688524
+        "x": 6.377459016393443,
+        "y": 4.00701844262295
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6899831243972994,
-        "y": 2.6092665139826416
+        "x": 6.12784392809209,
+        "y": 3.9931509377173198
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.728176229508197,
-        "y": 2.6643954918032784
+        "x": 6.077766393442623,
+        "y": 4.00701844262295
       },
       "prevControl": {
-        "x": 3.597151873092112,
-        "y": 2.451480912627143
+        "x": 6.327766393442623,
+        "y": 4.00701844262295
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "GHReef - Blue"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 59.0362434679265
+    "rotation": -179.50608310138125
   },
   "reversed": false,
-  "folder": "Blue Reef Paths",
+  "folder": "Blue Algae Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 59.65675111576046
+    "rotation": -179.42706130231653
   },
   "useDefaultConstraints": true
 }

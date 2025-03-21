@@ -7,25 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1stScore"
+            "pathName": "1T - Score"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1stCoral"
+            "pathName": "2T - Coral"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2ndScore"
+            "pathName": "3T - Score"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2ndCoral"
+            "pathName": "4T - Coral"
           }
         }
       ]

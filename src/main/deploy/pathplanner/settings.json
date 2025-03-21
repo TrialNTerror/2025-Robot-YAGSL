@@ -3,11 +3,14 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
+    "BLUE BOTTOM AUTO",
+    "BLUE TOP AUTO",
     "Blue Misc Paths",
-    "Blue Reef Paths",
-    "PATHS FOR AUTO",
+    "Blue Algae Paths",
+    "Blue Coral Paths",
+    "Red Coral Paths",
     "Red Misc Paths",
-    "Red Reef Paths"
+    "Red Algae Paths"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
@@ -16,7 +19,7 @@
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,
   "robotMass": 51.255,
-  "robotMOI": 6.883,
+  "robotMOI": 6.0,
   "robotTrackwidth": 0.546,
   "driveWheelRadius": 0.0368,
   "driveGearing": 4.71,

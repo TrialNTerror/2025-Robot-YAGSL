@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.447448979591837,
-        "y": 6.382908163265306
+        "x": 13.965676229508198,
+        "y": 5.529456967213114
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.634119897959184,
-        "y": 6.964923469387755
+        "x": 13.82700118045189,
+        "y": 5.321444393628653
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.6191964285714286,
-        "y": 7.054464285714285
+        "x": 13.833811475409837,
+        "y": 5.3496413934426235
       },
       "prevControl": {
-        "x": 1.910204081632653,
-        "y": 6.838073979591836
+        "x": 13.95233643116859,
+        "y": 5.569759168423168
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "CDReef - Red"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 124.82448915695683
+    "rotation": -120.96375653207352
   },
   "reversed": false,
-  "folder": "PATHS FOR AUTO",
+  "folder": "Red Algae Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 131.40328292237157
+    "rotation": -118.70595254340114
   },
   "useDefaultConstraints": true
 }

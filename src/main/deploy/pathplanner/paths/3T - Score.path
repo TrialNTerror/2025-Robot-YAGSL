@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7741803278688524,
-        "y": 6.668288934426228
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 1.6141327902594853,
-        "y": 6.860343056238749
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
         "x": 1.5823770491803275,
         "y": 6.93201844262295
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.4549107142857145,
+        "y": 6.644068877551019
+      },
+      "isLocked": false,
+      "linkedName": "TopFeeder - Blue"
+    },
+    {
+      "anchor": {
+        "x": 3.7401639344262296,
+        "y": 5.38560450819672
+      },
       "prevControl": {
-        "x": 1.7294186560032523,
-        "y": 6.7298334633021994
+        "x": 3.1078125,
+        "y": 6.007072368421052
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "KLReef - Blue"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8254716981132079,
+      "rotationDegrees": -59.26803098811676
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +47,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 126.00392735862793
+    "rotation": -58.81502534126161
   },
   "reversed": false,
-  "folder": "Blue Misc Paths",
+  "folder": "BLUE TOP AUTO",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 125.18069936124212
+    "rotation": 126.00392735862793
   },
   "useDefaultConstraints": true
 }

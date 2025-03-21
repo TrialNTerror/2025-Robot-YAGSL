@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3066598360655735,
-        "y": 6.908043032786885
+        "x": 14.852766393442623,
+        "y": 4.019006147540983
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2536885245901637,
-        "y": 6.296670081967213
+        "x": 14.602766393442623,
+        "y": 4.019006147540983
       },
       "isLocked": false,
-      "linkedName": "AtCoral1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.9079918032786884,
-        "y": 5.301690573770491
+        "x": 14.577049180327867,
+        "y": 4.019006147540983
       },
       "prevControl": {
-        "x": 2.972950819672131,
-        "y": 6.080891393442624
+        "x": 14.827049180327867,
+        "y": 4.019006147540983
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "AtScore2"
+      "linkedName": "ABReef - Red"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.93762495001999,
-      "rotationDegrees": -58.54859975462398
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -57.15494169722229
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "PATHS FOR AUTO",
+  "folder": "Red Algae Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 128.3130906738177
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

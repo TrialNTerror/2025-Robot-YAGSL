@@ -5,18 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "TEST PATH"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "sequential",
           "data": {
             "commands": [
@@ -29,13 +17,13 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 2.0
+                  "waitTime": 1.0
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "FeederStationAngle"
+                  "pathName": "1B - Score"
                 }
               }
             ]
