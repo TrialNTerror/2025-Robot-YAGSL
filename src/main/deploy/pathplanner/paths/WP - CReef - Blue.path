@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4624999999999997,
-        "y": 1.0700307377049172
+        "x": 3.410896381578947,
+        "y": 2.4662828947368416
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2947779605263157,
-        "y": 1.6099506578947365
+        "x": 3.529775640170315,
+        "y": 2.6862095231308736
       },
       "isLocked": false,
-      "linkedName": "BottomFeeder - Blue"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 2.7405016447368418
       },
       "prevControl": {
-        "x": 3.3050575657894736,
-        "y": 2.331578947368421
+        "x": 3.440702440230229,
+        "y": 2.529296875848285
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,10 +45,10 @@
     "rotation": -119.46522138476672
   },
   "reversed": false,
-  "folder": "BLUE BOTTOM AUTO",
+  "folder": "Blue Coral Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -127.2348339815747
+    "rotation": 61.2656912331935
   },
   "useDefaultConstraints": true
 }

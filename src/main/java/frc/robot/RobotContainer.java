@@ -150,6 +150,7 @@ public class RobotContainer
        //sets driving mode - driver
        drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
+      
 
 
          //SWITCH SCORING SIDE - OPERATOR
@@ -198,13 +199,13 @@ public class RobotContainer
        //LEVEL COMMANDS
 
        //Level 3 position command - operator
-       operatorXbox.povUp().onTrue(arm.goToAngle(ArmConstants.level3Angle, ArmConstants.level3BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level3Height)));
+       //operatorXbox.povUp().onTrue(arm.goToAngle(ArmConstants.level3Angle, ArmConstants.level3BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level3Height)));
 
        //Level 2 position command - operator
-       operatorXbox.povLeft().onTrue(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level2Height)));
+       //operatorXbox.povLeft().onTrue(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level2Height)));
 
        //level 1 position command - operator
-       operatorXbox.povDown().onTrue(arm.goToAngle(ArmConstants.level1Angle, ArmConstants.level1BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level1Height)));
+       //operatorXbox.povDown().onTrue(arm.goToAngle(ArmConstants.level1Angle, ArmConstants.level1BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level1Height)));
 
 
 

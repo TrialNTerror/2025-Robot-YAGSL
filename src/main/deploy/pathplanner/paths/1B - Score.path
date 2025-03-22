@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.138651315789474,
-        "y": 2.3412006578947366
+        "x": 6.5475740131578934,
+        "y": 2.528824013157895
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.262602459016393,
-        "y": 2.62843237704918
+        "x": 5.388157894736842,
+        "y": 2.716447368421052
       },
       "prevControl": {
-        "x": 5.734539473684211,
-        "y": 2.4181743421052637
+        "x": 5.860094909404659,
+        "y": 2.5061893334771357
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EFReef - Blue"
+      "linkedName": "FReef - Blue"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.71282771515885
+    "rotation": -59.366883207818
   },
   "reversed": false,
   "folder": "BLUE BOTTOM AUTO",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -1.0674996837401927
   },
   "useDefaultConstraints": true
 }

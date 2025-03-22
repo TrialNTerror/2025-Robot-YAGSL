@@ -96,6 +96,11 @@ public ElevatorSubsystem() {
          leadMotorConfig.encoder
             .positionConversionFactor(ElevatorConstants.positionConversionFactor)
             .velocityConversionFactor(ElevatorConstants.velocityConversionFactor);
+
+
+         leadMotorConfig.softLimit
+            .forwardSoftLimit(ElevatorConstants.forwardLimit)
+            .reverseSoftLimit(ElevatorConstants.reverseLimit);
          
 
 
@@ -190,14 +195,14 @@ public ElevatorSubsystem() {
     public Command elevatorUp()
     {
         return run(() -> {
-         elevatorLeadMotor.set(-0.5);
+         elevatorLeadMotor.set(0.4);
           });
     }
 
     public Command elevatorDown()
     {
         return run(() -> {
-         elevatorLeadMotor.set(0.5);
+         elevatorLeadMotor.set(-0.4);
           });
     }
 

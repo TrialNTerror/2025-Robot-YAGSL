@@ -76,12 +76,12 @@ public final class Constants
     //Positions
     public static final double level3Height = 9000;   //currently testing
     public static final double level2Height = 30;
-    public static final double level1Height = 60;   //currently testing
+    public static final double level1Height = 2800;   //currently testing
 
-    public static final double groundHeight = 25000;
-    public static final double homeHeight = 6000;
-    public static final double feederHeight = 80;
-    public static final double processorHeight = 293;
+    public static final double groundHeight = 1000;
+    public static final double homeHeight = 200;
+    public static final double feederHeight = 200;
+    public static final double processorHeight = 1000;
 
     // Lock / Unlock Servo
     public static final int servoFollowLock = 55;
@@ -112,6 +112,9 @@ public final class Constants
     public static final double velocityConversionFactor = 360;
 
     public static final double encoderAllowError = 1000;
+
+    public static final double forwardLimit = 10000;
+    public static final double reverseLimit = 0;
   }
 
 
