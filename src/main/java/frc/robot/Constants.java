@@ -32,7 +32,7 @@ public final class Constants
 
   public static final class AutonConstants
   {
-    public static final PIDConstants TRANSLATION_PID = new PIDConstants(5, 0, 0);//0.7
+    public static final PIDConstants TRANSLATION_PID = new PIDConstants(3, 0, 0);//0.7
     public static final PIDConstants ANGLE_PID       = new PIDConstants(1, 0.01);    //0.4 and 0.01
   }
 
