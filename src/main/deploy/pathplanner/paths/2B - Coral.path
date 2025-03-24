@@ -48,7 +48,7 @@
   "folder": "BLUE BOTTOM AUTO",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -59.366883207818
+    "rotation": 117.15723452920699
   },
   "useDefaultConstraints": true
 }
