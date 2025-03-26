@@ -69,13 +69,21 @@ public class RobotContainer
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
-  SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getLeftY() * 1,
-                                                                () -> driverXbox.getLeftX() * -1)
+  SwerveInputStream driveAngularVelocityBlue = SwerveInputStream.of(drivebase.getSwerveDrive(),
+                                                                () -> driverXbox.getLeftY() * -1,
+                                                                () -> driverXbox.getLeftX() * 1)
                                                             .withControllerRotationAxis(driverXbox::getRightX)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
-                                                            .allianceRelativeControl(true);
+                                                            .allianceRelativeControl(false);
+
+  SwerveInputStream driveAngularVelocityRed = SwerveInputStream.of(drivebase.getSwerveDrive(),
+                                                            () -> driverXbox.getLeftY() * 1,
+                                                            () -> driverXbox.getLeftX() * -1)
+                                                        .withControllerRotationAxis(driverXbox::getRightX)
+                                                        .deadband(OperatorConstants.DEADBAND)
+                                                        .scaleTranslation(0.8)
+                                                        .allianceRelativeControl(false);
 
 
 
@@ -90,14 +98,14 @@ public class RobotContainer
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
    */
-  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverXbox::getRightX,
+  SwerveInputStream driveDirectAngle = driveAngularVelocityRed.copy().withControllerHeadingAxis(driverXbox::getRightX,
                                                                                              driverXbox::getRightY)
                                                            .headingWhile(true);
 
   /**
    * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
    */
-  SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
+  SwerveInputStream driveRobotOriented = driveAngularVelocityRed.copy().robotRelative(true)
                                                              .allianceRelativeControl(false);
 
   /**
@@ -131,7 +139,8 @@ public class RobotContainer
     currentNum = 1;
 
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
-    Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
+    Command driveFieldOrientedAnglularVelocityRed = drivebase.driveFieldOriented(driveAngularVelocityRed);
+    Command driveFieldOrientedAnglularVelocityBlue = drivebase.driveFieldOriented(driveAngularVelocityBlue);
     Command driveFieldOrientedAnglularVelocitySIDETOSIDE = drivebase.driveFieldOriented(driveAngularVelocitySIDETOSIDE);
     Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
     Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
@@ -161,7 +170,16 @@ public class RobotContainer
        //sets driving mode - driver
 
 
-       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+       if(DriverStation.getAlliance().get() == DriverStation.Alliance.Red)
+       {
+        drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocityRed);
+        SmartDashboard.putBoolean("Alliance Red", true);
+       }
+       else if(DriverStation.getAlliance().get() == DriverStation.Alliance.Blue)
+       {
+        drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocityBlue);
+        SmartDashboard.putBoolean("Alliance Red", false);
+       }
 
       
 
@@ -172,6 +190,19 @@ public class RobotContainer
        operatorXbox.start().onTrue(arm.switchScore());
 
 
+
+        //CLIMBING COMMANDS - OPERATOR
+/* 
+      operatorXbox.button(10)
+
+      .onTrue(elevator.goToHeight(ElevatorConstants.waitClimbHeight)
+      .andThen(arm.gotoAngleSingle(ArmConstants.waitClimbAngle)))
+
+      .onFalse(elevator.goToHeight(ElevatorConstants.goClimbHeight)
+      .alongWith(arm.gotoAngleSingle(ArmConstants.goClimbAngle)
+      .andThen(elevator.goToHeight(ElevatorConstants.homeClimbHeight))
+      .andThen(elevator.lockElevator())));
+*/
 
            //HAND COMMANDS - OPERATOR
 

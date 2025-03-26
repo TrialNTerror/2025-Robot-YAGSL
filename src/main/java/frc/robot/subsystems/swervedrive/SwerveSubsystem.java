@@ -542,7 +542,8 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public Pose2d getPose()
   {
-    return swerveDrive.getPose();
+    Pose2d FakePose =  new Pose2d(swerveDrive.getPose().getTranslation(), swerveDrive.getPose().getRotation().unaryMinus());
+    return FakePose;
   }
 
   /**

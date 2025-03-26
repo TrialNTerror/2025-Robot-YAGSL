@@ -32,8 +32,8 @@ public final class Constants
 
   public static final class AutonConstants
   {
-    public static final PIDConstants TRANSLATION_PID = new PIDConstants(3, 0, 0);//0.7
-    public static final PIDConstants ANGLE_PID       = new PIDConstants(1, 0.01);    //0.4 and 0.01
+    public static final PIDConstants TRANSLATION_PID = new PIDConstants(1.25, 0, 0);//0.7
+    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.6, 0.01);    //0.4 and 0.01
   }
 
   public static final class DrivebaseConstants
@@ -82,6 +82,10 @@ public final class Constants
     public static final double homeHeight = 200;
     public static final double feederHeight = 200;
     public static final double processorHeight = 1000;
+
+    public static final double waitClimbHeight = 500;
+    public static final double goClimbHeight = 500;
+    public static final double homeClimbHeight = 500;
 
     // Lock / Unlock Servo
     public static final int servoFollowLock = 55;
@@ -150,6 +154,9 @@ public final class Constants
     public static final double groundAngle = 300;  //should be at 309
     public static final double homeAngle = 190;
     public static final double feederAngle = 208;
+
+    public static final double waitClimbAngle = 190;
+    public static final double goClimbAngle = 190;
 
     //Inverting Motor
     public static final boolean motorInvert = false;

@@ -195,14 +195,14 @@ public ElevatorSubsystem() {
     public Command elevatorUp()
     {
         return run(() -> {
-         elevatorLeadMotor.set(0.4);
+         elevatorLeadMotor.set(0.2);
           });
     }
 
     public Command elevatorDown()
     {
         return run(() -> {
-         elevatorLeadMotor.set(-0.4);
+         elevatorLeadMotor.set(-0.2);
           });
     }
 
