@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.168174342105263,
+        "y": 2.822286184210526
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.5475740131578934,
+        "y": 2.528824013157895
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.388157894736842,
+        "y": 2.716447368421052
+      },
+      "prevControl": {
+        "x": 5.860094909404659,
+        "y": 2.5061893334771357
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "FReef - Blue"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 117.15723452920699
+  },
+  "reversed": false,
+  "folder": "BLUE BOTTOM AUTO",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -178.28164199834455
+  },
+  "useDefaultConstraints": true
+}

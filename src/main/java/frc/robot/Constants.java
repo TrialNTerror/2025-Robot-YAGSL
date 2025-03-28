@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.config.PIDConstants;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -28,12 +30,11 @@ public final class Constants
   public static final double MAX_SPEED  = Units.feetToMeters(14.5);
   // Maximum speed of the robot in meters per second, used to limit acceleration.
 
-//  public static final class AutonConstants
-//  {
-//
-//    public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
-//    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.4, 0, 0.01);
-//  }
+  public static final class AutonConstants
+  {
+    public static final PIDConstants TRANSLATION_PID = new PIDConstants(3, 0, 0);//0.7
+    public static final PIDConstants ANGLE_PID       = new PIDConstants(1, 0.01);    //0.4 and 0.01
+  }
 
   public static final class DrivebaseConstants
   {
@@ -75,12 +76,12 @@ public final class Constants
     //Positions
     public static final double level3Height = 9000;   //currently testing
     public static final double level2Height = 30;
-    public static final double level1Height = 60;   //currently testing
+    public static final double level1Height = 2800;   //currently testing
 
-    public static final double groundHeight = 25000;
-    public static final double homeHeight = 6000;
-    public static final double feederHeight = 80;
-    public static final double processorHeight = 293;
+    public static final double groundHeight = 1000;
+    public static final double homeHeight = 200;
+    public static final double feederHeight = 200;
+    public static final double processorHeight = 1000;
 
     // Lock / Unlock Servo
     public static final int servoFollowLock = 55;
@@ -111,6 +112,9 @@ public final class Constants
     public static final double velocityConversionFactor = 360;
 
     public static final double encoderAllowError = 1000;
+
+    public static final double forwardLimit = 10000;
+    public static final double reverseLimit = 0;
   }
 
 
@@ -131,7 +135,7 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Angle = 98;
+    public static final double level3Angle = 98;     
     public static final double level3BackAngle = 279;
 
     public static final double level2Angle = 86;
@@ -143,11 +147,9 @@ public final class Constants
     public static final double processorFront = 293;
     public static final double processorBack = 115;
 
-    public static final double groundAngle = 260;
+    public static final double groundAngle = 300;  //should be at 309
     public static final double homeAngle = 190;
     public static final double feederAngle = 208;
-    //processor angle 293 for front
-    //processor angle 115 for back  (battery side)
 
     //Inverting Motor
     public static final boolean motorInvert = false;

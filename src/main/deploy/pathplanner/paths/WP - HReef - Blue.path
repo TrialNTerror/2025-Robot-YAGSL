@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.4273026315789465,
+        "y": 4.193379934210526
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.177614546859485,
+        "y": 4.205864338446499
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.104975328947368,
+        "y": 4.193379934210526
+      },
+      "prevControl": {
+        "x": 6.354975328947368,
+        "y": 4.193379934210526
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "HReef - Blue"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -179.87007782015755
+  },
+  "reversed": false,
+  "folder": "Blue Coral Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 178.34451346088068
+  },
+  "useDefaultConstraints": true
+}

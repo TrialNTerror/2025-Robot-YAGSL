@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 13.965676229508198,
+        "y": 5.529456967213114
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 13.82700118045189,
+        "y": 5.321444393628653
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 13.833811475409837,
+        "y": 5.3496413934426235
+      },
+      "prevControl": {
+        "x": 13.95233643116859,
+        "y": 5.569759168423168
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "CDReef - Red"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -120.96375653207352
+  },
+  "reversed": false,
+  "folder": "Red Algae Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -118.70595254340114
+  },
+  "useDefaultConstraints": true
+}

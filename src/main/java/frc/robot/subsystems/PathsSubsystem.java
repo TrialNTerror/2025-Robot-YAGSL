@@ -89,5 +89,34 @@ public class PathsSubsystem extends SubsystemBase {
 		}
 
 
+		public Command driveToTEST() 
+		{
+			try{
+				PathPlannerPath path;
+				var alliance = DriverStation.getAlliance();
+
+				if(alliance.isPresent())
+				{
+					if(alliance.get() == DriverStation.Alliance.Red)
+						{
+							path = PathPlannerPath.fromPathFile("TEST PATH");
+							return AutoBuilder.followPath(path);
+						}
+						else
+						{
+							path = PathPlannerPath.fromPathFile("PATH");
+							return AutoBuilder.followPath(path);
+						}
+				}
+
+				return Commands.none();
+
+				} catch (Exception e) {
+					DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
+					return Commands.none();
+				}
+ 	    }
+
 
 }
+

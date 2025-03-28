@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.7139802631578944,
+        "y": 2.273848684210526
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.834251644736842,
+        "y": 2.4999588815789453
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.8919819078947366,
+        "y": 2.5625
+      },
+      "prevControl": {
+        "x": 3.7573845886191872,
+        "y": 2.3518259350469646
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "DReef - Blue"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 59.867335930392215
+  },
+  "reversed": false,
+  "folder": "Blue Coral Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 61.4096159392094
+  },
+  "useDefaultConstraints": true
+}

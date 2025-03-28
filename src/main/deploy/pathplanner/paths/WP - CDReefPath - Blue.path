@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5723360655737704,
+        "y": 2.388678278688524
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.6899831243972994,
+        "y": 2.6092665139826416
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.728176229508197,
+        "y": 2.6643954918032784
+      },
+      "prevControl": {
+        "x": 3.597151873092112,
+        "y": 2.451480912627143
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "CDReef - Blue"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 59.0362434679265
+  },
+  "reversed": false,
+  "folder": "Blue Algae Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 59.65675111576046
+  },
+  "useDefaultConstraints": true
+}
