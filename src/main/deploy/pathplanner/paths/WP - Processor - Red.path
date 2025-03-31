@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 90.3873160218114
   },
   "reversed": false,
   "folder": "Red Misc Paths",

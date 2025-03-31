@@ -5,12 +5,13 @@
   "pathFolders": [
     "BLUE BOTTOM AUTO",
     "BLUE TOP AUTO",
-    "Blue Misc Paths",
     "Blue Algae Paths",
     "Blue Coral Paths",
+    "Blue Misc Paths",
+    "SCORE CORAL REMOVE ALGAE",
+    "Red Algae Paths",
     "Red Coral Paths",
-    "Red Misc Paths",
-    "Red Algae Paths"
+    "Red Misc Paths"
   ],
   "autoFolders": [],
   "defaultMaxVel": 4.879,

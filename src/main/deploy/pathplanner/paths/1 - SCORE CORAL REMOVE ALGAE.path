@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.4273026315789465,
-        "y": 4.193379934210526
+        "x": 7.581122448979593,
+        "y": 5.062181122448979
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.177614546859485,
-        "y": 4.205864338446499
+        "x": 6.782716836734694,
+        "y": 5.069642857142856
       },
       "isLocked": false,
       "linkedName": null
@@ -20,15 +20,20 @@
         "y": 4.193379934210526
       },
       "prevControl": {
-        "x": 6.354975328947368,
-        "y": 4.193379934210526
+        "x": 6.4917091836734695,
+        "y": 5.121875
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "HReef - Blue"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9336870026525198,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -45,10 +50,10 @@
     "rotation": 0.7346292789919221
   },
   "reversed": false,
-  "folder": "Blue Coral Paths",
+  "folder": "SCORE CORAL REMOVE ALGAE",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 178.34451346088068
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

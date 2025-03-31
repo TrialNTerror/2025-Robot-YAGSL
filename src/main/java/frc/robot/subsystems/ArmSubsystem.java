@@ -15,6 +15,7 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -133,7 +134,7 @@ public class ArmSubsystem extends SubsystemBase {
 				System.out.println(String.valueOf(FowardAngle)+" Front");
 				//level3Angle().end(endWhenArm(ArmConstants.level3Angle));
 			} 
-			else
+			else if (currentNum == -1)
 			{
 				reachAngle(RearAngle);
 				System.out.println(String.valueOf(RearAngle)+" Back");

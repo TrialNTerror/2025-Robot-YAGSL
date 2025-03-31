@@ -16,6 +16,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.OperatorConstants;
 import edu.wpi.first.wpilibj.Servo;
 
 
@@ -124,6 +126,15 @@ public ElevatorSubsystem() {
                                     //feedforward.calculate(elevEncoder1.getVelocity()));
     }
 
+        //method that sets the motor to a specific spot
+        private void accelToHeight(double goal)
+        {
+            pidController1.setReference((goal),
+                                        ControlType.kVelocity,
+                                        ClosedLoopSlot.kSlot1); 
+                                        //feedforward.calculate(elevEncoder1.getVelocity()));
+        }
+
     private boolean endWhenElevator(double cmd)
     {
         if (((elevEncoder1.getPosition() + ElevatorConstants.encoderAllowError) > cmd) && ((elevEncoder1.getPosition() - ElevatorConstants.encoderAllowError) < cmd))
@@ -181,7 +192,30 @@ public ElevatorSubsystem() {
         locked = false;
          });
     }
+
+
+    public Command freeMoveUp(double xAxis)
+    {
+        return run(() -> {
+            if(xAxis > OperatorConstants.DEADBAND)
+            {
+                accelToHeight(xAxis);
+                System.out.println("elevator speed at: "+String.valueOf(xAxis));
+            }
+        });
+    }
     
+
+    public Command freeMoveDown(double xAxis)
+    {
+        return run(() -> {
+            if(xAxis < -OperatorConstants.DEADBAND)
+            {
+               accelToHeight(xAxis);
+               System.out.println("elevator speed at: "+String.valueOf(xAxis));
+            }
+        });
+    }
 
     
     public void simulationPeriodic()
@@ -195,14 +229,14 @@ public ElevatorSubsystem() {
     public Command elevatorUp()
     {
         return run(() -> {
-         elevatorLeadMotor.set(0.2);
+         elevatorLeadMotor.set(0.8);
           });
     }
 
     public Command elevatorDown()
     {
         return run(() -> {
-         elevatorLeadMotor.set(-0.2);
+         elevatorLeadMotor.set(-0.4);
           });
     }
 

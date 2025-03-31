@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1 - SCORE CORAL REMOVE ALGAE"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 - SCORE CORAL REMOVE ALGAE"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3 - SCORE CORAL REMOVE ALGAE"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4 - SCORE CORAL REMOVE ALGAE"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5 - SCORE CORAL REMOVE ALGAE"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

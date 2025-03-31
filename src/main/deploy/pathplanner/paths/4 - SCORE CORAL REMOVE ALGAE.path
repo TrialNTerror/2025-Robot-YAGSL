@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.4273026315789465,
-        "y": 4.193379934210526
+        "x": 5.993852459016393,
+        "y": 0.95015368852459
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.177614546859485,
-        "y": 4.205864338446499
+        "x": 5.730612244897959,
+        "y": 1.7566326530612242
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Processor - Red"
     },
     {
       "anchor": {
-        "x": 6.104975328947368,
-        "y": 4.193379934210526
+        "x": 5.262602459016393,
+        "y": 2.62843237704918
       },
       "prevControl": {
-        "x": 6.354975328947368,
-        "y": 4.193379934210526
+        "x": 5.626147959183673,
+        "y": 2.159566326530611
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "HReef - Blue"
+      "linkedName": "EFReef - Blue"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7055702917771889,
+      "rotationDegrees": 119.43183985962538
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +47,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.7346292789919221
+    "rotation": 120.71282771515885
   },
   "reversed": false,
-  "folder": "Blue Coral Paths",
+  "folder": "SCORE CORAL REMOVE ALGAE",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 178.34451346088068
+    "rotation": 90.3873160218114
   },
   "useDefaultConstraints": true
 }

@@ -152,14 +152,18 @@ public class RobotContainer
 
 
          //Coral Output - operator - TESTING
-         operatorXbox.povDown().whileTrue(elevator.elevatorDown()).whileFalse(elevator.elevatorStop());
+         driverXbox.povDown().whileTrue(elevator.elevatorDown()).whileFalse(elevator.elevatorStop());
 
-         operatorXbox.povUp().whileTrue(elevator.elevatorUp()).whileFalse(elevator.elevatorStop());
+         driverXbox.povUp().whileTrue(elevator.elevatorUp()).whileFalse(elevator.elevatorStop());
 
 
-         driverXbox.a().onTrue(paths.driveToTEST());
 
-     
+         driverXbox.povRight().whileTrue(arm.armUp()).whileFalse(arm.armStop());
+
+         driverXbox.povLeft().whileTrue(arm.armDown()).whileFalse(arm.armStop());
+
+
+   //      driverXbox.a().onTrue(paths.driveToTEST());
    
          //    ^^^   TESTING   ^^^
 
@@ -181,7 +185,11 @@ public class RobotContainer
         SmartDashboard.putBoolean("Alliance Red", false);
        }
 
-      
+
+
+//       driverXbox.rightStick().onTrue(elevator.elevatorDown()).whileFalse(elevator.elevatorStop());
+
+//       driverXbox.povUp().whileTrue(elevator.elevatorUp()).whileFalse(elevator.elevatorStop());
 
 
          //SWITCH SCORING SIDE - OPERATOR
@@ -191,17 +199,23 @@ public class RobotContainer
 
 
 
+       //???
+       operatorXbox.axisGreaterThan(5, OperatorConstants.DEADBAND).onTrue(elevator.freeMoveUp(operatorXbox.getRightY()));
+
+       operatorXbox.axisLessThan(5, -OperatorConstants.DEADBAND).onTrue(elevator.freeMoveDown(-operatorXbox.getRightY()));
+
+
+       
         //CLIMBING COMMANDS - OPERATOR
 /* 
       operatorXbox.button(10)
 
       .onTrue(elevator.goToHeight(ElevatorConstants.waitClimbHeight)
-      .andThen(arm.gotoAngleSingle(ArmConstants.waitClimbAngle)))
+      .andThen(arm.gotoAngleSingle(ArmConstants.climbAngle)))
 
       .onFalse(elevator.goToHeight(ElevatorConstants.goClimbHeight)
-      .alongWith(arm.gotoAngleSingle(ArmConstants.goClimbAngle)
       .andThen(elevator.goToHeight(ElevatorConstants.homeClimbHeight))
-      .andThen(elevator.lockElevator())));
+      .andThen(elevator.lockElevator()));
 */
 
            //HAND COMMANDS - OPERATOR
@@ -227,29 +241,53 @@ public class RobotContainer
          //MISC POSITION COMMANDS
          
        //Home position command - operator       
-       operatorXbox.a().onTrue(arm.gotoAngleSingle(ArmConstants.homeAngle).andThen(elevator.goToHeight(ElevatorConstants.homeHeight)));
+       operatorXbox.x()
+       .onTrue(arm.gotoAngleSingle(ArmConstants.homeAngle )
+       .andThen(elevator.goToHeight(ElevatorConstants.homeHeight)));
 
        //Ground position command - operator    
-       operatorXbox.b().onTrue(arm.gotoAngleSingle(ArmConstants.groundAngle).andThen(elevator.goToHeight(ElevatorConstants.groundHeight)));         
+       operatorXbox.a()
+       .onTrue(arm.gotoAngleSingle(ArmConstants.groundAngle - 20.0)
+       .andThen(elevator.goToHeight(ElevatorConstants.groundHeight)
+       .andThen(arm.gotoAngleSingle(ArmConstants.groundAngle))));         
 
        //processor position command - operator
-       operatorXbox.y().onTrue(arm.goToAngle(ArmConstants.processorFront, ArmConstants.processorBack).andThen(elevator.goToHeight(ElevatorConstants.processorHeight)));
+       operatorXbox.b()
+       .onTrue(arm.gotoAngleSingle(ArmConstants.processorFront - 20.0)
+       .andThen(elevator.goToHeight(ElevatorConstants.processorHeight)
+       .andThen(arm.gotoAngleSingle(ArmConstants.processorFront))));
 
        //Feeder position command - operator
-       operatorXbox.x().onTrue(arm.gotoAngleSingle(ArmConstants.feederAngle).andThen(elevator.goToHeight(ElevatorConstants.feederHeight)));
+       operatorXbox.y()
+       .onTrue(arm.gotoAngleSingle(ArmConstants.feederAngle)
+       .andThen(elevator.goToHeight(ElevatorConstants.feederHeight)));
 
 
 
-       //LEVEL COMMANDS
+       //LEVEL COMMANDS EMILY SWITCH THESE
 
        //Level 3 position command - operator
-       //operatorXbox.povUp().onTrue(arm.goToAngle(ArmConstants.level3Angle, ArmConstants.level3BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level3Height)));
+       operatorXbox.povUp()
+       .onTrue(arm.gotoAngleSingle(ArmConstants.homeAngle)
+       .andThen(elevator.goToHeight(ElevatorConstants.level3Height)
+       .andThen((arm.goToAngle(ArmConstants.level3Angle, ArmConstants.level3BackAngle)))));
 
        //Level 2 position command - operator
-       //operatorXbox.povLeft().onTrue(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level2Height)));
+       operatorXbox.povLeft()
+       .onTrue(arm.gotoAngleSingle(ArmConstants.homeAngle)
+       .andThen(elevator.goToHeight(ElevatorConstants.level2Height)
+       .andThen(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle))));
+
+       operatorXbox.povRight()
+       .onTrue(arm.gotoAngleSingle(ArmConstants.homeAngle)
+       .andThen(elevator.goToHeight(ElevatorConstants.level2Height)
+       .andThen(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle))));
 
        //level 1 position command - operator
-       //operatorXbox.povDown().onTrue(arm.goToAngle(ArmConstants.level1Angle, ArmConstants.level1BackAngle).andThen(elevator.goToHeight(ElevatorConstants.level1Height)));
+       operatorXbox.povDown()
+       .onTrue(arm.gotoAngleSingle(ArmConstants.homeAngle)
+       .andThen(elevator.goToHeight(ElevatorConstants.level1Height)
+       .andThen(arm.goToAngle(ArmConstants.level1Angle, ArmConstants.level1BackAngle))));
 
 
 

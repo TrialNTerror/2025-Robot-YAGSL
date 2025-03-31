@@ -64,8 +64,8 @@ public final class Constants
     public static final int servoIDFollowSide = 1;
 
     // Min / Max Outouts
-    public static final double minOutputElevator = -1.0;
-    public static final double maxOutputElevator = 1.0;
+    public static final double minOutputElevator = -0.3;   //keep at -0.4
+    public static final double maxOutputElevator = 0.55;    //keep at 0.5
 
     //Feedforward
     public static final double kStaticGain = 0.0;
@@ -74,18 +74,21 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Height = 9000;   //currently testing
-    public static final double level2Height = 30;
-    public static final double level1Height = 2800;   //currently testing
+    public static final double level3Height = 14500;   
+    public static final double level2Height = 8000;    
+    public static final double level1Height = 7000;
+    
+    public static final double frontTopAlgaeHeight = 8000;
+    public static final double backLowAlgaeHeight = 4900;
 
-    public static final double groundHeight = 1000;
-    public static final double homeHeight = 200;
-    public static final double feederHeight = 200;
-    public static final double processorHeight = 1000;
+    public static final double groundHeight = 1600;
+    public static final double homeHeight = 500;
+    public static final double feederHeight = 500;
+    public static final double processorHeight = 1600;
 
-    public static final double waitClimbHeight = 500;
-    public static final double goClimbHeight = 500;
-    public static final double homeClimbHeight = 500;
+    public static final double waitClimbHeight = 8000;
+    public static final double goClimbHeight = 7800;
+    public static final double homeClimbHeight = 4000;
 
     // Lock / Unlock Servo
     public static final int servoFollowLock = 55;
@@ -100,13 +103,13 @@ public final class Constants
     public static final boolean inverted = false;
 
     //Motor Limits
-    public static final int currentLimit = 40;
+    public static final int currentLimit = 50;
     public static final double maxAcceleration = 36000;
     public static final double maxVelocity = 360;
     public static final double allowedErr = 10;
     
     //Motor Config
-    public static final double P = 1;
+    public static final double P = 0.01;
     public static final double I = 0;
     public static final double D = 0;
     public static final double F = 0;
@@ -115,9 +118,9 @@ public final class Constants
     public static final double positionConversionFactor = 360;
     public static final double velocityConversionFactor = 360;
 
-    public static final double encoderAllowError = 1000;
+    public static final double encoderAllowError = 1500;
 
-    public static final double forwardLimit = 10000;
+    public static final double forwardLimit = 15000;
     public static final double reverseLimit = 0;
   }
 
@@ -129,8 +132,8 @@ public final class Constants
     public static final int armMotor1CanID = 13;
 
     // Min / Max output
-    public static final double minOutputArm = -1.0;
-    public static final double maxOutputArm = 1.0;
+    public static final double minOutputArm = -0.5;    //keep at -1
+    public static final double maxOutputArm = 0.5;     //keep at 1
 
     //Constants for feedforward
     public static final double kStaticGain = 0.0;
@@ -139,13 +142,13 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Angle = 98;     
+    public static final double level3Angle = 98;       //works   
     public static final double level3BackAngle = 279;
 
-    public static final double level2Angle = 86;
+    public static final double level2Angle = 86;         //works
     public static final double level2BackAngle = 287;
 
-    public static final double level1Angle = 291;
+    public static final double level1Angle = 291;         //works
     public static final double level1BackAngle = 291;
 
     public static final double processorFront = 293;
@@ -155,8 +158,12 @@ public final class Constants
     public static final double homeAngle = 190;
     public static final double feederAngle = 208;
 
-    public static final double waitClimbAngle = 190;
-    public static final double goClimbAngle = 190;
+    public static final double climbAngle = 290;
+
+    public static final double frontTopAlgaeAngle = 240;
+    public static final double backLowAlgaeAngle = 160;
+
+    //Add back and front stow
 
     //Inverting Motor
     public static final boolean motorInvert = false;
