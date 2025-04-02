@@ -45,7 +45,7 @@ public class ArmSubsystem extends SubsystemBase {
 
 	public ArmSubsystem(){
 
-			currentNum = 1;
+			currentNum = -1;
 
         	//ELEVATOR MOTOR 1 ASSIGNING
     		armMotor1 = new SparkFlex(ArmConstants.armMotor1CanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
@@ -127,7 +127,7 @@ public class ArmSubsystem extends SubsystemBase {
 				currentNum = -1;
 				System.out.println("Back");
 			}
-			else
+			else if(currentNum == -1)
 			{
 				currentNum = 1;
 				System.out.println("Front");

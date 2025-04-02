@@ -142,11 +142,11 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Angle = 108;       //WILL GO INTO ROBOT 
-    public static final double level3BackAngle = 289;
+    public static final double level3Angle = 289;       //WILL GO INTO ROBOT 
+    public static final double level3BackAngle = 108;
 
-    public static final double level2Angle = 96;         //WILL GO INTO ROBOT
-    public static final double level2BackAngle = 297;
+    public static final double level2Angle = 297;         //WILL GO INTO ROBOT
+    public static final double level2BackAngle = 96;
 
     public static final double level1Angle = 301;         //works
     public static final double level1BackAngle = 130;
