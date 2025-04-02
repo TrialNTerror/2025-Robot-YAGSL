@@ -64,8 +64,8 @@ public final class Constants
     public static final int servoIDFollowSide = 1;
 
     // Min / Max Outouts
-    public static final double minOutputElevator = -0.3;   //keep at -0.4
-    public static final double maxOutputElevator = 0.55;    //keep at 0.5
+    public static final double minOutputElevator = -0.2;   //keep at -0.4
+    public static final double maxOutputElevator = 0.35;    //keep at 0.5
 
     //Feedforward
     public static final double kStaticGain = 0.0;
@@ -74,7 +74,7 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Height = 14500;   
+    public static final double level3Height = 13500;   
     public static final double level2Height = 8000;    
     public static final double level1Height = 7000;
     
@@ -142,20 +142,20 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Angle = 98;       //works   
-    public static final double level3BackAngle = 279;
+    public static final double level3Angle = 108;       //WILL GO INTO ROBOT 
+    public static final double level3BackAngle = 289;
 
-    public static final double level2Angle = 86;         //works
-    public static final double level2BackAngle = 287;
+    public static final double level2Angle = 96;         //WILL GO INTO ROBOT
+    public static final double level2BackAngle = 297;
 
-    public static final double level1Angle = 291;         //works
-    public static final double level1BackAngle = 291;
+    public static final double level1Angle = 301;         //works
+    public static final double level1BackAngle = 130;
 
     public static final double processorFront = 293;
-    public static final double processorBack = 115;
+    public static final double processorBack = 115;      //MIGHT GO TO ROBOT
 
     public static final double groundAngle = 300;  //should be at 309
-    public static final double homeAngle = 190;
+    public static final double homeAngle = 200;
     public static final double feederAngle = 208;
 
     public static final double climbAngle = 290;

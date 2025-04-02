@@ -8,10 +8,11 @@
     "Blue Algae Paths",
     "Blue Coral Paths",
     "Blue Misc Paths",
-    "SCORE CORAL REMOVE ALGAE",
+    "BACKWARDS SCORE CORAL",
     "Red Algae Paths",
     "Red Coral Paths",
-    "Red Misc Paths"
+    "Red Misc Paths",
+    "SCORE CORAL REMOVE ALGAE"
   ],
   "autoFolders": [],
   "defaultMaxVel": 4.879,

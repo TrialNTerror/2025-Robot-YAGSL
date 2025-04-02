@@ -3,42 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.67827868852459,
-        "y": 1.3337602459016387
+        "x": 7.581122448979593,
+        "y": 4.069770408163264
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5396036394682815,
-        "y": 1.1257476723171784
+        "x": 6.775255102040817,
+        "y": 4.017538265306122
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.4624999999999997,
-        "y": 1.0700307377049172
+        "x": 6.245471938775511,
+        "y": 3.957844387755101
       },
       "prevControl": {
-        "x": 1.6095416068229242,
-        "y": 1.272215717025668
+        "x": 6.748955545332888,
+        "y": 3.9758259451321503
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BottomFeeder - Blue"
+      "linkedName": "GHReef - Blue"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.879,
     "maxAcceleration": 2.0,
@@ -49,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -127.2348339815747
+    "rotation": 0.9743240911535038
   },
   "reversed": false,
-  "folder": "Blue Misc Paths",
+  "folder": "BLUE BOTTOM AUTO",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -130.1354855622395
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

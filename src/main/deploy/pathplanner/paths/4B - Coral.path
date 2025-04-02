@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0115953947368417,
-        "y": 2.1872532894736842
+        "x": 7.506505102040817,
+        "y": 0.249362244897958
       },
       "isLocked": false,
       "linkedName": "CReef - Blue"
     },
     {
       "anchor": {
-        "x": 1.4624999999999997,
-        "y": 1.0700307377049172
+        "x": 6.32,
+        "y": 7.062
       },
       "prevControl": {
-        "x": 1.8040707236842104,
-        "y": 1.388651315789474
+        "x": 6.6615707236842105,
+        "y": 7.3806205780845575
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -127.2348339815747
+    "rotation": 90.81136657929679
   },
   "reversed": false,
   "folder": "BLUE BOTTOM AUTO",

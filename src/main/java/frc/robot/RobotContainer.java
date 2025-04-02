@@ -113,8 +113,24 @@ public class RobotContainer
    */
   public RobotContainer()
   {
-    NamedCommands.registerCommand("HomeAngle", arm.gotoAngleSingle(ArmConstants.homeAngle));
+    NamedCommands.registerCommand("HomeAngle", arm.gotoAngleSingle(ArmConstants.homeAngle)
+                                                    .andThen(elevator.goToHeight(ElevatorConstants.homeHeight)));
     NamedCommands.registerCommand("FeederStationAngle", arm.gotoAngleSingle(ArmConstants.feederAngle));
+    NamedCommands.registerCommand("IntakeCoral", hand.intakeCoral());
+    NamedCommands.registerCommand("OutakeCoral", hand.OutputCoral());
+    NamedCommands.registerCommand("IntakeAlgae", hand.intakeAlgae());
+    NamedCommands.registerCommand("OutakeAlgae", hand.outputAlgae());
+    NamedCommands.registerCommand("IntakeOff", hand.motorsOff());
+
+    NamedCommands.registerCommand("armBackToCoral", arm.levelAngleSingle(ArmConstants.level1BackAngle));
+    NamedCommands.registerCommand("toHigherAlgae", elevator.goToHeight(ElevatorConstants.level1Height));
+
+    NamedCommands.registerCommand("level1frontAngle", arm.gotoAngleSingle(ArmConstants.homeAngle)
+                                                          .andThen(elevator.goToHeight(ElevatorConstants.level1Height)
+                                                          .andThen(arm.goToAngle(ArmConstants.level1Angle, ArmConstants.level1BackAngle))));
+    //NamedCommands.registerCommand("level1frontAngle", arm.gotoAngleSingle(ArmConstants.level2BackAngle));
+
+
 
     // Configure the trigger bindings
     configureBindings();
@@ -205,6 +221,11 @@ public class RobotContainer
        operatorXbox.axisLessThan(5, -OperatorConstants.DEADBAND).onTrue(elevator.freeMoveDown(-operatorXbox.getRightY()));
 
 
+
+       operatorXbox.axisGreaterThan(0, OperatorConstants.DEADBAND).onTrue(arm.freeMoveForward(operatorXbox.getLeftX()));
+
+       operatorXbox.axisLessThan(0, -OperatorConstants.DEADBAND).onTrue(arm.freeMoveBackward(-operatorXbox.getLeftX()));
+
        
         //CLIMBING COMMANDS - OPERATOR
 /* 
@@ -288,7 +309,6 @@ public class RobotContainer
        .onTrue(arm.gotoAngleSingle(ArmConstants.homeAngle)
        .andThen(elevator.goToHeight(ElevatorConstants.level1Height)
        .andThen(arm.goToAngle(ArmConstants.level1Angle, ArmConstants.level1BackAngle))));
-
 
 
          //CLIMB LOCK/UNLOCK COMMANDS - DRIVER

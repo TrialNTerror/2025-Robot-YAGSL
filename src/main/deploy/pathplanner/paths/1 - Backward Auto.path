@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.32,
-        "y": 7.062
+        "x": 7.566198979591837,
+        "y": 4.017538265306122
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.931823979591838,
-        "y": 0.5776785714285708
+        "x": 8.566198979591828,
+        "y": 4.017538265306122
       },
       "isLocked": false,
-      "linkedName": "BottomFeeder - Blue"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.5744654605263158,
-        "y": 2.7405016447368418
+        "x": 6.208163265306123,
+        "y": 4.017538265306122
       },
       "prevControl": {
-        "x": 3.3050575657894736,
-        "y": 2.331578947368421
+        "x": 6.58125,
+        "y": 3.980229591836734
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CReef - Blue"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.46522138476672
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "BLUE BOTTOM AUTO",
+  "folder": "BACKWARDS SCORE CORAL",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.81136657929679
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

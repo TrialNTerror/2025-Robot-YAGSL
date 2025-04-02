@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.077766393442623,
-        "y": 4.00701844262295
+        "x": 6.245471938775511,
+        "y": 3.957844387755101
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.275318877551021,
-        "y": 2.6744260204081627
+        "x": 6.443024422883909,
+        "y": 2.6252519655403135
       },
       "isLocked": false,
       "linkedName": "GHReef - Blue"
     },
     {
       "anchor": {
-        "x": 5.993852459016393,
-        "y": 0.95015368852459
+        "x": 6.320089285714286,
+        "y": 7.061926020408163
       },
       "prevControl": {
-        "x": 6.195319295751087,
-        "y": 2.024643484442958
+        "x": 6.52155612244898,
+        "y": 8.136415816326531
       },
       "nextControl": null,
       "isLocked": false,
@@ -53,7 +53,7 @@
   "folder": "SCORE CORAL REMOVE ALGAE",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -0.13887988303791707
+    "rotation": 0.9743240911535038
   },
   "useDefaultConstraints": true
 }

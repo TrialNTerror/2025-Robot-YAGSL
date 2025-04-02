@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 6.077766393442623,
-        "y": 4.00701844262295
+        "x": 6.245471938775511,
+        "y": 3.957844387755101
       },
       "prevControl": {
-        "x": 6.588711734693878,
-        "y": 4.017538265306122
+        "x": 6.756417280026766,
+        "y": 3.968364210438273
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -0.13887988303791707
+    "rotation": 0.9743240911535038
   },
   "reversed": false,
   "folder": "SCORE CORAL REMOVE ALGAE",

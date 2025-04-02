@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.OperatorConstants;
 
 public class ArmSubsystem extends SubsystemBase {
 	private SparkFlex armMotor1;
@@ -90,6 +91,14 @@ public class ArmSubsystem extends SubsystemBase {
     	{
         	pidController1.setReference((goal),
                 	                    ControlType.kPosition,
+										ClosedLoopSlot.kSlot0);
+										//feedForward.calculate(armEncoder1.getPosition(), armEncoder1.getVelocity()));
+		}
+
+		private void accelToAngle(double goal)
+    	{
+        	pidController1.setReference((goal),
+                	                    ControlType.kVelocity,
 										ClosedLoopSlot.kSlot0);
 										//feedForward.calculate(armEncoder1.getPosition(), armEncoder1.getVelocity()));
 		}
@@ -163,6 +172,33 @@ public class ArmSubsystem extends SubsystemBase {
     	{
 			SmartDashboard.putNumber("Encoder Pos", armEncoder1.getPosition());
     	}
+
+
+
+		public Command freeMoveForward(double xAxis)
+		{
+			return run (() -> {
+				if(xAxis > OperatorConstants.DEADBAND)
+            {
+               accelToAngle(xAxis);
+               System.out.println("arm speed at: "+String.valueOf(xAxis));
+            }
+			});
+		}
+
+		public Command freeMoveBackward(double xAxis)
+		{
+			return run (() -> {
+				if(xAxis < -OperatorConstants.DEADBAND)
+            {
+               accelToAngle(xAxis);
+               System.out.println("arm speed at: "+String.valueOf(xAxis));
+            }
+			});
+		}
+
+
+
 
 	    //Free move WITH LIMITS (Probably wont use)
     	public Command armUp()

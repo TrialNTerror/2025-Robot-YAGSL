@@ -229,7 +229,7 @@ public ElevatorSubsystem() {
     public Command elevatorUp()
     {
         return run(() -> {
-         elevatorLeadMotor.set(0.8);
+         elevatorLeadMotor.set(0.4);
           });
     }
 

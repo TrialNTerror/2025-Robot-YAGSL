@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1B - Score"
+            "pathName": "Backward 1B - Score"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "level1frontAngle"
+            "name": "armBackToCoral"
           }
         },
         {
@@ -41,9 +41,15 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "toHigherAlgae"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "1.5B - foward"
+            "pathName": "Backward 1.5B - foward"
           }
         },
         {
@@ -61,19 +67,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2B - Coral"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3B - Score"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4B - Coral"
+            "pathName": "Backward 2B - Coral"
           }
         }
       ]
