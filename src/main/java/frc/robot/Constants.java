@@ -32,8 +32,8 @@ public final class Constants
 
   public static final class AutonConstants
   {
-    public static final PIDConstants TRANSLATION_PID = new PIDConstants(1.25, 0, 0);//0.7
-    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.6, 0.01);    //0.4 and 0.01
+    public static final PIDConstants TRANSLATION_PID = new PIDConstants(4.5, 0, 0); //0.7 was 1.25
+    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.1, 0, 0.01);    //0.4 and 0.01 was 0.6
   }
 
   public static final class DrivebaseConstants
@@ -64,8 +64,8 @@ public final class Constants
     public static final int servoIDFollowSide = 1;
 
     // Min / Max Outouts
-    public static final double minOutputElevator = -0.2;   //keep at -0.4
-    public static final double maxOutputElevator = 0.35;    //keep at 0.5
+    public static final double minOutputElevator = -0.3;   //keep at -0.4
+    public static final double maxOutputElevator = 0.5;    //keep at 0.5
 
     //Feedforward
     public static final double kStaticGain = 0.0;
@@ -85,6 +85,8 @@ public final class Constants
     public static final double homeHeight = 500;
     public static final double feederHeight = 500;
     public static final double processorHeight = 1600;
+
+
 
     public static final double waitClimbHeight = 8000;
     public static final double goClimbHeight = 7800;
@@ -157,6 +159,7 @@ public final class Constants
     public static final double groundAngle = 300;  //should be at 309
     public static final double homeAngle = 200;
     public static final double feederAngle = 208;
+    public static final double BitForward = 180;
 
     public static final double climbAngle = 290;
 

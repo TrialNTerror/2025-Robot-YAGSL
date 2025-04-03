@@ -95,13 +95,6 @@ public class ArmSubsystem extends SubsystemBase {
 										//feedForward.calculate(armEncoder1.getPosition(), armEncoder1.getVelocity()));
 		}
 
-		private void accelToAngle(double goal)
-    	{
-        	pidController1.setReference((goal),
-                	                    ControlType.kVelocity,
-										ClosedLoopSlot.kSlot0);
-										//feedForward.calculate(armEncoder1.getPosition(), armEncoder1.getVelocity()));
-		}
 
 		private boolean endWhenArm(double cmd)
 		{
@@ -164,7 +157,7 @@ public class ArmSubsystem extends SubsystemBase {
 	}
 
 	public Command gotoAngleSingle(double Angle){
-		return levelAngleSingle(Angle).until(() -> endWhenArm(Angle));
+		return levelAngleSingle(Angle).until(() -> endWhenArm(Angle)).withTimeout(2);
 	}
 
 
@@ -175,29 +168,23 @@ public class ArmSubsystem extends SubsystemBase {
 
 
 
-		public Command freeMoveForward(double xAxis)
+		public Command freeMoveForward(double axis)
 		{
 			return run (() -> {
-				if(xAxis > OperatorConstants.DEADBAND)
-            {
-               accelToAngle(xAxis);
-               System.out.println("arm speed at: "+String.valueOf(xAxis));
-            }
+				if(axis > OperatorConstants.DEADBAND){
+					reachAngle(armEncoder1.getPosition() + (axis / 2));
+				}
 			});
 		}
 
-		public Command freeMoveBackward(double xAxis)
+		public Command freeMoveBackward(double axis)
 		{
 			return run (() -> {
-				if(xAxis < -OperatorConstants.DEADBAND)
-            {
-               accelToAngle(xAxis);
-               System.out.println("arm speed at: "+String.valueOf(xAxis));
-            }
+				if(axis < -OperatorConstants.DEADBAND){
+					reachAngle(armEncoder1.getPosition() - (axis / 2));
+				}
 			});
 		}
-
-
 
 
 	    //Free move WITH LIMITS (Probably wont use)

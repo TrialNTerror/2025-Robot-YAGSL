@@ -63,18 +63,6 @@
           "data": {
             "pathName": "2B - Coral"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3B - Score"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4B - Coral"
-          }
         }
       ]
     }

@@ -126,14 +126,6 @@ public ElevatorSubsystem() {
                                     //feedforward.calculate(elevEncoder1.getVelocity()));
     }
 
-        //method that sets the motor to a specific spot
-        private void accelToHeight(double goal)
-        {
-            pidController1.setReference((goal),
-                                        ControlType.kVelocity,
-                                        ClosedLoopSlot.kSlot1); 
-                                        //feedforward.calculate(elevEncoder1.getVelocity()));
-        }
 
     private boolean endWhenElevator(double cmd)
     {
@@ -171,6 +163,8 @@ public ElevatorSubsystem() {
     public void periodic()
     {
         SmartDashboard.putNumber("Encoder pos elevator ", elevEncoder1.getPosition());
+        SmartDashboard.putNumber("Current Drawn Lead Elevator: ", elevatorLeadMotor.getOutputCurrent());
+        SmartDashboard.putNumber("Current Drawn Follower Elevator: ", elevatorFollowMotor.getOutputCurrent());
     }
 
 
@@ -194,34 +188,23 @@ public ElevatorSubsystem() {
     }
 
 
-    public Command freeMoveUp(double xAxis)
-    {
-        return run(() -> {
-            if(xAxis > OperatorConstants.DEADBAND)
-            {
-                accelToHeight(xAxis);
-                System.out.println("elevator speed at: "+String.valueOf(xAxis));
-            }
-        });
-    }
-    
+    public Command freeMoveUp(double axis)
+		{
+			return run (() -> {
+                if(axis > OperatorConstants.DEADBAND)
+				reachHeight(elevEncoder1.getPosition() + (axis * 25));
+			});
+		}
 
-    public Command freeMoveDown(double xAxis)
-    {
-        return run(() -> {
-            if(xAxis < -OperatorConstants.DEADBAND)
-            {
-               accelToHeight(xAxis);
-               System.out.println("elevator speed at: "+String.valueOf(xAxis));
-            }
-        });
-    }
+		public Command freeMoveDown(double axis)
+		{
+			return run (() -> {
+               if(axis < -OperatorConstants.DEADBAND)
+				reachHeight(elevEncoder1.getPosition() - (axis * 25));
+			});
+		}
 
-    
-    public void simulationPeriodic()
-    {
-    
-    }
+ 
 
     //Free move WITH LIMITS (WILL NOT BE USED IN COMPETITION, ONLY FOR TESTING)
    

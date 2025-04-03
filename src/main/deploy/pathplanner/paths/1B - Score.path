@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.775255102040817,
-        "y": 4.017538265306122
+        "x": 6.924489795918367,
+        "y": 4.032461734693877
       },
       "isLocked": false,
       "linkedName": null
@@ -20,12 +20,12 @@
         "y": 3.957844387755101
       },
       "prevControl": {
-        "x": 6.748955545332888,
-        "y": 3.9758259451321503
+        "x": 6.961798469387755,
+        "y": 4.062308673469388
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "GHReef - Blue"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.9743240911535038
+    "rotation": -177.73204546409414
   },
   "reversed": false,
   "folder": "BLUE BOTTOM AUTO",

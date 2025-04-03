@@ -145,6 +145,7 @@ public class RobotContainer
     NamedCommands.registerCommand("L1Height", elevator.goToHeight(ElevatorConstants.level1Height));
     NamedCommands.registerCommand("L1FrontAngle", elevator.goToHeight(ArmConstants.level1Angle));       //USE WITH CAUTION, NO STOW PROGRAMMED
     NamedCommands.registerCommand("L1BackAngle", elevator.goToHeight(ArmConstants.level1BackAngle));
+    NamedCommands.registerCommand("BitMoreForwardCoral", elevator.goToHeight(ArmConstants.BitForward)); 
 
     //Level 2 commands
     NamedCommands.registerCommand("L2FrontSetpoint", arm.gotoAngleSingle(ArmConstants.level2Angle - 30)
@@ -224,6 +225,7 @@ public class RobotContainer
           //MAIN DRIVE COMMAND - DRIVER
 
        //sets driving mode - driver
+       driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
 
 
        if(DriverStation.getAlliance().get() == DriverStation.Alliance.Red)
@@ -249,13 +251,13 @@ public class RobotContainer
        //???
        operatorXbox.axisGreaterThan(5, OperatorConstants.DEADBAND).onTrue(elevator.freeMoveUp(operatorXbox.getRightY()));
 
-       operatorXbox.axisLessThan(5, -OperatorConstants.DEADBAND).onTrue(elevator.freeMoveDown(-operatorXbox.getRightY()));
+       operatorXbox.axisLessThan(5, -OperatorConstants.DEADBAND).onTrue(elevator.freeMoveDown(operatorXbox.getRightY()));
 
 
 
        operatorXbox.axisGreaterThan(0, OperatorConstants.DEADBAND).onTrue(arm.freeMoveForward(operatorXbox.getLeftX()));
 
-       operatorXbox.axisLessThan(0, -OperatorConstants.DEADBAND).onTrue(arm.freeMoveBackward(-operatorXbox.getLeftX()));
+       operatorXbox.axisLessThan(0, -OperatorConstants.DEADBAND).onTrue(arm.freeMoveBackward(operatorXbox.getLeftX()));
 
        
         //CLIMBING COMMANDS - OPERATOR
@@ -320,24 +322,24 @@ public class RobotContainer
 
        //Level 3 position command - operator
        operatorXbox.povUp()
-       .onTrue(arm.goToAngle((ArmConstants.level3Angle - 30), (ArmConstants.level3BackAngle + 30))
+       .onTrue(arm.goToAngle((ArmConstants.level3Angle - 35), (ArmConstants.level3BackAngle + 35))
        .andThen(elevator.goToHeight(ElevatorConstants.level3Height)
        .andThen((arm.goToAngle(ArmConstants.level3Angle, ArmConstants.level3BackAngle)))));
 
        //Level 2 position command - operator
        operatorXbox.povLeft()
-       .onTrue(arm.goToAngle((ArmConstants.level2Angle - 30), (ArmConstants.level2BackAngle + 30))
+       .onTrue(arm.goToAngle((ArmConstants.level2Angle - 35), (ArmConstants.level2BackAngle + 35))
        .andThen(elevator.goToHeight(ElevatorConstants.level2Height)
        .andThen(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle))));
 
        operatorXbox.povRight()
-       .onTrue(arm.goToAngle((ArmConstants.level2Angle - 30), (ArmConstants.level2BackAngle + 30))
+       .onTrue(arm.goToAngle((ArmConstants.level2Angle - 35), (ArmConstants.level2BackAngle + 35))
        .andThen(elevator.goToHeight(ElevatorConstants.level2Height)
        .andThen(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle))));
 
        //level 1 position command - operator
        operatorXbox.povDown()
-       .onTrue(arm.goToAngle((ArmConstants.level1Angle - 30), (ArmConstants.level1BackAngle + 30))
+       .onTrue(arm.goToAngle((ArmConstants.level1Angle - 35), (ArmConstants.level1BackAngle + 35))
        .andThen(elevator.goToHeight(ElevatorConstants.level1Height)
        .andThen(arm.goToAngle(ArmConstants.level1Angle, ArmConstants.level1BackAngle))));
 
