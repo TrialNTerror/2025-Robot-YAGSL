@@ -59,9 +59,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     private Servo leaderServo;
     private Servo followerServo;
 
+    private int currentNum;
+
     private boolean locked;
 
 public ElevatorSubsystem() {
+
+    currentNum = -1;
 
         //Leader Motor Assigning
     elevatorLeadMotor = new SparkMax(ElevatorConstants.elevatorLeadMotorCanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
@@ -108,7 +112,8 @@ public ElevatorSubsystem() {
 
                    //ELEVATOR MOTOR 2 CONFIGUATION  (follower)
            followMotorConfig =
-           new SparkMaxConfig()         
+           new SparkMaxConfig()   
+               .smartCurrentLimit(ElevatorConstants.currentLimit)      
                .follow(ElevatorConstants.elevatorLeadMotorCanID);
 
 
@@ -127,6 +132,24 @@ public ElevatorSubsystem() {
     }
 
 
+    public Command switchScore() 
+	{
+		return this.runOnce(() -> {
+			
+			if(currentNum == 1)
+			{
+				currentNum = -1;
+				System.out.println("Back");
+			}
+			else if(currentNum == -1)
+			{
+				currentNum = 1;
+				System.out.println("Front");
+			}
+		});
+	}	
+
+
     private boolean endWhenElevator(double cmd)
     {
         if (((elevEncoder1.getPosition() + ElevatorConstants.encoderAllowError) > cmd) && ((elevEncoder1.getPosition() - ElevatorConstants.encoderAllowError) < cmd))
@@ -142,7 +165,7 @@ public ElevatorSubsystem() {
 
     //COMMANDS FOR ELEVATOR
     //Move Elevator to Position
-    public Command levelHeight(double goalHeight)
+    public Command levelHeightSingle(double goalHeight)
     {
         return run(() -> { 
             reachHeight(goalHeight);
@@ -150,11 +173,35 @@ public ElevatorSubsystem() {
         });
     }
 
-    //Move Elevator to Position and End when reached
-    public Command goToHeight(double goalHeight)
+
+    public Command levelHeight(double goalHeightFront, double goalHeightBack)
     {
-        return levelHeight(goalHeight).until(() -> endWhenElevator(goalHeight));
+        return run(() -> { 
+
+        if (currentNum == 1)
+			{
+				reachHeight(goalHeightFront);    //should be front
+				System.out.println(String.valueOf(goalHeightFront)+" Front");
+				//level3Angle().end(endWhenArm(ArmConstants.level3Angle));
+			} 
+			else if (currentNum == -1)
+			{
+				reachHeight(goalHeightBack);
+				System.out.println(String.valueOf(goalHeightBack)+" Back");
+				//level3Angle().end(endWhenArm(ArmConstants.level3BackAngle));
+			}
+        });
     }
+
+    //Move Elevator to Position and End when reached
+    public Command goToHeightSingle(double goalHeight)
+    {
+        return levelHeightSingle(goalHeight).until(() -> endWhenElevator(goalHeight));
+    }
+
+    public Command goToHeight(double goalHeightFront, double goalHeightBack){
+		return levelHeight(goalHeightFront, goalHeightBack).until(() -> ((endWhenElevator(goalHeightFront) == true  &&  currentNum == 1)||(endWhenElevator(goalHeightBack) == true  &&  currentNum == -1)));
+	}
 
 
     //initializing is for one time use per schedule, best used for setpoints
@@ -191,16 +238,23 @@ public ElevatorSubsystem() {
     public Command freeMoveUp(double axis)
 		{
 			return run (() -> {
-                if(axis > OperatorConstants.DEADBAND)
 				reachHeight(elevEncoder1.getPosition() + (axis * 25));
-			});
-		}
+                SmartDashboard.putNumber("free move Up: ", axis);
+            });
+        }
 
 		public Command freeMoveDown(double axis)
 		{
 			return run (() -> {
-               if(axis < -OperatorConstants.DEADBAND)
-				reachHeight(elevEncoder1.getPosition() - (axis * 25));
+				reachHeight(elevEncoder1.getPosition() + (axis * 25));
+                SmartDashboard.putNumber("free move Down: ", axis);
+			});
+		}
+
+        public Command freeMoveStop(double axis)
+		{
+			return run (() -> {
+				elevatorLeadMotor.set(0);
 			});
 		}
 

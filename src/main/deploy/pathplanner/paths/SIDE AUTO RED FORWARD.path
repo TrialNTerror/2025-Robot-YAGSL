@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.320089285714286,
-        "y": 7.061926020408163
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 6.056849071595852,
-        "y": 7.868404984944798
-      },
-      "isLocked": false,
-      "linkedName": "Processor - Red"
-    },
-    {
-      "anchor": {
         "x": 5.4156612529002315,
         "y": 2.5285672853828305
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.276986203843926,
+        "y": 2.7365798589672923
+      },
+      "isLocked": false,
+      "linkedName": "EFReef - Blue"
+    },
+    {
+      "anchor": {
+        "x": 5.212064965197215,
+        "y": 2.772882830626451
+      },
       "prevControl": {
-        "x": 5.779206753067512,
-        "y": 2.0597012348642614
+        "x": 5.388841660493851,
+        "y": 2.5961061353298125
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EFReef - Blue"
+      "linkedName": "DELETELATER"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.7055702917771889,
-      "rotationDegrees": 119.43183985962538
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.71282771515885
+    "rotation": 119.22805194314512
   },
   "reversed": false,
-  "folder": "SCORE CORAL REMOVE ALGAE",
+  "folder": "SIDE AUTO RED",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.3873160218114
+    "rotation": 120.71282771515885
   },
   "useDefaultConstraints": true
 }

@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.Unit;
 import swervelib.math.Matter;
 
 /**
@@ -65,7 +64,7 @@ public final class Constants
 
     // Min / Max Outouts
     public static final double minOutputElevator = -0.3;   //keep at -0.4
-    public static final double maxOutputElevator = 0.5;    //keep at 0.5
+    public static final double maxOutputElevator = 0.4;    //keep at 0.5
 
     //Feedforward
     public static final double kStaticGain = 0.0;
@@ -74,17 +73,18 @@ public final class Constants
     public static final double kAccel = 0.0;
 
     //Positions
-    public static final double level3Height = 13500;   
-    public static final double level2Height = 8000;    
+    public static final double level3Height = 14250;   
+    public static final double level2HeightBack = 8000;  //good
+    public static final double level2HeightFront = 11000;   //Possible switch / find middle ground  
     public static final double level1Height = 7000;
     
     public static final double frontTopAlgaeHeight = 8000;
     public static final double backLowAlgaeHeight = 4900;
 
-    public static final double groundHeight = 1600;
+    public static final double groundHeight = 500;
     public static final double homeHeight = 500;
-    public static final double feederHeight = 500;
-    public static final double processorHeight = 1600;
+    public static final double feederHeight = -500;     //
+    public static final double processorHeight = 500;
 
 
 
@@ -145,20 +145,20 @@ public final class Constants
 
     //Positions
     public static final double level3Angle = 289;       //WILL GO INTO ROBOT 
-    public static final double level3BackAngle = 108;
+    public static final double level3BackAngle = 110;
 
-    public static final double level2Angle = 297;         //WILL GO INTO ROBOT
-    public static final double level2BackAngle = 96;
+    public static final double level2Angle = 290;         //WILL GO INTO ROBOT
+    public static final double level2BackAngle = 100;
 
-    public static final double level1Angle = 301;         //works
-    public static final double level1BackAngle = 130;
+    public static final double level1Angle = 297;         //works
+    public static final double level1BackAngle = 105;    //dont know if correct
 
-    public static final double processorFront = 293;
-    public static final double processorBack = 115;      //MIGHT GO TO ROBOT
+    public static final double processorFront = 295;
+    public static final double processorBack = 130;      //MIGHT GO TO ROBOT
 
-    public static final double groundAngle = 300;  //should be at 309
+    public static final double groundAngle = 311;  //should be at 309
     public static final double homeAngle = 200;
-    public static final double feederAngle = 208;
+    public static final double feederAngle = 218;
     public static final double BitForward = 180;
 
     public static final double climbAngle = 290;

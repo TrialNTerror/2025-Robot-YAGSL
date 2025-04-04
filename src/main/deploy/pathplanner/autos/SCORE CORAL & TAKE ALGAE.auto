@@ -13,7 +13,19 @@
         {
           "type": "named",
           "data": {
+            "name": "IntakeCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "L1FrontSetpoint"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeOff"
           }
         },
         {
@@ -25,7 +37,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
@@ -49,31 +61,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.75
           }
         },
         {
           "type": "named",
           "data": {
             "name": "HomeAngle"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "2B - Coral"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3B - Score"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4B - Coral"
           }
         }
       ]

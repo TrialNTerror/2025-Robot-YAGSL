@@ -42,10 +42,12 @@ public class ArmSubsystem extends SubsystemBase {
 		ArmConstants.kAccel);
 
 	private int currentNum;
+	private boolean boolValue;
 
 	public ArmSubsystem(){
 
 			currentNum = -1;
+			boolValue = false;
 
         	//ELEVATOR MOTOR 1 ASSIGNING
     		armMotor1 = new SparkFlex(ArmConstants.armMotor1CanID, MotorType.kBrushless);    // Assigns motor 1 the CAN id (located in constants) and the motor type
@@ -118,11 +120,13 @@ public class ArmSubsystem extends SubsystemBase {
 			if(currentNum == 1)
 			{
 				currentNum = -1;
+				boolValue = false;
 				System.out.println("Back");
 			}
 			else if(currentNum == -1)
 			{
 				currentNum = 1;
+				boolValue = true;
 				System.out.println("Front");
 			}
 		});
@@ -164,25 +168,31 @@ public class ArmSubsystem extends SubsystemBase {
     	public void periodic()
     	{
 			SmartDashboard.putNumber("Encoder Pos", armEncoder1.getPosition());
+			SmartDashboard.putBoolean("Currently scoring forward", boolValue);
     	}
 
 
 
 		public Command freeMoveForward(double axis)
 		{
-			return run (() -> {
-				if(axis > OperatorConstants.DEADBAND){
-					reachAngle(armEncoder1.getPosition() + (axis / 2));
-				}
+			return runOnce (() -> {
+					reachAngle(armEncoder1.getPosition() + (axis * 2));
+					SmartDashboard.putNumber("free move Forward: ", axis);
 			});
 		}
 
 		public Command freeMoveBackward(double axis)
 		{
-			return run (() -> {
-				if(axis < -OperatorConstants.DEADBAND){
-					reachAngle(armEncoder1.getPosition() - (axis / 2));
-				}
+			return runOnce (() -> {
+					reachAngle(armEncoder1.getPosition() + (axis * 2));
+					SmartDashboard.putNumber("free move Backward: ", axis);
+			});
+		}
+
+		public Command freeMoveStop(double axis)
+		{
+			return runOnce (() -> {
+				armMotor1.set(0);
 			});
 		}
 

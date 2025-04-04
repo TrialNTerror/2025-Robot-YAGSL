@@ -7,13 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1B - Score"
+            "pathName": "SIDE AUTO RED START"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "BitMoreForwardCoral"
+            "name": "IntakeCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L1FrontSetpoint"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
@@ -25,7 +37,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
@@ -43,13 +55,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1.5B - foward"
+            "pathName": "SIDE AUTO RED FORWARD"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
@@ -61,7 +73,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2B - Coral"
+            "pathName": "SIDE AUTO RED GO BACK"
           }
         }
       ]

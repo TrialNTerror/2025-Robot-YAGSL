@@ -115,17 +115,17 @@ public class RobotContainer
   {
     //Basic setpoint commands (home, ground, feeder, processor)
     NamedCommands.registerCommand("HomeAngle", arm.gotoAngleSingle(ArmConstants.homeAngle)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.homeHeight)));
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.homeHeight)));
 
     NamedCommands.registerCommand("FeederStation", arm.gotoAngleSingle(ArmConstants.feederAngle)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.feederHeight)));
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.feederHeight)));
 
     NamedCommands.registerCommand("ProcessorFront", arm.gotoAngleSingle(ArmConstants.processorFront - 20.0)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.processorHeight)
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.processorHeight)
                                                     .andThen(arm.gotoAngleSingle(ArmConstants.processorFront))));
 
     NamedCommands.registerCommand("ProcessorFront", arm.gotoAngleSingle(ArmConstants.processorBack + 20.0)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.processorHeight)
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.processorHeight)
                                                     .andThen(arm.gotoAngleSingle(ArmConstants.processorBack))));
 
     //Hand intaking / outtaking commands
@@ -137,37 +137,37 @@ public class RobotContainer
 
     //Level 1 commands
     NamedCommands.registerCommand("L1FrontSetpoint", arm.gotoAngleSingle(ArmConstants.level1Angle - 30)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.level1Height)
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.level1Height)
                                                     .andThen(arm.gotoAngleSingle(ArmConstants.level1Angle))));
     NamedCommands.registerCommand("L1BackSetpoint", arm.gotoAngleSingle(ArmConstants.level1BackAngle + 30)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.level1Height)
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.level1Height)
                                                     .andThen(arm.gotoAngleSingle(ArmConstants.level1BackAngle))));
-    NamedCommands.registerCommand("L1Height", elevator.goToHeight(ElevatorConstants.level1Height));
-    NamedCommands.registerCommand("L1FrontAngle", elevator.goToHeight(ArmConstants.level1Angle));       //USE WITH CAUTION, NO STOW PROGRAMMED
-    NamedCommands.registerCommand("L1BackAngle", elevator.goToHeight(ArmConstants.level1BackAngle));
-    NamedCommands.registerCommand("BitMoreForwardCoral", elevator.goToHeight(ArmConstants.BitForward)); 
+    NamedCommands.registerCommand("L1Height", elevator.goToHeightSingle(ElevatorConstants.level1Height));
+    NamedCommands.registerCommand("L1FrontAngle", elevator.goToHeightSingle(ArmConstants.level1Angle));       //USE WITH CAUTION, NO STOW PROGRAMMED
+    NamedCommands.registerCommand("L1BackAngle", elevator.goToHeightSingle(ArmConstants.level1BackAngle));
+    NamedCommands.registerCommand("BitMoreForwardCoral", elevator.goToHeightSingle(ArmConstants.BitForward)); 
 
     //Level 2 commands
     NamedCommands.registerCommand("L2FrontSetpoint", arm.gotoAngleSingle(ArmConstants.level2Angle - 30)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.level2Height)
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.level2HeightBack)
                                                     .andThen(arm.gotoAngleSingle(ArmConstants.level2Angle))));
     NamedCommands.registerCommand("L2BackSetpoint", arm.gotoAngleSingle(ArmConstants.level2BackAngle + 30)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.level2Height)
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.level2HeightBack)
                                                     .andThen(arm.gotoAngleSingle(ArmConstants.level2BackAngle))));
-    NamedCommands.registerCommand("L2Height", elevator.goToHeight(ElevatorConstants.level2Height));
-    NamedCommands.registerCommand("L2FrontAngle", elevator.goToHeight(ArmConstants.level2Angle));       //USE WITH CAUTION, NO STOW PROGRAMMED
-    NamedCommands.registerCommand("L2BackAngle", elevator.goToHeight(ArmConstants.level2BackAngle));
+    NamedCommands.registerCommand("L2Height", elevator.goToHeightSingle(ElevatorConstants.level2HeightBack));
+    NamedCommands.registerCommand("L2FrontAngle", elevator.goToHeightSingle(ArmConstants.level2Angle));       //USE WITH CAUTION, NO STOW PROGRAMMED
+    NamedCommands.registerCommand("L2BackAngle", elevator.goToHeightSingle(ArmConstants.level2BackAngle));
 
     //Level 3 commands
     NamedCommands.registerCommand("L3FrontSetpoint", arm.gotoAngleSingle(ArmConstants.level3Angle - 30)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.level3Height)
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.level3Height)
                                                     .andThen(arm.gotoAngleSingle(ArmConstants.level3Angle))));
     NamedCommands.registerCommand("L3BackSetpoint", arm.gotoAngleSingle(ArmConstants.level3BackAngle + 30)
-                                                    .andThen(elevator.goToHeight(ElevatorConstants.level3Height)
+                                                    .andThen(elevator.goToHeightSingle(ElevatorConstants.level3Height)
                                                     .andThen(arm.gotoAngleSingle(ArmConstants.level3BackAngle))));
-    NamedCommands.registerCommand("L3Height", elevator.goToHeight(ElevatorConstants.level3Height));
-    NamedCommands.registerCommand("L3FrontAngle", elevator.goToHeight(ArmConstants.level3Angle));       //USE WITH CAUTION, NO STOW PROGRAMMED
-    NamedCommands.registerCommand("L3BackAngle", elevator.goToHeight(ArmConstants.level3BackAngle));
+    NamedCommands.registerCommand("L3Height", elevator.goToHeightSingle(ElevatorConstants.level3Height));
+    NamedCommands.registerCommand("L3FrontAngle", elevator.goToHeightSingle(ArmConstants.level3Angle));       //USE WITH CAUTION, NO STOW PROGRAMMED
+    NamedCommands.registerCommand("L3BackAngle", elevator.goToHeightSingle(ArmConstants.level3BackAngle));
 
     // Configure the trigger bindings
     configureBindings();
@@ -246,31 +246,33 @@ public class RobotContainer
        //Switch from front to back scoring - operator
        operatorXbox.start().onTrue(arm.switchScore());
 
+       operatorXbox.start().onTrue(elevator.switchScore());
+
 
 
        //???
-       operatorXbox.axisGreaterThan(5, OperatorConstants.DEADBAND).onTrue(elevator.freeMoveUp(operatorXbox.getRightY()));
+       operatorXbox.axisMagnitudeGreaterThan(5, OperatorConstants.DEADBAND).whileTrue(elevator.freeMoveUp(operatorXbox.getRightY()));
 
-       operatorXbox.axisLessThan(5, -OperatorConstants.DEADBAND).onTrue(elevator.freeMoveDown(operatorXbox.getRightY()));
+       //operatorXbox.axisLessThan(5, -OperatorConstants.DEADBAND).whileTrue(elevator.freeMoveDown(operatorXbox.getRightY()));
 
 
 
-       operatorXbox.axisGreaterThan(0, OperatorConstants.DEADBAND).onTrue(arm.freeMoveForward(operatorXbox.getLeftX()));
+       operatorXbox.axisMagnitudeGreaterThan(0, OperatorConstants.DEADBAND).whileTrue(arm.freeMoveForward(operatorXbox.getLeftX()));
 
-       operatorXbox.axisLessThan(0, -OperatorConstants.DEADBAND).onTrue(arm.freeMoveBackward(operatorXbox.getLeftX()));
+       //operatorXbox.axisLessThan(0, -OperatorConstants.DEADBAND).whileTrue(arm.freeMoveBackward(operatorXbox.getLeftX()));
 
        
         //CLIMBING COMMANDS - OPERATOR
-/* 
+ /* 
       operatorXbox.button(10)
-
-      .onTrue(elevator.goToHeight(ElevatorConstants.waitClimbHeight)
+ 
+      .onTrue(elevator.goToHeightSingle(ElevatorConstants.waitClimbHeight)
       .andThen(arm.gotoAngleSingle(ArmConstants.climbAngle)))
 
-      .onFalse(elevator.goToHeight(ElevatorConstants.goClimbHeight)
-      .andThen(elevator.goToHeight(ElevatorConstants.homeClimbHeight))
+      .onFalse(elevator.goToHeightSingle(ElevatorConstants.goClimbHeight)
+      .andThen(elevator.goToHeightSingle(ElevatorConstants.homeClimbHeight))
       .andThen(elevator.lockElevator()));
-*/
+*/ 
 
            //HAND COMMANDS - OPERATOR
 
@@ -297,52 +299,49 @@ public class RobotContainer
        //Home position command - operator       
        operatorXbox.x()
        .onTrue(arm.gotoAngleSingle(ArmConstants.homeAngle )
-       .andThen(elevator.goToHeight(ElevatorConstants.homeHeight)));
+       .andThen(elevator.goToHeightSingle(ElevatorConstants.homeHeight)));
 
        //Ground position command - operator    
        operatorXbox.a()
        .onTrue(arm.gotoAngleSingle(ArmConstants.groundAngle - 20.0)
-       .andThen(elevator.goToHeight(ElevatorConstants.groundHeight)
+       .andThen(elevator.goToHeightSingle(ElevatorConstants.groundHeight)
        .andThen(arm.gotoAngleSingle(ArmConstants.groundAngle))));         
 
        //processor position command - operator
        operatorXbox.b()
        .onTrue(arm.gotoAngleSingle(ArmConstants.processorFront - 20.0)
-       .andThen(elevator.goToHeight(ElevatorConstants.processorHeight)
+       .andThen(elevator.goToHeightSingle(ElevatorConstants.processorHeight)
        .andThen(arm.gotoAngleSingle(ArmConstants.processorFront))));
 
        //Feeder position command - operator
        operatorXbox.y()
        .onTrue(arm.gotoAngleSingle(ArmConstants.feederAngle)
-       .andThen(elevator.goToHeight(ElevatorConstants.feederHeight)));
+       .andThen(elevator.goToHeightSingle(ElevatorConstants.feederHeight)));
 
 
-
-       //LEVEL COMMANDS EMILY SWITCH THESE
 
        //Level 3 position command - operator
        operatorXbox.povUp()
-       .onTrue(arm.goToAngle((ArmConstants.level3Angle - 35), (ArmConstants.level3BackAngle + 35))
-       .andThen(elevator.goToHeight(ElevatorConstants.level3Height)
+       .onTrue(arm.goToAngle((ArmConstants.level3Angle - 55), (ArmConstants.level3BackAngle + 55))
+       .andThen(elevator.goToHeightSingle(ElevatorConstants.level3Height)
        .andThen((arm.goToAngle(ArmConstants.level3Angle, ArmConstants.level3BackAngle)))));
 
        //Level 2 position command - operator
        operatorXbox.povLeft()
-       .onTrue(arm.goToAngle((ArmConstants.level2Angle - 35), (ArmConstants.level2BackAngle + 35))
-       .andThen(elevator.goToHeight(ElevatorConstants.level2Height)
+       .onTrue(arm.goToAngle((ArmConstants.level2Angle - 55), (ArmConstants.level2BackAngle + 55))
+       .andThen(elevator.goToHeight(ElevatorConstants.level2HeightFront, ElevatorConstants.level2HeightBack)
        .andThen(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle))));
 
        operatorXbox.povRight()
-       .onTrue(arm.goToAngle((ArmConstants.level2Angle - 35), (ArmConstants.level2BackAngle + 35))
-       .andThen(elevator.goToHeight(ElevatorConstants.level2Height)
+       .onTrue(arm.goToAngle((ArmConstants.level2Angle - 55), (ArmConstants.level2BackAngle + 55))
+       .andThen(elevator.goToHeight(ElevatorConstants.level2HeightFront, ElevatorConstants.level2HeightBack)
        .andThen(arm.goToAngle(ArmConstants.level2Angle, ArmConstants.level2BackAngle))));
 
        //level 1 position command - operator
        operatorXbox.povDown()
-       .onTrue(arm.goToAngle((ArmConstants.level1Angle - 35), (ArmConstants.level1BackAngle + 35))
-       .andThen(elevator.goToHeight(ElevatorConstants.level1Height)
+       .onTrue(arm.goToAngle((ArmConstants.level1Angle - 55), (ArmConstants.level1BackAngle + 55))
+       .andThen(elevator.goToHeightSingle(ElevatorConstants.level1Height)
        .andThen(arm.goToAngle(ArmConstants.level1Angle, ArmConstants.level1BackAngle))));
-
 
          //CLIMB LOCK/UNLOCK COMMANDS - DRIVER
 

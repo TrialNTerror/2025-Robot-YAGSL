@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.320089285714286,
-        "y": 7.061926020408163
+        "x": 5.330427631578947,
+        "y": 5.506743421052631
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.056849071595852,
-        "y": 7.868404984944798
+        "x": 5.217305358181559,
+        "y": 5.283800936852319
       },
       "isLocked": false,
-      "linkedName": "Processor - Red"
+      "linkedName": "IJReef - Blue"
     },
     {
       "anchor": {
-        "x": 5.4156612529002315,
-        "y": 2.5285672853828305
+        "x": 5.205345394736842,
+        "y": 5.227713815789473
       },
       "prevControl": {
-        "x": 5.779206753067512,
-        "y": 2.0597012348642614
+        "x": 5.298193063825366,
+        "y": 5.459832988510788
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EFReef - Blue"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.7055702917771889,
-      "rotationDegrees": 119.43183985962538
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.71282771515885
+    "rotation": -120.54757174890705
   },
   "reversed": false,
-  "folder": "SCORE CORAL REMOVE ALGAE",
+  "folder": "SIDE AUTO BLUE",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.3873160218114
+    "rotation": -120.34324888423963
   },
   "useDefaultConstraints": true
 }
