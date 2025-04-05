@@ -63,8 +63,8 @@ public final class Constants
     public static final int servoIDFollowSide = 1;
 
     // Min / Max Outouts
-    public static final double minOutputElevator = -0.3;   //keep at -0.4
-    public static final double maxOutputElevator = 0.4;    //keep at 0.5
+    public static final double minOutputElevator = -0.45;   //keep at -0.4
+    public static final double maxOutputElevator = 0.45;    //keep at 0.5
 
     //Feedforward
     public static final double kStaticGain = 0.0;
@@ -134,8 +134,8 @@ public final class Constants
     public static final int armMotor1CanID = 13;
 
     // Min / Max output
-    public static final double minOutputArm = -0.5;    //keep at -1
-    public static final double maxOutputArm = 0.5;     //keep at 1
+    public static final double minOutputArm = -1;    //keep at -1
+    public static final double maxOutputArm = 1;     //keep at 1
 
     //Constants for feedforward
     public static final double kStaticGain = 0.0;
